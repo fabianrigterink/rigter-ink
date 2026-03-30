@@ -1,0 +1,52 @@
+---
+title: "Hello, World"
+date: "2026-03-29"
+description: "Welcome to rigter.ink — a space for writing about AI, ML, and the occasional travel photo."
+tags: ["meta"]
+---
+
+Welcome to **rigter.ink**. This is where I'll be sharing thoughts on AI, machine learning, data science, operations research, and whatever else catches my attention.
+
+## What to expect
+
+I plan to write about technical topics with a focus on clarity and code examples. Posts will often include:
+
+- Mathematical notation rendered with $\LaTeX$
+- Code snippets with syntax highlighting
+- Practical examples from real projects
+
+## A quick code example
+
+Here's a simple Python function to get us started:
+
+```python
+def fibonacci(n: int) -> list[int]:
+    """Generate the first n Fibonacci numbers."""
+    if n <= 0:
+        return []
+    fib = [0, 1]
+    while len(fib) < n:
+        fib.append(fib[-1] + fib[-2])
+    return fib[:n]
+
+print(fibonacci(10))
+# [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+```
+
+## Some math
+
+The Fibonacci sequence satisfies the recurrence relation:
+
+$$
+F_n = F_{n-1} + F_{n-2}
+$$
+
+with initial conditions $F_0 = 0$ and $F_1 = 1$. The closed-form solution is given by Binet's formula:
+
+$$
+F_n = \frac{\varphi^n - \psi^n}{\sqrt{5}}
+$$
+
+where $\varphi = \frac{1 + \sqrt{5}}{2}$ is the golden ratio.
+
+Stay tuned for more.

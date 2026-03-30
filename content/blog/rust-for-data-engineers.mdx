@@ -1,0 +1,71 @@
+---
+title: "Why Data Engineers Should Learn Rust"
+date: "2025-12-20"
+description: "Rust is quietly reshaping the data engineering landscape. Here's why it matters and where to start."
+tags: ["rust", "data-engineering", "performance"]
+---
+
+Look at the data tools gaining traction: Polars, DataFusion, Delta Lake, Lance — they're all built in Rust. This isn't a coincidence. Rust offers a unique combination of performance, safety, and ergonomics that's particularly well-suited to data processing.
+
+![Gears and mechanical components representing engineering precision](https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=1200&h=600&fit=crop)
+
+## The performance story
+
+Data engineering is one of the few domains where performance directly translates to cost savings. If your Spark job takes half the time, you pay for half the compute. Rust's zero-cost abstractions and lack of garbage collector pauses make it ideal for data-intensive workloads.
+
+Polars, the Rust-based DataFrame library, routinely outperforms Pandas by 10-50x on common operations:
+
+```python
+import polars as pl
+
+# Polars: lazy evaluation + automatic query optimization
+result = (
+    pl.scan_parquet("events/*.parquet")
+    .filter(pl.col("timestamp") > "2026-01-01")
+    .group_by("user_id")
+    .agg([
+        pl.col("event_type").count().alias("total_events"),
+        pl.col("revenue").sum().alias("total_revenue"),
+        pl.col("session_duration").mean().alias("avg_session"),
+    ])
+    .sort("total_revenue", descending=True)
+    .head(1000)
+    .collect()
+)
+```
+
+## Memory safety without garbage collection
+
+Data pipelines process untrusted input at scale. A buffer overflow in a C pipeline could be a security vulnerability. A null pointer dereference crashes the process and potentially corrupts data. Rust's ownership system prevents these classes of bugs at compile time.
+
+```rust
+use arrow::array::{Float64Array, ArrayRef};
+use arrow::compute::sum;
+
+fn compute_average(values: &Float64Array) -> Option<f64> {
+    let total = sum(values)?;
+    let count = values.len() - values.null_count();
+    if count > 0 {
+        Some(total / count as f64)
+    } else {
+        None
+    }
+}
+```
+
+## The Arrow ecosystem
+
+Apache Arrow provides a standardized columnar memory format, and Rust's `arrow-rs` crate is one of the best implementations. This enables zero-copy data exchange between different tools in your pipeline — no serialization overhead.
+
+DataFusion, built on Arrow, gives you a full SQL query engine in Rust that you can embed in your applications. It's the foundation for several commercial data products.
+
+## Where to start
+
+You don't need to rewrite your entire pipeline in Rust. Start with the bottleneck:
+
+1. **Use Polars** instead of Pandas for local data processing
+2. **Write a PyO3 extension** for your hottest Python function
+3. **Build a small CLI tool** for a data validation step
+4. **Contribute to an open-source Rust data tool** to learn the ecosystem
+
+The learning curve is real — Rust's borrow checker will humble you. But once it clicks, you'll write more correct code in any language. The compiler is the strictest code reviewer you'll ever have.

@@ -1,0 +1,14 @@
+<svg width="460" height="72" viewBox="0 0 460 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="stripes" patternUnits="userSpaceOnUse" width="84" height="84" patternTransform="rotate(-55)">
+      <rect x="0" width="14" height="84" fill="#007BA7"/>
+      <rect x="14" width="14" height="84" fill="#FFC067"/>
+      <rect x="28" width="14" height="84" fill="#98A869"/>
+      <rect x="42" width="14" height="84" fill="#C11C84"/>
+      <rect x="56" width="14" height="84" fill="#CD1C18"/>
+      <rect x="70" width="14" height="84" fill="#6D8196"/>
+    </pattern>
+  </defs>
+  <text x="0" y="62" font-family="Inter, sans-serif" font-weight="300" font-size="72" fill="url(#stripes)" letter-spacing="-5">FR</text>
+  <text x="140" y="52" font-family="Inter, sans-serif" font-weight="400" font-size="40" fill="#1a1a1a" letter-spacing="-1.5">rigter<tspan fill="#767676">.</tspan>ink</text>
+</svg>
