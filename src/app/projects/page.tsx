@@ -1,21 +1,23 @@
-import type { Metadata } from "next";
-import { getAllProjects } from "@/lib/projects";
-import TagBadge from "@/components/TagBadge";
+import { notFound } from "next/navigation";
+// import type { Metadata } from "next";
+// import { getAllProjects } from "@/lib/projects";
+// import TagBadge from "@/components/TagBadge";
 
-export const metadata: Metadata = {
-  title: "Projects",
-  description: "Papers, patents, presentations, and weekend projects.",
-};
+// export const metadata: Metadata = {
+//   title: "Projects",
+//   description: "Papers, patents, presentations, and weekend projects.",
+// };
 
-const typeLabels: Record<string, string> = {
-  paper: "Paper",
-  patent: "Patent",
-  presentation: "Talk",
-  project: "Project",
-};
+// const typeLabels: Record<string, string> = {
+//   paper: "Paper",
+//   patent: "Patent",
+//   presentation: "Talk",
+//   project: "Project",
+// };
 
 export default function ProjectsIndex() {
-  const projects = getAllProjects();
+  notFound();
+  // const projects = getAllProjects();
 
   return (
     <div className="max-w-[720px] mx-auto px-6 py-20">
