@@ -1,0 +1,32 @@
+---
+title: "Validating and solving Sudoku puzzles — using mathematical optimization"
+date: "2026-03-30"
+description: "In this post, we go from the seemingly simple interview question of \"model Sudoku as an optimization problem\" all the way to an open problem in mathematics."
+tags: ["Optimization", "Interviews", "Sudoku"]
+---
+
+
+## \"Model Sudoku as an optimization problem\"
+
+[Sudoku](https://en.wikipedia.org/wiki/Sudoku) is one of my favorite puzzles. In classic Sudoku, the goal is to fill a 9×9 grid with digits so that each column, each row, and each of the nine 3×3 sub-grids contains the digits 1-9 without repetition. 
+At the start, we are provided a partially completed grid, which, for a *well-posed* puzzle, has a *single* solution.
+
+Software Engineers may come across Sudoku in their [LeetCode](https://leetcode.com/) coding interview preparations through problems such as \"[Valid Sudoku](https://leetcode.com/problems/valid-sudoku/)\" (medium; determine if a Sudoku board is valid) and \"[Sudoku Solver](https://leetcode.com/problems/sudoku-solver/)\" (hard; solve a Sudoku puzzle).
+
+Throughout the years that I interviewed Operations Research specialists, I liked to ask a variant of these two questions: *model Sudoku as an optimization problem*.
+Familiarity with algebraic modeling languages and the assumed access to a solver make this a relatively easy problem to tackle.
+
+Most optimization problems have three components: (1) an *objective*, (2) a set of *variables*, and (3) a set of *constraints.* In the following, we'll model Sudoku as an optimization problem, defining these three components.
+
+### Objective
+
+Sudoku doesn't have an objective in the sense that there is nothing to minimize or maximize — it is simply a *feasibility problem*. Some candidates would start to model the problem by defining the "objective" as $\min \ldots$ or $\max \ldots$, but would become uncomfortable simply replacing the "$\ldots$" by a scalar like 1. While it may look odd, $\min~1$ or $\max~1$ are perfectly fine objectives!
+
+### Variables
+
+As Robert Frost would say in his famous poem, \"The Road Not Taken,\" this is where the roads diverge.
+Few candidates would formulate the problem as a [Constraint Programming (CP)](https://en.wikipedia.org/wiki/Constraint_programming) problem, allowing them to make later use of logical constraints such as *AllDifferent*.
+At this point, they would introduce 9 × 9 integer variables (ranging from 1 to 9).
+But most candidates would formulate the problem as a Mixed-Integer Linear Program (MIP), which is how we'll formulate it here.
+They would introduce 9×9×9 binary variables as follows:
+
