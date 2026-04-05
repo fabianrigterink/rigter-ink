@@ -17,7 +17,7 @@ export function getAllProjects(): Project[] {
       description: "This personal homepage, built with Next.js 15, Tailwind CSS 4, and MDX.",
       type: "project",
       date: "2026-03",
-      url: "https://github.com/frigterink/rigter-ink",
+      url: "https://github.com/fabianrigterink/rigter-ink",
       tags: ["next.js", "react", "tailwind"],
     },
   ];

@@ -14,26 +14,16 @@ export default function About() {
 
       <div className="space-y-6 text-ink-light leading-relaxed">
         <p>
-          I'm Fabian Rigterink, an Engineering Manager for Machine Learning at Baton.
+          I'm Fabian Rigterink, an Engineering Manager for Machine Learning at <a href="https://www.baton.io/" className="text-cerulean hover:text-ink transition-colors underline underline-offset-2">Baton</a>.
           I have a background in research, with interests spanning AI, machine learning,
           data science, and operations research.
         </p>
         <p>
-          Before moving into engineering management, I worked as a researcher focusing on
-          optimization and machine learning. I enjoy building systems that bridge the gap
-          between research and production.
+          Before moving into engineering management, I worked as an applied scientist, building
+          systems that bridge the gap between research and production.
         </p>
         <p>
-          Outside of work, I love traveling and photography. I've documented my trips
-          across many countries, and you can explore them in the{" "}
-          <a href="/travels" className="text-cerulean hover:text-ink transition-colors underline underline-offset-2">
-            travels section
-          </a>.
-        </p>
-        <p>
-          This site is where I share my writing on technical topics, showcase projects
-          and publications, and document my travels. It's built with Next.js and deployed
-          on Vercel.
+          This site is where I share my writing on technical topics and document my travels.
         </p>
       </div>
 
@@ -43,11 +33,11 @@ export default function About() {
         </h2>
         <p className="text-ink-light leading-relaxed mb-4">
           You can find me on{" "}
-          <a href="https://github.com/frigterink" className="text-cerulean hover:text-ink transition-colors underline underline-offset-2">
+          <a href="https://github.com/fabianrigterink" className="text-cerulean hover:text-ink transition-colors underline underline-offset-2">
             GitHub
           </a>{" "}
           and{" "}
-          <a href="https://linkedin.com/in/frigterink" className="text-cerulean hover:text-ink transition-colors underline underline-offset-2">
+          <a href="https://www.linkedin.com/in/fabianrigterink/" className="text-cerulean hover:text-ink transition-colors underline underline-offset-2">
             LinkedIn
           </a>, or reach me by email at{" "}
           <a href="mailto:fabian@rigter.ink" className="text-cerulean hover:text-ink transition-colors underline underline-offset-2">
