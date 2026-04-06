@@ -241,7 +241,27 @@ nav {
   margin: 2.5em 0;
 }
 
+/* Rounded corners on photo gallery images */
+.react-photo-album--photo {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
 /* Footer subtle top shadow on scroll */
 footer {
   background: var(--color-surface);
 }
+
+/* Full-bleed: break out of a constrained container to fill the viewport width */
+.full-bleed {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+/* Wide-bleed: break out wider than the content column, but not full-width */
+.wide-bleed {
+  width: min(1080px, calc(100vw - 3rem));
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+

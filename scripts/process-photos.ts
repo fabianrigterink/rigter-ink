@@ -1,114 +1,150 @@
 /**
  * Photo Processing Script for rigter.ink travels
  *
+ * Fetches all photos from a Cloudinary folder and generates a trip manifest
+ * that can be copy-pasted into src/lib/travels.ts.
+ *
  * Usage:
- *   npx tsx scripts/process-photos.ts <trip-slug> <photos-dir>
+ *   npx tsx scripts/process-photos.ts <trip-slug> [cloudinary-folder-prefix]
  *
- * This script:
- * 1. Reads all images from the specified directory
- * 2. Extracts EXIF metadata (date, GPS coordinates)
- * 3. Generates a trip manifest JSON file in content/travels/
+ * Examples:
+ *   npx tsx scripts/process-photos.ts taipei-2026
+ *   npx tsx scripts/process-photos.ts taipei-2026 travels/taipei
  *
- * For Cloudinary integration:
- * - Upload photos to Cloudinary manually or via their CLI
- * - Update the manifest JSON with Cloudinary URLs
+ * The folder prefix defaults to "travels/<trip-slug>".
  *
- * Prerequisites:
- *   npm install --save-dev sharp exifr
+ * Required environment variables (add to .env.local):
+ *   CLOUDINARY_API_KEY=...
+ *   CLOUDINARY_API_SECRET=...
  */
 
-import fs from "fs";
-import path from "path";
+const CLOUD_NAME = "dwp6mzleh";
+const API_BASE = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}`;
 
-const CONTENT_DIR = path.join(process.cwd(), "content", "travels");
-const SUPPORTED_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp"];
-
-interface PhotoManifest {
-  src: string;
-  alt: string;
+interface CloudinaryResource {
+  public_id: string;
   width: number;
   height: number;
-  dateTaken?: string;
-  gps?: { lat: number; lng: number };
+  format: string;
+  created_at: string;
 }
 
-interface TripManifest {
-  slug: string;
-  title: string;
-  country: string;
-  date: string;
-  description: string;
-  coordinates: [number, number];
-  coverPhoto: string;
-  photos: PhotoManifest[];
+interface CloudinaryResponse {
+  resources: CloudinaryResource[];
+  next_cursor?: string;
 }
 
-async function processPhotos(tripSlug: string, photosDir: string) {
-  console.log(`Processing photos for trip: ${tripSlug}`);
-  console.log(`Source directory: ${photosDir}`);
+async function fetchAllResources(
+  folder: string,
+  apiKey: string,
+  apiSecret: string
+): Promise<CloudinaryResource[]> {
+  const credentials = Buffer.from(`${apiKey}:${apiSecret}`).toString("base64");
+  const all: CloudinaryResource[] = [];
+  let nextCursor: string | undefined;
 
-  if (!fs.existsSync(photosDir)) {
-    console.error(`Directory not found: ${photosDir}`);
+  do {
+    const body: Record<string, unknown> = {
+      expression: `folder="${folder}"`,
+      max_results: 500,
+      with_field: ["image_metadata"],
+      ...(nextCursor ? { next_cursor: nextCursor } : {}),
+    };
+
+    const res = await fetch(`${API_BASE}/resources/search`, {
+      method: "POST",
+      headers: {
+        Authorization: `Basic ${credentials}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`Cloudinary API error ${res.status}: ${text}`);
+    }
+
+    const data: CloudinaryResponse = await res.json();
+    all.push(...data.resources);
+    nextCursor = data.next_cursor;
+  } while (nextCursor);
+
+  return all;
+}
+
+function img(id: string) {
+  return `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto/${id}`;
+}
+
+function toAlt(publicId: string): string {
+  return publicId
+    .split("/")
+    .pop()!
+    .replace(/\.[^.]+$/, "")
+    .replace(/[-_]/g, " ");
+}
+
+async function run(tripSlug: string, folderPrefix: string) {
+  const apiKey = process.env.CLOUDINARY_API_KEY;
+  const apiSecret = process.env.CLOUDINARY_API_SECRET;
+
+  if (!apiKey || !apiSecret) {
+    console.error(
+      "Missing CLOUDINARY_API_KEY or CLOUDINARY_API_SECRET in environment.\n" +
+        "Add them to .env.local and re-run with: npx dotenv-cli -e .env.local -- npx tsx scripts/process-photos.ts ..."
+    );
     process.exit(1);
   }
 
-  const files = fs
-    .readdirSync(photosDir)
-    .filter((f) => SUPPORTED_EXTENSIONS.includes(path.extname(f).toLowerCase()))
-    .sort();
+  console.log(`Fetching resources from Cloudinary folder: "${folderPrefix}"`);
+  const resources = await fetchAllResources(folderPrefix, apiKey, apiSecret);
 
-  console.log(`Found ${files.length} image(s)`);
-
-  const photos: PhotoManifest[] = [];
-
-  for (const file of files) {
-    const filePath = path.join(photosDir, file);
-    const stat = fs.statSync(filePath);
-
-    // Basic manifest entry — dimensions will need sharp to extract
-    // For now, use placeholder dimensions
-    photos.push({
-      src: `https://res.cloudinary.com/YOUR_CLOUD_NAME/image/upload/travels/${tripSlug}/${file}`,
-      alt: file.replace(/\.[^.]+$/, "").replace(/[-_]/g, " "),
-      width: 1200,
-      height: 800,
-      dateTaken: stat.mtime.toISOString().split("T")[0],
-    });
-
-    console.log(`  + ${file}`);
+  if (resources.length === 0) {
+    console.error(
+      `No images found in folder "${folderPrefix}".\n` +
+        `Double-check the folder path in your Cloudinary Media Library.`
+    );
+    process.exit(1);
   }
 
-  // Ensure output directory exists
-  if (!fs.existsSync(CONTENT_DIR)) {
-    fs.mkdirSync(CONTENT_DIR, { recursive: true });
-  }
+  // Sort by upload date ascending
+  resources.sort((a, b) => a.created_at.localeCompare(b.created_at));
 
-  const manifest: TripManifest = {
-    slug: tripSlug,
-    title: tripSlug.replace(/-\d{4}$/, "").replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
-    country: "TODO",
-    date: tripSlug.replace(/^.*-(\d{4})$/, "$1"),
-    description: "TODO — add trip description",
-    coordinates: [0, 0],
-    coverPhoto: photos.length > 0 ? photos[0].src : "",
-    photos,
-  };
+  console.log(`Found ${resources.length} image(s)\n`);
 
-  const outPath = path.join(CONTENT_DIR, `${tripSlug}.json`);
-  fs.writeFileSync(outPath, JSON.stringify(manifest, null, 2));
-  console.log(`\nManifest written to: ${outPath}`);
-  console.log("\nNext steps:");
-  console.log("  1. Upload photos to Cloudinary");
-  console.log("  2. Update coordinates, country, and description in the manifest");
-  console.log("  3. If using sharp, run with --extract-metadata flag for real dimensions");
+  const photos = resources.map((r) => ({
+    src: img(r.public_id),
+    alt: toAlt(r.public_id),
+    width: r.width,
+    height: r.height,
+  }));
+
+  // Print a code snippet ready to paste into src/lib/travels.ts
+  const snippet = `  {
+    slug: "${tripSlug}",
+    title: "TODO",
+    date: "TODO", // e.g. "2026-03"
+    location: "TODO",
+    coordinates: [0, 0], // [lng, lat]
+    coverImage: ${JSON.stringify(photos[0].src)},
+    description: "TODO",
+    photos: ${JSON.stringify(photos, null, 6).replace(/^/gm, "    ").trimStart()},
+  },`;
+
+  console.log("Paste this into the trips array in src/lib/travels.ts:\n");
+  console.log(snippet);
 }
 
-// CLI entry point
+// Load .env.local manually if dotenv-cli isn't used
 const args = process.argv.slice(2);
-if (args.length < 2) {
-  console.log("Usage: npx tsx scripts/process-photos.ts <trip-slug> <photos-dir>");
-  console.log("Example: npx tsx scripts/process-photos.ts tokyo-2025 ~/Photos/Tokyo");
+if (args.length < 1) {
+  console.log(
+    "Usage: npx tsx scripts/process-photos.ts <trip-slug> [cloudinary-folder-prefix]"
+  );
+  console.log("Example: npx tsx scripts/process-photos.ts taipei-2026");
   process.exit(1);
 }
 
-processPhotos(args[0], args[1]);
+const [tripSlug, folderPrefix = `travels/${tripSlug}`] = args;
+run(tripSlug, folderPrefix);

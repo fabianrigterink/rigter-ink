@@ -14,13 +14,14 @@ export default function About() {
 
       <div className="space-y-6 text-ink-light leading-relaxed">
         <p>
-          I'm Fabian Rigterink, an Engineering Manager for Machine Learning at <a href="https://www.baton.io/" className="text-cerulean hover:text-ink transition-colors underline underline-offset-2">Baton</a>.
+          I'm Fabian, an Engineering Manager for Machine Learning at <a href="https://www.baton.io/" className="text-cerulean hover:text-ink transition-colors underline underline-offset-2">Baton</a>.
           I have a background in research, with interests spanning AI, machine learning,
           data science, and operations research.
         </p>
         <p>
-          Before moving into engineering management, I worked as an applied scientist, building
-          systems that bridge the gap between research and production.
+          Before moving into engineering management, I worked as a {"{"}research, applied,
+          data{"}"} scientist, building systems that bridge the gap between research and
+          production.
         </p>
         <p>
           This site is where I share my writing on technical topics and document my travels.

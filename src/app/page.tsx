@@ -5,11 +5,11 @@ export default function Home() {
   const posts = getAllPosts().slice(0, 5);
 
   return (
-    <div className="max-w-[1080px] mx-auto px-6">
+    <div className="max-w-[720px] mx-auto px-6">
       {/* Hero section */}
       <section className="py-20 sm:py-28">
         <h1 className="font-serif text-[clamp(32px,4vw,48px)] leading-[1.15] tracking-[-1px] text-ink mb-6">
-          Hi, I&apos;m Fabian Rigterink
+          Hi, I&apos;m Fabian!
         </h1>
         <p className="text-lg text-ink-light leading-relaxed max-w-[640px] mb-8">
           Engineering Manager, ML at Baton. I write about AI, machine learning, data science,

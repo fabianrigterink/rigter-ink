@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllTrips, getTripBySlug } from "@/lib/travels";
+import PhotoGallery from "@/components/PhotoGallery";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -27,7 +28,7 @@ export default async function TripPage({ params }: Props) {
   if (!trip) notFound();
 
   return (
-    <div className="max-w-[1080px] mx-auto px-6 py-20">
+    <div className="max-w-[720px] mx-auto px-6 py-20">
       <Link
         href="/travels"
         className="text-sm text-ink-muted hover:text-ink transition-colors mb-8 inline-block"
@@ -40,7 +41,7 @@ export default async function TripPage({ params }: Props) {
           {trip.title}
         </h1>
         <div className="flex items-center gap-3 text-sm text-ink-muted">
-          <span>{trip.country}</span>
+          <span>{trip.location}</span>
           <span>·</span>
           <time className="font-mono">{trip.date}</time>
         </div>
@@ -50,19 +51,8 @@ export default async function TripPage({ params }: Props) {
       </header>
 
       {trip.photos.length > 0 ? (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {trip.photos.map((photo, i) => (
-            <div key={i} className="rounded-xl overflow-hidden bg-surface-alt">
-              <img
-                src={photo.src}
-                alt={photo.alt}
-                width={photo.width}
-                height={photo.height}
-                className="w-full h-auto"
-                loading="lazy"
-              />
-            </div>
-          ))}
+        <div className="wide-bleed">
+          <PhotoGallery photos={trip.photos} />
         </div>
       ) : (
         <div className="text-center py-20 text-ink-muted">

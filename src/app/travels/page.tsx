@@ -17,7 +17,7 @@ export default function TravelsIndex() {
   }));
 
   return (
-    <div className="max-w-[1080px] mx-auto px-6 py-20">
+    <div className="max-w-[720px] mx-auto px-6 py-20">
       <h1 className="font-serif text-[clamp(32px,4vw,48px)] leading-[1.15] tracking-[-1px] text-ink mb-4">
         Travels
       </h1>
@@ -25,7 +25,9 @@ export default function TravelsIndex() {
         Photos and stories from trips around the world. Click a marker on the map or browse below.
       </p>
 
-      <TravelMap markers={markers} />
+      <div className="wide-bleed">
+        <TravelMap markers={markers} />
+      </div>
 
       <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {trips.map((trip) => (
@@ -35,9 +37,9 @@ export default function TravelsIndex() {
             className="group block no-underline"
           >
             <div className="aspect-[3/2] rounded-xl bg-surface-alt overflow-hidden mb-3">
-              {trip.coverPhoto && trip.coverPhoto !== "/placeholder-travel.jpg" ? (
+              {trip.coverImage ? (
                 <img
-                  src={trip.coverPhoto}
+                  src={trip.coverImage}
                   alt={trip.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
@@ -53,7 +55,6 @@ export default function TravelsIndex() {
               </h2>
               <span className="text-sm text-ink-muted font-mono">{trip.date}</span>
             </div>
-            <p className="text-ink-muted text-sm mt-1 leading-relaxed">{trip.description}</p>
           </Link>
         ))}
       </div>

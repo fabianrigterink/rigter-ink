@@ -1,4 +1,4 @@
-export interface Photo {
+export interface TripPhoto {
   src: string;
   alt: string;
   width: number;
@@ -8,51 +8,360 @@ export interface Photo {
 export interface Trip {
   slug: string;
   title: string;
-  country: string;
   date: string;
-  description: string;
+  location: string;
   coordinates: [number, number]; // [lng, lat]
-  coverPhoto: string;
-  photos: Photo[];
+  coverImage: string;
+  description: string;
+  photos: TripPhoto[];
 }
 
-// Placeholder data — replace with real trip data + Cloudinary URLs later
+const CLOUD = "dwp6mzleh";
+const img = (id: string) =>
+  `https://res.cloudinary.com/${CLOUD}/image/upload/f_auto,q_auto/${id}`;
+
+export const trips: Trip[] = [
+  {
+    slug: "taipei-2026",
+    title: "Taipei",
+    date: "2026-03",
+    location: "Taipei, Taiwan",
+    coordinates: [121.5453512, 25.0403887],
+    coverImage: "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4344_bqcf3n",
+    description: "Seven days of sensory overload and productive work. This collection is a tribute to our Taipei experience: YouBikes on the river path, the architectural contrast of ancient temples against neon high-rises, and the life-saving 24-hour soy milk runs.",
+    photos: [
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4680_irsluj",
+        "alt": "IMG 4680 irsluj",
+        "width": 4032,
+        "height": 3024
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4665_prv0q7",
+        "alt": "IMG 4665 prv0q7",
+        "width": 4284,
+        "height": 5712
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4625_hidvyu",
+        "alt": "IMG 4625 hidvyu",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4660_c0j06a",
+        "alt": "IMG 4660 c0j06a",
+        "width": 4284,
+        "height": 5712
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4679_p7raqh",
+        "alt": "IMG 4679 p7raqh",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4548_wu4q8j",
+        "alt": "IMG 4548 wu4q8j",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4636_yxwfbd",
+        "alt": "IMG 4636 yxwfbd",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4571_ztf8l7",
+        "alt": "IMG 4571 ztf8l7",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4569_wkohid",
+        "alt": "IMG 4569 wkohid",
+        "width": 4284,
+        "height": 5712
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4464_riaqrb",
+        "alt": "IMG 4464 riaqrb",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4586_v6dsbk",
+        "alt": "IMG 4586 v6dsbk",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4488_urlr2n",
+        "alt": "IMG 4488 urlr2n",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4434_h781ew",
+        "alt": "IMG 4434 h781ew",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4493_fs3bwn",
+        "alt": "IMG 4493 fs3bwn",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4413_l0uncb",
+        "alt": "IMG 4413 l0uncb",
+        "width": 4284,
+        "height": 5712
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4369_pghsfz",
+        "alt": "IMG 4369 pghsfz",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4455_mgwx09",
+        "alt": "IMG 4455 mgwx09",
+        "width": 4032,
+        "height": 3024
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4420_cpxrvo",
+        "alt": "IMG 4420 cpxrvo",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4404_zxh3pd",
+        "alt": "IMG 4404 zxh3pd",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4344_bqcf3n",
+        "alt": "IMG 4344 bqcf3n",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4406_lribxj",
+        "alt": "IMG 4406 lribxj",
+        "width": 4284,
+        "height": 5712
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4329_cmrtsi",
+        "alt": "IMG 4329 cmrtsi",
+        "width": 4284,
+        "height": 5712
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4417_mkounr",
+        "alt": "IMG 4417 mkounr",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4298_jpbx1x",
+        "alt": "IMG 4298 jpbx1x",
+        "width": 4284,
+        "height": 5712
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4280_ghouzb",
+        "alt": "IMG 4280 ghouzb",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4269_kgxvpo",
+        "alt": "IMG 4269 kgxvpo",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4233_txweda",
+        "alt": "IMG 4233 txweda",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4312_bjxctw",
+        "alt": "IMG 4312 bjxctw",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4210_tmcm1k",
+        "alt": "IMG 4210 tmcm1k",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4331_r3dqra",
+        "alt": "IMG 4331 r3dqra",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4263_cz7l6n",
+        "alt": "IMG 4263 cz7l6n",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4177_hkg5xa",
+        "alt": "IMG 4177 hkg5xa",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4197_kkzu6a",
+        "alt": "IMG 4197 kkzu6a",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4208_t3wbyo",
+        "alt": "IMG 4208 t3wbyo",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4104_rmedba",
+        "alt": "IMG 4104 rmedba",
+        "width": 4284,
+        "height": 5712
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4147_p2m6mc",
+        "alt": "IMG 4147 p2m6mc",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4038_sgrxce",
+        "alt": "IMG 4038 sgrxce",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4166_xpbtfn",
+        "alt": "IMG 4166 xpbtfn",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4141_wt0z3p",
+        "alt": "IMG 4141 wt0z3p",
+        "width": 4284,
+        "height": 5712
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4037_b6mycf",
+        "alt": "IMG 4037 b6mycf",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4052_wjuhcj",
+        "alt": "IMG 4052 wjuhcj",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4122_v4e9ru",
+        "alt": "IMG 4122 v4e9ru",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4008_wcddir",
+        "alt": "IMG 4008 wcddir",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4137_ehsz8e",
+        "alt": "IMG 4137 ehsz8e",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_3976_ttan52",
+        "alt": "IMG 3976 ttan52",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_3913_qierbj",
+        "alt": "IMG 3913 qierbj",
+        "width": 4284,
+        "height": 5712
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_3996_exwxoq",
+        "alt": "IMG 3996 exwxoq",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_3928_x0uwlm",
+        "alt": "IMG 3928 x0uwlm",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4001_gs1q5t",
+        "alt": "IMG 4001 gs1q5t",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_3969_arquwn",
+        "alt": "IMG 3969 arquwn",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_3907_akva3s",
+        "alt": "IMG 3907 akva3s",
+        "width": 4284,
+        "height": 5712
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_4004_qupyga",
+        "alt": "IMG 4004 qupyga",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_3917_amntfy",
+        "alt": "IMG 3917 amntfy",
+        "width": 5712,
+        "height": 4284
+      },
+      {
+        "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/IMG_3931_alog1c",
+        "alt": "IMG 3931 alog1c",
+        "width": 3024,
+        "height": 4032
+      }
+    ],
+  },
+];
+
 export function getAllTrips(): Trip[] {
-  const trips: Trip[] = [
-    {
-      slug: "tokyo-2025",
-      title: "Tokyo",
-      country: "Japan",
-      date: "2025-11",
-      description: "Exploring temples, street food, and neon-lit alleys in Tokyo.",
-      coordinates: [139.6917, 35.6895],
-      coverPhoto: "/placeholder-travel.jpg",
-      photos: [],
-    },
-    {
-      slug: "iceland-2025",
-      title: "Iceland Ring Road",
-      country: "Iceland",
-      date: "2025-08",
-      description: "Driving the Ring Road through waterfalls, glaciers, and volcanic landscapes.",
-      coordinates: [-19.0208, 64.9631],
-      coverPhoto: "/placeholder-travel.jpg",
-      photos: [],
-    },
-    {
-      slug: "patagonia-2024",
-      title: "Patagonia",
-      country: "Argentina",
-      date: "2024-12",
-      description: "Hiking Torres del Paine and exploring the end of the world.",
-      coordinates: [-72.3311, -50.9423],
-      coverPhoto: "/placeholder-travel.jpg",
-      photos: [],
-    },
-  ];
-  return trips.sort((a, b) => (a.date > b.date ? -1 : 1));
+  return trips.sort((a, b) => b.date.localeCompare(a.date));
 }
 
-export function getTripBySlug(slug: string): Trip | null {
-  return getAllTrips().find((t) => t.slug === slug) ?? null;
+export function getTripBySlug(slug: string): Trip | undefined {
+  return trips.find((t) => t.slug === slug);
 }

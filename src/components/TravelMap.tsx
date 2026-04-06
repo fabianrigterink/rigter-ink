@@ -48,7 +48,7 @@ export default function TravelMap({ markers }: TravelMapProps) {
         ],
       },
       center: [10, 30],
-      zoom: 1.5,
+      zoom: 1,
       attributionControl: {},
     });
 
