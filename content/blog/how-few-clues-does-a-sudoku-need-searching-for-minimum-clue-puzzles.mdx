@@ -1,0 +1,160 @@
+---
+title: "How few clues does a Sudoku need? Searching for minimum-clue puzzles"
+date: "2026-04-06"
+description: "We use the Sudoku solver from the previous post to hunt for minimum-clue puzzles across different grid sizes — and bump into an open problem in mathematics."
+tags: ["Optimization", "Sudoku", "Combinatorics"]
+---
+
+## From solving to questioning
+
+In the [previous post](/blog/validating-and-solving-sudoku-puzzles-using-mathematical-optimization), we built a MIP-based Sudoku solver that can both solve a puzzle and verify that its solution is unique. Along the way, we encountered a 17-clue puzzle — the minimum possible for a standard 9×9 Sudoku.
+
+That fact is worth pausing on. Out of 81 cells, you only need to reveal 17 to pin down the entire grid. Remove even one, and the puzzle becomes ambiguous. But how do we know 17 is the minimum? And what about Sudoku grids of other sizes?
+
+In this post, we'll build a heuristic search procedure that hunts for minimum-clue Sudoku puzzles and run it on $4 \times 4$, $9 \times 9$, and $16 \times 16$ grids.
+
+## Generalizing Sudoku
+
+A standard Sudoku is a $9 \times 9$ grid — that is, $n^2 \times n^2$ for $n = 3$. But the rules generalize naturally to any $n$: a grid of size $n^2 \times n^2$, divided into $n \times n$ subgrids, filled with the values $1, \ldots, n^2$.
+
+This gives us a family of puzzles parameterized by $n$:
+
+- $n = 2$: a $4 \times 4$ grid (a nice toy example)
+- $n = 3$: the classic $9 \times 9$ Sudoku
+- $n = 4$: a $16 \times 16$ grid (sometimes called "Hexadoku")
+
+The MIP formulation from the previous post already handles arbitrary $n$ — we just set the parameter and the sets adjust accordingly.
+
+## The search strategy
+
+Our goal is to find a puzzle (a set of clues) with as few revealed cells as possible, such that the puzzle still has a unique solution. The approach is a randomized greedy removal heuristic:
+
+1. **Start with a complete, valid Sudoku solution.** We generate one randomly.
+2. **Shuffle the cells** into a random order.
+3. **Iterate through cells.** For each cell, tentatively remove its value (set it to 0). Then solve the resulting puzzle and check for uniqueness. If the puzzle still has a unique solution, keep the cell empty. If removing the cell makes the solution non-unique, put the value back and stop.
+4. **Record the number of remaining clues.**
+5. **Repeat** for many runs, tracking the best (fewest clues) result.
+
+This is a greedy heuristic — it won't necessarily find the global minimum, since the order in which we remove cells matters. But by running many iterations with different random orderings and starting solutions, we can get a good approximation.
+
+### Generating random solutions
+
+To seed the search, we need to generate valid, completed Sudoku grids at random. We do this via a pattern-and-shuffle approach:
+
+```python
+def generate_solution(n=3):
+    base = n * n
+    def pattern(r, c):
+        return (n * (r % n) + r // n + c) % base
+    def shuffle(s):
+        return np.random.permutation(s)
+
+    r_base = range(n)
+    rows = [g * n + r for g in shuffle(r_base) for r in shuffle(r_base)]
+    cols = [g * n + c for g in shuffle(r_base) for c in shuffle(r_base)]
+    vals = shuffle(range(1, base + 1))
+
+    return np.array([[vals[pattern(r, c)] for c in cols] for r in rows])
+```
+
+The `pattern` function generates a valid Latin square, and the shuffles permute rows, columns, and values to produce a random (though not uniformly random) solution.
+
+### The search loop
+
+```python
+def search_min_clue(n, n_runs):
+    solution = generate_solution(n)
+
+    n_clues_min = np.inf
+    clue_min = None
+    results = {}
+
+    for run in tqdm(range(n_runs)):
+        clue = np.copy(solution)
+        cells = [(r, c) for r in range(n*n) for c in range(n*n)]
+        cells = np.array(cells)
+        np.random.shuffle(cells)
+
+        for (r, c) in cells:
+            clue_original = clue[r, c]
+            clue[r, c] = 0
+            is_unique, _, _ = solve_sudoku(clue)
+            if not is_unique:
+                clue[r, c] = clue_original
+                break
+
+        n_clues = np.count_nonzero(clue)
+        if n_clues < n_clues_min:
+            n_clues_min = n_clues
+            clue_min = clue
+
+        results[run] = n_clues_min
+
+    return n_clues_min, clue_min, results
+```
+
+Each run removes cells one by one until removing any further cell would break uniqueness. The early stopping (breaking at the first failure) makes this fast but conservative — a more thorough search could try skipping that cell and continuing with others. We trade optimality for speed, and make up for it with volume: many random runs.
+
+## Results
+
+### The $n = 2$ case: $4 \times 4$ Sudoku
+
+With only 16 cells, the $4 \times 4$ case is small enough that our heuristic converges quickly. After 100 runs:
+
+**Minimum clues found: 4**
+
+```
+     |  3
+  2  |
+-----+-----
+     |
+3    |  2
+```
+
+This matches the known result: the minimum number of clues for a $4 \times 4$ Sudoku with a unique solution is 4. The search finds it reliably within a few dozen iterations.
+
+### The $n = 3$ case: $9 \times 9$ Sudoku
+
+This is the classic case. We ran 1,000 iterations of the search:
+
+**Minimum clues found: ~21–22**
+
+The heuristic consistently finds puzzles in the low 20s, but doesn't reach 17 — the proven minimum. This gap illustrates the limitation of greedy removal: the order in which cells are removed matters, and some 17-clue puzzles can only be reached by removing cells in very specific orders that our random shuffling is unlikely to hit.
+
+The proven result of 17 was established by [McGuire, Tugemann, and Civario (2014)](https://arxiv.org/abs/1201.0749) through an exhaustive computational search that required years of CPU time. Our little heuristic, while far from proving the minimum, still demonstrates that surprisingly sparse puzzles exist.
+
+### The $n = 4$ case: $16 \times 16$ Sudoku
+
+With 256 cells, each run involves many more solver calls — each removal requires re-solving and checking uniqueness. After 1,000 runs:
+
+**Minimum clues found: ~55–60**
+
+The exact minimum number of clues for a $16 \times 16$ Sudoku is, as far as I know, an **open problem**. The lower bounds from information-theoretic arguments and the upper bounds from constructions leave a wide gap. Our heuristic gives us a concrete (if loose) upper bound.
+
+The convergence plot shows the characteristic shape of diminishing returns: rapid improvement in early iterations as the search discovers sparser puzzles, followed by a long plateau as further improvements become increasingly rare.
+
+## What we learn from the convergence
+
+Plotting the best-so-far minimum clues against iteration count reveals a consistent pattern across all three grid sizes: a sharp initial drop followed by a slow flattening. This is typical of randomized local search — early runs explore diverse regions of the search space and quickly find good solutions, but the probability of finding an improving solution decays.
+
+For the $n = 3$ case, the gap between our heuristic's best (~21) and the proven minimum (17) suggests that the "landscape" of minimal puzzles is rugged — there are many local minima in the low 20s, and the truly minimal puzzles live in narrow, hard-to-reach valleys.
+
+## Known results and open problems
+
+Here is a summary of what is known about minimum-clue Sudoku:
+
+For $n = 2$ ($4 \times 4$), the minimum is **4 clues**. This is small enough to verify by hand or exhaustive search.
+
+For $n = 3$ ($9 \times 9$), the minimum is **17 clues**. This was conjectured for decades and proven computationally in 2012 by McGuire et al. The proof involved checking, through a clever exhaustive search, that no 16-clue puzzle with a unique solution exists. It remains one of the most celebrated results in recreational mathematics.
+
+For $n = 4$ ($16 \times 16$), the minimum is **unknown**. This is an open problem. The search space is vastly larger than the $n = 3$ case — the number of valid completed $16 \times 16$ grids is enormous, and exhaustive methods are currently infeasible.
+
+For general $n$, there are asymptotic bounds but no exact results beyond $n = 3$. The problem sits at a fascinating intersection of combinatorics, constraint satisfaction, and computational complexity.
+
+## Closing thoughts
+
+We started with a solver and a simple question — *how many clues can we remove?* — and ended up bumping into the boundary of human mathematical knowledge. The greedy heuristic is a useful practical tool: it produces sparse, valid puzzles and gives reasonable upper bounds. But proving that a given number is truly the *minimum* requires fundamentally different — and much harder — techniques.
+
+For the $n = 3$ case, that proof took a combination of mathematical insight and brute-force computation. For $n = 4$ and beyond, the question remains wide open. If you manage to find a $16 \times 16$ Sudoku with fewer than 55 clues that has a unique solution, do let me know.
+
+The full code — including the solver, the search procedure, and the convergence plots — is available as a [Colab notebook](https://colab.research.google.com/drive/1QhSz0jHlGwbgv9ZQpwT_Cl1vPIkMblc1?usp=sharing).

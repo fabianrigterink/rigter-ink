@@ -6,12 +6,12 @@ tags: ["Optimization", "Interviews", "Sudoku"]
 ---
 
 
-## \"Model Sudoku as an optimization problem\"
+## "Model Sudoku as an optimization problem"
 
 [Sudoku](https://en.wikipedia.org/wiki/Sudoku) is one of my favorite puzzles. In classic Sudoku, the goal is to fill a 9×9 grid with digits so that each column, each row, and each of the nine 3×3 sub-grids contains the digits 1-9 without repetition. 
 At the start, we are provided a partially completed grid, which, for a *well-posed* puzzle, has a *single* solution.
 
-Software Engineers may come across Sudoku in their [LeetCode](https://leetcode.com/) coding interview preparations through problems such as \"[Valid Sudoku](https://leetcode.com/problems/valid-sudoku/)\" (medium; determine if a Sudoku board is valid) and \"[Sudoku Solver](https://leetcode.com/problems/sudoku-solver/)\" (hard; solve a Sudoku puzzle).
+Software Engineers may come across Sudoku in their [LeetCode](https://leetcode.com/) coding interview preparations through problems such as "[Valid Sudoku](https://leetcode.com/problems/valid-sudoku/)" (medium; determine if a Sudoku board is valid) and "[Sudoku Solver](https://leetcode.com/problems/sudoku-solver/)" (hard; solve a Sudoku puzzle).
 
 Throughout the years that I interviewed Operations Research specialists, I liked to ask a variant of these two questions: *model Sudoku as an optimization problem*.
 Familiarity with algebraic modeling languages and the assumed access to a solver make this a relatively easy problem to tackle.
@@ -24,9 +24,198 @@ Sudoku doesn't have an objective in the sense that there is nothing to minimize 
 
 ### Variables
 
-As Robert Frost would say in his famous poem, \"The Road Not Taken,\" this is where the roads diverge.
+As Robert Frost would say in his famous poem, "The Road Not Taken," this is where the roads diverge.
 Few candidates would formulate the problem as a [Constraint Programming (CP)](https://en.wikipedia.org/wiki/Constraint_programming) problem, allowing them to make later use of logical constraints such as *AllDifferent*.
 At this point, they would introduce 9 × 9 integer variables (ranging from 1 to 9).
 But most candidates would formulate the problem as a Mixed-Integer Linear Program (MIP), which is how we'll formulate it here.
 They would introduce 9×9×9 binary variables as follows:
 
+$$
+x_{r,c,v} \in \{0, 1\} \quad \forall \, r \in R,\; c \in C,\; v \in V
+$$
+
+where $R = C = V = \{1, \ldots, 9\}$ are the sets of rows, columns, and values, respectively.
+Here, $x_{r,c,v} = 1$ means that cell $(r, c)$ takes value $v$.
+
+Why 9×9×9 = 729 binary variables instead of 81 integer variables? Because this encoding turns the problem into a *linear* program — the constraints become simple sums of binary variables, which solvers handle very efficiently.
+
+### Constraints
+
+We need four families of constraints to encode the rules of Sudoku:
+
+**Cell constraint.** Each cell must contain exactly one value:
+
+$$
+\sum_{v \in V} x_{r,c,v} = 1 \quad \forall \, r \in R,\; c \in C
+$$
+
+**Row constraint.** Each value appears exactly once in each row:
+
+$$
+\sum_{c \in C} x_{r,c,v} = 1 \quad \forall \, r \in R,\; v \in V
+$$
+
+**Column constraint.** Each value appears exactly once in each column:
+
+$$
+\sum_{r \in R} x_{r,c,v} = 1 \quad \forall \, c \in C,\; v \in V
+$$
+
+**Subgrid constraint.** Each value appears exactly once in each $n \times n$ subgrid (where $n = 3$ for standard Sudoku):
+
+$$
+\sum_{i=1}^{n} \sum_{j=1}^{n} x_{an+i,\; bn+j,\; v} = 1 \quad \forall \, a, b \in \{0, \ldots, n-1\},\; v \in V
+$$
+
+Finally, we fix the values of the given clues:
+
+$$
+x_{r,c,\text{clue}_{r,c}} = 1 \quad \forall \, (r, c) \text{ where } \text{clue}_{r,c} > 0
+$$
+
+That's the entire model. Note how clean and declarative this is compared to a backtracking solver — we simply state *what* the solution must satisfy, and let the solver figure out *how*.
+
+## Implementation
+
+We'll use [AMPL](https://ampl.com/) as our algebraic modeling language and [SCIP](https://www.scipopt.org/) as our solver. Here's the model, which generalizes to any $n^2 \times n^2$ Sudoku:
+
+```python
+ampl.eval("""
+  param n integer > 0;
+  param N := n * n;
+
+  set R := 1 .. N;  # Rows
+  set C := 1 .. N;  # Columns
+  set V := 1 .. N;  # Values
+
+  param clue {R, C} default 0;
+
+  var x {R, C, V} binary;
+
+  subject to CellConstraint {r in R, c in C}:
+      sum {v in V} x[r, c, v] == 1;
+
+  subject to RowConstraint {r in R, v in V}:
+      sum {c in C} x[r, c, v] == 1;
+
+  subject to ColumnConstraint {c in C, v in V}:
+      sum {r in R} x[r, c, v] == 1;
+
+  subject to SubgridConstraint {a in 0 .. n - 1, b in 0 .. n - 1, v in V}:
+      sum {c in 1 .. n, d in 1 .. n} x[a * n + c, b * n + d, v] == 1;
+
+  subject to Clues {r in R, c in C: clue[r, c] > 0}:
+      x[r, c, clue[r, c]] == 1;
+""")
+```
+
+The mapping from the mathematical formulation to the AMPL code is almost one-to-one — this is a hallmark of good algebraic modeling languages.
+
+## Validating: is the solution unique?
+
+Solving a Sudoku is only half the story. A *well-posed* Sudoku puzzle must have a unique solution. How can we verify this?
+
+The idea is simple: after finding a first solution, we add a constraint that *excludes* it, then solve again. If the solver reports the problem as infeasible, the original solution was unique. If it finds a second solution, the puzzle is ambiguous.
+
+We exclude the first solution by requiring that at least one cell must differ:
+
+$$
+\sum_{\substack{(r, c) \,:\, \text{sol}_{r,c} > 0}} x_{r,c,\text{sol}_{r,c}} \leq N^2 - 1
+$$
+
+In AMPL:
+
+```python
+ampl.eval("""
+  param exclude {R, C} default 0;
+
+  subject to ExcludeSolution:
+      sum {r in R, c in C: exclude[r, c] > 0} x[r, c, exclude[r, c]] <= N * N - 1;
+""")
+```
+
+And the full solve-and-validate loop:
+
+```python
+def solve_sudoku(clue, verbose=False):
+  """
+  Solves a Sudoku given a clue.
+  Returns if the solution is unique, a first solution,
+  and (if non-unique) a second solution.
+  """
+  # ... (set up model and parameters) ...
+
+  # 1st solve
+  ampl.solve(verbose=verbose)
+  solution_1 = extract_solution()
+
+  # Exclude this solution
+  ampl.param["exclude"] = solution_1
+
+  # 2nd solve
+  ampl.solve(verbose=verbose)
+  # If infeasible → unique; if solved → not unique
+
+  is_unique = (solve_result_1 == "solved"
+               and solve_result_2 == "infeasible")
+
+  return is_unique, solution_1, solution_2
+```
+
+## Solving hard Sudokus
+
+Let's put our solver to the test with two famously difficult puzzles.
+
+### A 17-clue Sudoku
+
+The following puzzle, from [McGuire et al. (2014)](https://arxiv.org/pdf/1201.0749), has only 17 clues — the minimum number possible for a 9×9 Sudoku with a unique solution (more on this in the next post):
+
+```python
+clue = np.array([
+    [0, 0, 0, 8, 0, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 4, 3],
+    [5, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 7, 0, 8, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 2, 0, 0, 3, 0, 0, 0, 0],
+    [6, 0, 0, 0, 0, 0, 0, 7, 5],
+    [0, 0, 3, 4, 0, 0, 0, 0, 0],
+    [0, 0, 0, 2, 0, 0, 6, 0, 0]
+])
+
+is_unique, solution_1, _ = solve_sudoku(clue)
+print(f"Unique: {is_unique}")  # True
+```
+
+The solver finds the unique solution in a fraction of a second.
+
+### Arto Inkala's "world's hardest Sudoku"
+
+In 2012, Finnish mathematician Arto Inkala designed what he claimed to be the [world's hardest Sudoku](https://www.sudokuwiki.org/sudoku.htm?bd=800000000003600000070090200050007000000045700000100030001000068008500010090000400). It has 21 clues and is notoriously difficult for human solvers and logic-based algorithms:
+
+```python
+clue = np.array([
+    [8, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 3, 6, 0, 0, 0, 0, 0],
+    [0, 7, 0, 0, 9, 0, 2, 0, 0],
+    [0, 5, 0, 0, 0, 7, 0, 0, 0],
+    [0, 0, 0, 0, 4, 5, 7, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 3, 0],
+    [0, 0, 1, 0, 0, 0, 0, 6, 8],
+    [0, 0, 8, 5, 0, 0, 0, 1, 0],
+    [0, 9, 0, 0, 0, 0, 4, 0, 0]
+])
+
+is_unique, solution_1, _ = solve_sudoku(clue)
+print(f"Unique: {is_unique}")  # True
+```
+
+Again, our MIP solver handles it with ease. The notion of "difficulty" that challenges human solvers — requiring chains of hypothetical reasoning — is largely irrelevant to a solver that explores the entire search space systematically.
+
+## Closing thoughts
+
+What started as an interview question — *model Sudoku as an optimization problem* — turns out to be a beautiful example of declarative problem-solving. Instead of writing a clever backtracking algorithm, we described the rules of Sudoku as linear constraints over binary variables and handed the problem to a solver.
+
+The solver doesn't just find *a* solution — with one additional constraint, it can prove that the solution is *unique*, effectively validating the puzzle itself.
+
+But this raises a deeper question: how few clues can a Sudoku puzzle have and still admit a unique solution? For the standard 9×9 grid, the answer is 17 — a result that took significant computational effort to prove. In the [next post](/blog/how-few-clues-does-a-sudoku-need-searching-for-minimum-clue-puzzles), we'll explore this question and extend it to Sudoku grids of other sizes.
