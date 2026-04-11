@@ -6,12 +6,20 @@ import { useState } from "react";
 const links = [
   { href: "/blog", label: "Blog" },
   { href: "/travels", label: "Travels" },
-  // { href: "/projects", label: "Projects" },
-  { href: "/about", label: "About" },
+  {
+    href: "/about",
+    label: "About",
+    children: [
+      { href: "/about/papers", label: "Papers" },
+      { href: "/about/patents", label: "Patents" },
+      { href: "/about/talks", label: "Talks" },
+    ],
+  },
 ];
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
 
   return (
     <nav className="sticky top-0 z-50 bg-white/92 backdrop-blur-md border-b border-border">
@@ -38,16 +46,48 @@ export default function Nav() {
 
         {/* Desktop links */}
         <ul className="hidden sm:flex gap-8 list-none">
-          {links.map(({ href, label }) => (
-            <li key={href}>
-              <Link
-                href={href}
-                className="text-sm font-medium text-ink-muted hover:text-ink transition-colors no-underline"
+          {links.map(({ href, label, children }) =>
+            children ? (
+              <li
+                key={href}
+                className="relative"
+                onMouseEnter={() => setAboutOpen(true)}
+                onMouseLeave={() => setAboutOpen(false)}
               >
-                {label}
-              </Link>
-            </li>
-          ))}
+                <Link
+                  href={href}
+                  className="text-sm font-medium text-ink-muted hover:text-ink transition-colors no-underline"
+                >
+                  {label}
+                </Link>
+                {aboutOpen && (
+                  <div className="absolute left-0 top-full pt-2 w-36">
+                    <ul className="bg-white border border-border rounded-lg shadow-md py-1 list-none">
+                      {children.map((child) => (
+                        <li key={child.href}>
+                          <Link
+                            href={child.href}
+                            className="block px-4 py-2 text-sm text-ink-muted hover:text-ink hover:bg-surface-alt transition-colors no-underline"
+                          >
+                            {child.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </li>
+            ) : (
+              <li key={href}>
+                <Link
+                  href={href}
+                  className="text-sm font-medium text-ink-muted hover:text-ink transition-colors no-underline"
+                >
+                  {label}
+                </Link>
+              </li>
+            )
+          )}
         </ul>
 
         {/* Mobile hamburger */}
@@ -66,7 +106,7 @@ export default function Nav() {
       {open && (
         <div className="sm:hidden border-t border-border bg-white/95 backdrop-blur-md">
           <ul className="flex flex-col list-none py-4 px-6">
-            {links.map(({ href, label }) => (
+            {links.map(({ href, label, children }) => (
               <li key={href}>
                 <Link
                   href={href}
@@ -75,6 +115,21 @@ export default function Nav() {
                 >
                   {label}
                 </Link>
+                {children && (
+                  <ul className="list-none pl-4 -mt-1 mb-1">
+                    {children.map((child) => (
+                      <li key={child.href}>
+                        <Link
+                          href={child.href}
+                          onClick={() => setOpen(false)}
+                          className="block py-2 text-sm text-ink-muted hover:text-ink transition-colors no-underline"
+                        >
+                          {child.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
           </ul>

@@ -8,7 +8,7 @@ export default function Home() {
     <div className="max-w-[720px] mx-auto px-6">
       {/* Hero section */}
       <section className="py-20 sm:py-28">
-        <h1 className="font-serif text-[clamp(32px,4vw,48px)] leading-[1.15] tracking-[-1px] text-ink mb-6">
+        <h1 className="font-serif text-[clamp(32px,4vw,48px)] leading-[1.15] tracking-[-1px] text-ink mb-4">
           Hi, I&apos;m Fabian!
         </h1>
         <p className="text-lg text-ink-light leading-relaxed max-w-[640px] mb-8">
@@ -27,7 +27,7 @@ export default function Home() {
 
       {/* Recent posts section */}
       <section className="pb-20">
-        <h2 className="font-serif text-[28px] leading-[1.3] tracking-[-0.3px] text-ink mb-8">
+        <h2 className="font-serif text-[28px] leading-[1.3] tracking-[-0.3px] text-ink mb-6">
           Recent writing
         </h2>
         {posts.length === 0 ? (

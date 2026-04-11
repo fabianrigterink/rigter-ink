@@ -37,7 +37,7 @@ export default async function TripPage({ params }: Props) {
       </Link>
 
       <header className="mb-12">
-        <h1 className="font-serif text-[clamp(32px,4vw,48px)] leading-[1.15] tracking-[-1px] text-ink mb-2">
+        <h1 className="font-serif text-[clamp(32px,4vw,48px)] leading-[1.15] tracking-[-1px] text-ink mb-4">
           {trip.title}
         </h1>
         <div className="flex items-center gap-3 text-sm text-ink-muted">
@@ -45,7 +45,7 @@ export default async function TripPage({ params }: Props) {
           <span>·</span>
           <time className="font-mono">{trip.date}</time>
         </div>
-        <p className="text-ink-light mt-4 leading-relaxed max-w-[640px]">
+        <p className="text-ink-light mt-4 leading-relaxed">
           {trip.description}
         </p>
       </header>

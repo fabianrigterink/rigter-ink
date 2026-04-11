@@ -21,7 +21,7 @@ export default function TravelsIndex() {
       <h1 className="font-serif text-[clamp(32px,4vw,48px)] leading-[1.15] tracking-[-1px] text-ink mb-4">
         Travels
       </h1>
-      <p className="text-ink-muted mb-10 leading-relaxed max-w-[640px]">
+      <p className="text-ink-muted mb-12 leading-relaxed">
         Photos and stories from trips around the world. Click a marker on the map or browse below.
       </p>
 

@@ -56,7 +56,7 @@ export default async function BlogPost({ params }: Props) {
           <span>{post.meta.readingTime}</span>
         </div>
         {post.meta.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mt-3">
+          <div className="flex flex-wrap gap-2 mt-2">
             {post.meta.tags.map((tag: string) => (
               <TagBadge key={tag} tag={tag} />
             ))}

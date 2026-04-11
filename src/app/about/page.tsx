@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "About",
@@ -27,6 +28,32 @@ export default function About() {
           This site is where I share my writing on technical topics and document my travels.
         </p>
       </div>
+
+      <section className="mt-16">
+        <h2 className="font-serif text-[28px] leading-[1.3] tracking-[-0.3px] text-ink mb-6">
+          Research
+        </h2>
+        <ul className="space-y-2 text-ink-light leading-relaxed">
+          <li>
+            <Link href="/about/papers" className="text-cerulean hover:text-ink transition-colors underline underline-offset-2">
+              Papers
+            </Link>
+            {" "}— academic publications and research papers.
+          </li>
+          <li>
+            <Link href="/about/patents" className="text-cerulean hover:text-ink transition-colors underline underline-offset-2">
+              Patents
+            </Link>
+            {" "}— patent applications and grants.
+          </li>
+          <li>
+            <Link href="/about/talks" className="text-cerulean hover:text-ink transition-colors underline underline-offset-2">
+              Talks
+            </Link>
+            {" "}— talks and presentations at conferences and meetups.
+          </li>
+        </ul>
+      </section>
 
       <section className="mt-16">
         <h2 className="font-serif text-[28px] leading-[1.3] tracking-[-0.3px] text-ink mb-6">
