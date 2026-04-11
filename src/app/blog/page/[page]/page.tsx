@@ -39,8 +39,8 @@ export default async function BlogPage({ params }: Props) {
   const posts = allPosts.slice(start, start + POSTS_PER_PAGE);
 
   return (
-    <div className="max-w-[720px] mx-auto px-6 py-20">
-      <h1 className="font-serif text-[clamp(32px,4vw,48px)] leading-[1.15] tracking-[-1px] text-ink mb-4">
+    <div className="max-w-180 mx-auto px-6 py-20">
+      <h1 className="font-serif text-[clamp(40px,5vw,64px)] leading-[1.05] tracking-[-2px] text-ink mb-3">
         Blog
       </h1>
       <p className="text-ink-muted mb-12 leading-relaxed">

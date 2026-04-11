@@ -38,7 +38,7 @@ export default async function BlogPost({ params }: Props) {
   }
 
   return (
-    <div className="max-w-[720px] mx-auto px-6 py-20">
+    <div className="max-w-180 mx-auto px-6 py-20">
       <Link
         href="/blog"
         className="text-sm text-ink-muted hover:text-ink transition-colors mb-8 inline-block"
@@ -47,7 +47,7 @@ export default async function BlogPost({ params }: Props) {
       </Link>
 
       <header className="mb-12">
-        <h1 className="font-serif text-[clamp(32px,4vw,48px)] leading-[1.15] tracking-[-1px] text-ink mb-4">
+        <h1 className="font-serif text-[clamp(40px,5vw,64px)] leading-[1.05] tracking-[-2px] text-ink mb-4">
           {post.meta.title}
         </h1>
         <div className="flex items-center gap-3 text-sm text-ink-muted">

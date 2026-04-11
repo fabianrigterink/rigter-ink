@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { PostMeta } from "@/lib/posts";
 import TagBadge from "@/components/TagBadge";
 
-const POSTS_PER_PAGE = 5;
+const POSTS_PER_PAGE = 6;
 
 interface PostListProps {
   posts: PostMeta[];
@@ -18,33 +18,28 @@ export default function PostList({ posts, currentPage, totalPages }: PostListPro
       {posts.length === 0 ? (
         <p className="text-ink-muted">No posts yet. Check back soon.</p>
       ) : (
-        <div className="space-y-8">
+        <div className="grid grid-cols-1 gap-4">
           {posts.map((post) => (
-            <article key={post.slug} className="group">
-              <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4">
-                <time className="text-sm text-ink-muted font-mono shrink-0">
-                  {post.date}
-                </time>
-                <div>
-                  <Link href={`/blog/${post.slug}`} className="no-underline">
-                    <h2 className="text-lg font-medium text-ink group-hover:text-cerulean transition-colors">
-                      {post.title}
-                    </h2>
-                  </Link>
-                  <p className="text-ink-muted text-sm mt-1 leading-relaxed">
+            <article
+              key={post.slug}
+              className="group flex flex-col border border-border rounded-xl bg-white hover:shadow-sm transition-all duration-200"
+            >
+              <Link href={`/blog/${post.slug}`} className="flex flex-col flex-1 p-5 no-underline">
+                  <time className="text-xs font-mono text-ink-muted tabular-nums">{post.date}</time>
+                  <h2 className="text-base font-medium text-ink group-hover:text-cerulean transition-colors mt-2 mb-2 leading-snug">
+                    {post.title}
+                  </h2>
+                  <p className="text-sm text-ink-muted leading-relaxed flex-1 line-clamp-3">
                     {post.description}
                   </p>
-                  <div className="flex flex-wrap items-center gap-2 mt-2">
+                  <div className="flex flex-wrap items-center gap-1.5 mt-4 pt-3 border-t border-border-light">
                     {post.tags.map((tag) => (
                       <TagBadge key={tag} tag={tag} />
                     ))}
-                    <span className="text-xs text-ink-muted">
-                      · {post.readingTime}
-                    </span>
+                    <span className="ml-auto text-xs text-ink-muted">{post.readingTime}</span>
                   </div>
-                </div>
-              </div>
-            </article>
+                </Link>
+              </article>
           ))}
         </div>
       )}
@@ -57,7 +52,7 @@ export default function PostList({ posts, currentPage, totalPages }: PostListPro
               href={currentPage === 2 ? "/blog" : `/blog/page/${currentPage - 1}`}
               className="text-sm text-cerulean hover:text-ink transition-colors font-medium no-underline"
             >
-              ← Newer posts
+              ← Newer
             </Link>
           ) : (
             <span />
@@ -70,7 +65,7 @@ export default function PostList({ posts, currentPage, totalPages }: PostListPro
               href={`/blog/page/${currentPage + 1}`}
               className="text-sm text-cerulean hover:text-ink transition-colors font-medium no-underline"
             >
-              Older posts →
+              Older →
             </Link>
           ) : (
             <span />

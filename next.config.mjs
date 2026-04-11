@@ -26,7 +26,7 @@ const withMDX = createMDX({
     remarkPlugins: [remarkFrontmatter, remarkMath],
     rehypePlugins: [
       rehypeKatex,
-      [rehypePrettyCode, { theme: "github-light", keepBackground: false }],
+      [rehypePrettyCode, { theme: "github-dark", keepBackground: false }],
     ],
   },
 });

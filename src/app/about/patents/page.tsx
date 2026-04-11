@@ -16,8 +16,8 @@ export default function PatentsIndex() {
   const patents = getAllPatents();
 
   return (
-    <div className="max-w-[720px] mx-auto px-6 py-20">
-      <h1 className="font-serif text-[clamp(32px,4vw,48px)] leading-[1.15] tracking-[-1px] text-ink mb-4">
+    <div className="max-w-180 mx-auto px-6 py-20">
+      <h1 className="font-serif text-[clamp(40px,5vw,64px)] leading-[1.05] tracking-[-2px] text-ink mb-3">
         Patents
       </h1>
       <p className="text-ink-muted mb-12 leading-relaxed">
@@ -27,46 +27,37 @@ export default function PatentsIndex() {
       {patents.length === 0 ? (
         <p className="text-ink-muted">Nothing here yet. Check back soon.</p>
       ) : (
-        <div className="space-y-8">
+        <div className="grid grid-cols-1 gap-4">
           {patents.map((patent) => (
-            <article key={patent.slug} className="group">
-              <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4">
-                <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-xs font-mono text-ink-muted bg-surface-alt px-2 py-0.5 rounded">
-                    {statusLabels[patent.status] ?? patent.status}
-                  </span>
-                  <time className="text-sm text-ink-muted font-mono">{patent.date}</time>
-                </div>
-                <div>
-                  {patent.url ? (
-                    <a
-                      href={patent.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-lg font-medium text-ink group-hover:text-cerulean transition-colors no-underline"
-                    >
-                      {patent.title} ↗
-                    </a>
-                  ) : (
-                    <h2 className="text-lg font-medium text-ink">
-                      {patent.title}
-                    </h2>
-                  )}
-                  {patent.number && (
-                    <p className="text-xs font-mono text-ink-muted mt-0.5">
-                      {patent.number}
-                    </p>
-                  )}
-                  <p className="text-ink-muted text-sm mt-1 leading-relaxed">
-                    {patent.description}
-                  </p>
-                  {patent.inventors.length > 0 && (
-                    <p className="text-xs text-ink-muted mt-1">
-                      {patent.inventors.join(" · ")}
-                    </p>
-                  )}
-                </div>
+            <article
+              key={patent.slug}
+              className="group border border-border rounded-xl bg-white hover:shadow-sm transition-all duration-200 p-5"
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-xs font-mono text-ink-muted bg-surface-alt px-2 py-0.5 rounded">
+                  {statusLabels[patent.status] ?? patent.status}
+                </span>
+                <time className="text-xs font-mono text-ink-muted">{patent.date}</time>
               </div>
+              {patent.url ? (
+                <a
+                  href={patent.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-base font-medium text-ink group-hover:text-cerulean transition-colors no-underline"
+                >
+                  {patent.title} ↗
+                </a>
+              ) : (
+                <h2 className="text-base font-medium text-ink">{patent.title}</h2>
+              )}
+              {patent.number && (
+                <p className="text-xs font-mono text-ink-muted mt-1">{patent.number}</p>
+              )}
+              <p className="text-sm text-ink-muted mt-1.5 leading-relaxed">{patent.description}</p>
+              {patent.inventors.length > 0 && (
+                <p className="text-xs text-ink-muted mt-2">{patent.inventors.join(" · ")}</p>
+              )}
             </article>
           ))}
         </div>
