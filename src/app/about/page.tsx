@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { GitHubIcon, LinkedInIcon } from "@/components/SocialIcons";
 
 export const metadata: Metadata = {
   title: "About",
@@ -61,11 +62,13 @@ export default function About() {
         </h2>
         <p className="text-ink-light leading-relaxed mb-4">
           You can find me on{" "}
-          <a href="https://github.com/fabianrigterink" className="text-cerulean hover:text-ink transition-colors underline underline-offset-2">
+          <a href="https://github.com/fabianrigterink" className="inline-flex items-baseline gap-1 text-cerulean hover:text-ink transition-colors underline underline-offset-2">
+            <GitHubIcon className="w-[1em] h-[1em] shrink-0 translate-y-[0.1em]" />
             GitHub
           </a>{" "}
           and{" "}
-          <a href="https://www.linkedin.com/in/fabianrigterink/" className="text-cerulean hover:text-ink transition-colors underline underline-offset-2">
+          <a href="https://www.linkedin.com/in/fabianrigterink/" className="inline-flex items-baseline gap-1 text-cerulean hover:text-ink transition-colors underline underline-offset-2">
+            <LinkedInIcon className="w-[1em] h-[1em] shrink-0 translate-y-[0.1em]" />
             LinkedIn
           </a>, or reach me by email at{" "}
           <a href="mailto:fabian@rigter.ink" className="text-cerulean hover:text-ink transition-colors underline underline-offset-2">
