@@ -8,8 +8,8 @@ export default function Comments() {
       <Giscus
         repo="fabianrigterink/rigter-ink"
         repoId="R_kgDOR02tOw"
-        category="Blog Comments"
-        categoryId="blog-comments"
+        category="Announcements"
+        categoryId="DIC_kwDOR02tO84C6IWW"
         mapping="pathname"
         strict="0"
         reactionsEnabled="0"
