@@ -4,7 +4,6 @@ authors:
   - "Peter Kirst"
   - "Fabian Rigterink"
   - "Oliver Stein"
-type: journal
 venue: "Journal of Global Optimization"
 volume: "69"
 issue: "2"
@@ -12,13 +11,15 @@ pages: "283–307"
 year: 2017
 date: "2017-10"
 doi: "10.1007/s10898-017-0526-9"
-description: "Presents a branch-and-bound framework for the global solution of disjunctive programs, exploiting disjunctive structure to derive tight relaxations."
+journalImage: "https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776016599/journal-global-optimization-of-disjunctive-programs_daxwvj.png"
+paperImage: "https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776016599/paper-global-optimization-of-disjunctive-programs_aryo2b.png"
 tags:
-  - "global optimization"
-  - "disjunctive programs"
-  - "branch and bound"
+  - "Global optimization"
+  - "Disjunctive programming"
+  - "Generalized disjunctive programming"
+  - "Branch-and-bound"
 bibtex: |
-  @article{kirst2017global,
+  @article{kirst2017,
     author  = {Kirst, Peter and Rigterink, Fabian and Stein, Oliver},
     title   = {Global optimization of disjunctive programs},
     journal = {Journal of Global Optimization},
@@ -30,6 +31,4 @@ bibtex: |
   }
 ---
 
-Disjunctive programs are optimisation problems where the feasible set is a union of convex sets — for example, $x \in P_1 \cup P_2 \cup \cdots \cup P_k$ where each $P_i$ is a polyhedron. They arise naturally in problems with logical conditions, complementarity constraints, or piecewise-linear objectives.
-
-We develop a branch-and-bound algorithm that exploits disjunctive structure directly, without first converting to a MILP via big-$M$ or convex hull reformulations. At each node, we compute a lower bound by solving a convex relaxation over the disjunctive hull, and branch by selecting a disjunct to fix. We prove convergence to global optimality and demonstrate that the approach can outperform standard MILP reformulations when the number of disjuncts is small but the individual sets are complex.
+We propose a new branch-and-bound framework for global optimization of disjunctive programs with general logical expressions. We do not assume the logical expressions to be in any normal form, and, under slightly stronger assumptions, we allow the use of negations and implications. In contrast to the widely used reformulation as a mixed-integer program, we compute the lower bounds and evaluate the logical expression in one step. Thus, we reduce the size of the problem and work exclusively with continuous variables, which is computationally advantageous. We present preliminary numerical results as proof of concept.
