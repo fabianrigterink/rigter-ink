@@ -29,7 +29,7 @@ export default function PaperImages({
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-3 mb-4">
+      <div className="grid grid-cols-2 gap-6 mb-4">
         {slides.map((slide, i) => (
           <img
             key={slide.src}

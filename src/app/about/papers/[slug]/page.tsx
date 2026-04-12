@@ -100,12 +100,14 @@ export default async function PaperDetail({ params }: Props) {
         </p>
 
         {/* Images */}
-        <PaperImages
-          journalImage={paper.journalImage}
-          paperImage={paper.paperImage}
-          venueAlt={`${paper.venue} cover`}
-          titleAlt={`${paper.title} first page`}
-        />
+        <div className="wide-bleed" style={{ width: "min(880px, calc(100vw - 3rem))" }}>
+          <PaperImages
+            journalImage={paper.journalImage}
+            paperImage={paper.paperImage}
+            venueAlt={`${paper.venue} cover`}
+            titleAlt={`${paper.title} first page`}
+          />
+        </div>
 
         {/* BibTeX */}
         <div className="mb-4">
