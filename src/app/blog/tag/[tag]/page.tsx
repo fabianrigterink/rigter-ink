@@ -49,7 +49,7 @@ export default async function TagPage({ params }: Props) {
             key={post.slug}
             className="group flex flex-col border border-border rounded-xl bg-white hover:shadow-sm transition-all duration-200"
           >
-            <Link href={`/blog/${post.slug}`} className="flex flex-col flex-1 p-5 no-underline">
+            <Link href={`/blog/${post.slug}`} className="flex flex-col flex-1 p-5 pb-3 no-underline">
               <time className="text-xs font-mono text-ink-muted tabular-nums">{post.date}</time>
               <h2 className="text-base font-medium text-ink group-hover:text-cerulean transition-colors mt-2 mb-2 leading-snug">
                 {post.title}
@@ -57,13 +57,13 @@ export default async function TagPage({ params }: Props) {
               <p className="text-sm text-ink-muted leading-relaxed flex-1 line-clamp-3">
                 {post.description}
               </p>
-              <div className="flex flex-wrap items-center gap-1.5 mt-4 pt-3 border-t border-border-light">
-                {post.tags.map((t) => (
-                  <TagBadge key={t} tag={t} />
-                ))}
-                <span className="ml-auto text-xs text-ink-muted">{post.readingTime}</span>
-              </div>
             </Link>
+            <div className="flex flex-wrap items-center gap-1.5 px-5 pb-4 pt-3 border-t border-border-light">
+              {post.tags.map((t) => (
+                <TagBadge key={t} tag={t} />
+              ))}
+              <span className="ml-auto text-xs text-ink-muted">{post.readingTime}</span>
+            </div>
           </article>
         ))}
       </div>
