@@ -120,10 +120,17 @@ body {
   margin: 1.5em 0;
 }
 
-.prose ul,
+.prose ul {
+  padding-left: 1.5em;
+  margin-bottom: 1.25em;
+  list-style-type: disc;
+  color: var(--color-ink-light);
+}
+
 .prose ol {
   padding-left: 1.5em;
   margin-bottom: 1.25em;
+  list-style-type: decimal;
   color: var(--color-ink-light);
 }
 
@@ -135,11 +142,13 @@ body {
 /* Syntax highlighting (rehype-pretty-code) */
 .prose pre {
   background: #1e1e1e;
+  color: #c9d1d9; /* github-dark default foreground, fallback for unstyled tokens */
   padding: 1.25em 1.5em;
 }
 
 .prose [data-rehype-pretty-code-figure] pre {
   background: #1e1e1e;
+  color: #c9d1d9;
   padding: 1.25em 1.5em;
 }
 
