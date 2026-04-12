@@ -36,12 +36,12 @@ export default function TravelsIndex() {
             href={`/travels/${trip.slug}`}
             className="group block no-underline"
           >
-            <div className="aspect-[3/2] rounded-xl bg-surface-alt overflow-hidden mb-3">
+            <div className="rounded-xl bg-surface-alt overflow-hidden mb-3">
               {trip.coverImage ? (
                 <img
                   src={trip.coverImage}
                   alt={trip.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-ink-muted text-sm">
