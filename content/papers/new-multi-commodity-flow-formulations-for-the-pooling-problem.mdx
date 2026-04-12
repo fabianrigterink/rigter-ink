@@ -1,0 +1,36 @@
+---
+title: "New multi-commodity flow formulations for the pooling problem"
+authors:
+  - "Natashia Boland"
+  - "Thomas Kalinowski"
+  - "Fabian Rigterink"
+type: journal
+venue: "Journal of Global Optimization"
+volume: "66"
+issue: "4"
+pages: "669–710"
+year: 2016
+date: "2016-11"
+doi: "10.1007/s10898-016-0404-x"
+description: "Develops new multi-commodity flow formulations for the pooling problem that yield stronger LP relaxation bounds than standard formulations."
+tags:
+  - pooling
+  - "multi-commodity flow"
+  - formulations
+  - optimization
+bibtex: |
+  @article{boland2016new,
+    author  = {Boland, Natashia and Kalinowski, Thomas and Rigterink, Fabian},
+    title   = {New multi-commodity flow formulations for the pooling problem},
+    journal = {Journal of Global Optimization},
+    year    = {2016},
+    volume  = {66},
+    number  = {4},
+    pages   = {669--710},
+    doi     = {10.1007/s10898-016-0404-x},
+  }
+---
+
+The pooling problem has two classical formulations: the $p$-formulation (variables track the fraction of flow from each source in each pool) and the $q$-formulation (variables track total flow on each arc). Both yield LP relaxations that can be far from the true optimal — the integrality gap is large.
+
+We introduce a new family of multi-commodity flow (MCF) formulations. Instead of tracking aggregated quality fractions, MCF formulations track how much of each source's material reaches each output pool or sink, via each possible path through the network. This introduces more variables but yields significantly stronger LP relaxations. We prove that the MCF relaxation dominates the $p$- and $q$-relaxations, derive conditions for when it is exact, and demonstrate substantial improvements in computation times on benchmark pooling instances.

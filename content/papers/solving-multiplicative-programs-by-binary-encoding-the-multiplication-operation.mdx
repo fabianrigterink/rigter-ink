@@ -1,0 +1,31 @@
+---
+title: "Solving multiplicative programs by binary-encoding the multiplication operation"
+authors:
+  - "Payman Ghasemi Saghand"
+  - "Fabian Rigterink"
+  - "Vahid Mahmoodian"
+  - "Hadi Charkhgard"
+type: preprint
+venue: "Optimization Online"
+year: 2021
+date: "2021-01"
+url: "https://optimization-online.org/DB_HTML/2021/01/8196.html"
+description: "Proposes a reformulation technique that binary-encodes multiplication operations, enabling mixed-integer linear programming methods to solve multiplicative programs globally."
+tags:
+  - optimization
+  - "multiplicative programs"
+  - MILP
+  - reformulation
+bibtex: |
+  @misc{saghand2021solving,
+    author       = {Ghasemi Saghand, Payman and Rigterink, Fabian and Mahmoodian, Vahid and Charkhgard, Hadi},
+    title        = {Solving Multiplicative Programs by Binary-Encoding the Multiplication Operation},
+    year         = {2021},
+    howpublished = {Optimization Online},
+    url          = {https://optimization-online.org/DB_HTML/2021/01/8196.html},
+  }
+---
+
+Multiplicative programs — optimisation problems whose objectives or constraints involve products of decision variables — are nonconvex and generally hard to solve globally. Standard linearisation techniques like McCormick envelopes produce weak relaxations when many variables interact.
+
+We propose an exact reformulation that encodes each multiplication via binary expansion of one of its operands. This converts products into sums of terms involving binary variables, yielding a MILP that can be handed to standard solvers. The approach is particularly effective when one operand has bounded integer or near-integer values. We show correctness, derive bound tightening techniques, and compare against McCormick-based approaches on benchmark instances.

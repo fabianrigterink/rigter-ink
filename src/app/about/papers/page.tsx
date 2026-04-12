@@ -1,11 +1,23 @@
 import type { Metadata } from "next";
-import { getAllPapers } from "@/lib/papers";
-import TagBadge from "@/components/TagBadge";
+import Link from "next/link";
+import { getAllPapers, type Paper } from "@/lib/papers";
 
 export const metadata: Metadata = {
   title: "Papers",
   description: "Academic papers and research publications by Fabian Rigterink.",
 };
+
+function venueDetails(paper: Paper): string {
+  const parts: string[] = [];
+  if (paper.volume) {
+    const vol = paper.issue ? `${paper.volume}(${paper.issue})` : paper.volume;
+    parts.push(paper.pages ? `${vol}:${paper.pages}` : vol);
+  } else if (paper.pages) {
+    parts.push(`pp. ${paper.pages}`);
+  }
+  parts.push(String(paper.year));
+  return parts.join(" · ");
+}
 
 export default function PapersIndex() {
   const papers = getAllPapers();
@@ -19,45 +31,43 @@ export default function PapersIndex() {
         Academic papers and research publications.
       </p>
 
-      {papers.length === 0 ? (
-        <p className="text-ink-muted">Nothing here yet. Check back soon.</p>
-      ) : (
-        <div className="grid grid-cols-1 gap-4">
-          {papers.map((paper) => (
+      <div className="grid grid-cols-1 gap-4">
+        {papers.map((paper) => {
+          const details = venueDetails(paper);
+
+          return (
             <article
               key={paper.slug}
-              className="group border border-border rounded-xl bg-white hover:shadow-sm transition-all duration-200 p-5"
+              className="border border-border rounded-xl bg-white hover:shadow-sm transition-all duration-200 p-5"
             >
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-xs font-mono text-ink-muted bg-surface-alt px-2 py-0.5 rounded">
-                  {paper.venue}
-                </span>
-                <time className="text-xs font-mono text-ink-muted">{paper.date}</time>
-              </div>
-              {paper.url ? (
-                <a
-                  href={paper.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-base font-medium text-ink group-hover:text-cerulean transition-colors no-underline"
-                >
-                  {paper.title} ↗
-                </a>
-              ) : (
-                <h2 className="text-base font-medium text-ink">{paper.title}</h2>
-              )}
-              <p className="text-sm text-ink-muted mt-1.5 leading-relaxed">{paper.description}</p>
-              {paper.tags.length > 0 && (
-                <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-border-light">
-                  {paper.tags.map((tag) => (
-                    <TagBadge key={tag} tag={tag} />
-                  ))}
-                </div>
-              )}
+              <Link
+                href={`/about/papers/${paper.slug}`}
+                className="text-base font-medium text-ink hover:text-cerulean transition-colors no-underline leading-snug block"
+              >
+                {paper.title}
+              </Link>
+
+              <p className="text-sm text-ink-muted mt-1 leading-relaxed">
+                {paper.authors.map((author, i) => (
+                  <span key={author}>
+                    {i > 0 && ", "}
+                    {author === "Fabian Rigterink" ? (
+                      <strong className="text-ink-light font-medium">{author}</strong>
+                    ) : (
+                      author
+                    )}
+                  </span>
+                ))}
+              </p>
+
+              <p className="text-xs font-mono text-ink-muted mt-2">
+                <span className="text-ink-light">{paper.venue}</span>
+                {details && <span className="ml-1">· {details}</span>}
+              </p>
             </article>
-          ))}
-        </div>
-      )}
+          );
+        })}
+      </div>
     </div>
   );
 }

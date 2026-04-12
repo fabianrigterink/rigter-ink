@@ -1,0 +1,29 @@
+---
+title: "A branch-and-bound algorithm for disjunctive optimization problems"
+authors:
+  - "Fabian Rigterink"
+type: thesis
+thesisType: master
+venue: "Karlsruhe Institute of Technology, Germany"
+year: 2014
+date: "2014-02"
+description: "Develops a branch-and-bound algorithm for disjunctive optimization problems, with theoretical guarantees and computational experiments."
+tags:
+  - "branch and bound"
+  - "disjunctive optimization"
+  - "global optimization"
+bibtex: |
+  @mastersthesis{rigterink2014branch,
+    author  = {Rigterink, Fabian},
+    title   = {A Branch-and-Bound Algorithm for Disjunctive Optimization Problems},
+    school  = {Karlsruhe Institute of Technology},
+    year    = {2014},
+    address = {Karlsruhe, Germany},
+  }
+---
+
+Disjunctive optimisation problems arise whenever the feasible set can be expressed as a finite union of sets — each representing a different regime, mode, or case. Standard approaches convert the disjunction into a MILP using binary variables and big-$M$ constraints, but this can produce weak relaxations.
+
+This thesis develops a branch-and-bound algorithm that operates directly on the disjunctive structure. At each node, we maintain a disjunctive description of the feasible set and solve a convex relaxation to compute bounds. Branching eliminates one disjunct at a time, and pruning rules avoid exploring provably suboptimal branches. The algorithm is proved to terminate finitely with a globally optimal solution. Computational experiments compare it against standard MILP reformulations on a range of test instances.
+
+*(Originally submitted in German as: Ein Branch-and-Bound-Verfahren für disjunktive Optimierungsprobleme)*

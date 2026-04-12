@@ -1,0 +1,35 @@
+---
+title: "Extended formulations for convex hulls of some bilinear functions"
+authors:
+  - "Akshay Gupte"
+  - "Thomas Kalinowski"
+  - "Fabian Rigterink"
+  - "Hamish Waterer"
+type: journal
+venue: "Discrete Optimization"
+volume: "36"
+pages: "1–34"
+year: 2020
+date: "2020-12"
+doi: "10.1016/j.disopt.2020.100569"
+description: "Develops extended formulations for the convex hulls of bilinear functions, yielding tighter relaxations via lifted representations in higher-dimensional spaces."
+tags:
+  - "convex hull"
+  - bilinear
+  - "extended formulations"
+  - optimization
+bibtex: |
+  @article{gupte2020extended,
+    author  = {Gupte, Akshay and Kalinowski, Thomas and Rigterink, Fabian and Waterer, Hamish},
+    title   = {Extended formulations for convex hulls of some bilinear functions},
+    journal = {Discrete Optimization},
+    year    = {2020},
+    volume  = {36},
+    pages   = {1--34},
+    doi     = {10.1016/j.disopt.2020.100569},
+  }
+---
+
+A recurring challenge in global optimisation of polynomial programs is computing tight convex relaxations of products $xy$ where $x \in [x^L, x^U]$ and $y \in [y^L, y^U]$. The standard McCormick relaxation is the convex hull in the original space, but it can be strengthened by lifting into a higher-dimensional space and projecting back.
+
+We characterise the convex hull of the graph of $xy$ restricted to various combinatorial structures (e.g., when one variable is binary, or when the variables satisfy additional linear constraints) and derive explicit extended formulations — linear descriptions in the lifted space. These extended formulations are tight by construction and can be embedded directly into MILP/MINLP solvers via column generation or direct reformulation.
