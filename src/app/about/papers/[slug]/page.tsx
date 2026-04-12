@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getAllPapers, getPaperBySlug, type Paper } from "@/lib/papers";
 import TagBadge from "@/components/TagBadge";
 import BibTeXBlock from "@/components/BibTeXBlock";
+import PaperImages from "@/components/PaperImages";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -33,16 +34,6 @@ function venueDetails(paper: Paper): string {
   }
   parts.push(String(paper.year));
   return parts.join(" · ");
-}
-
-function ImagePlaceholder({ label }: { label: string }) {
-  return (
-    <div className="w-12 h-16 shrink-0 rounded border border-border bg-surface-alt flex items-center justify-center">
-      <span className="text-[9px] font-mono text-ink-muted text-center leading-tight px-0.5">
-        {label}
-      </span>
-    </div>
-  );
 }
 
 export default async function PaperDetail({ params }: Props) {
@@ -94,38 +85,27 @@ export default async function PaperDetail({ params }: Props) {
           <span className="text-ink-light">{paper.venue}</span>
           {details && <span className="ml-1">· {details}</span>}
           {doiUrl && (
-            <a
-              href={doiUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-2 text-cerulean hover:text-ink transition-colors underline underline-offset-2"
-            >
-              {paper.doi ? `DOI: ${paper.doi}` : "View paper ↗"}
-            </a>
+            <>
+              <span> · </span>
+              <a
+                href={doiUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cerulean hover:text-ink transition-colors underline underline-offset-2"
+              >
+                {paper.doi ? `DOI: ${paper.doi}` : "View paper ↗"}
+              </a>
+            </>
           )}
         </p>
 
         {/* Images */}
-        <div className="flex gap-3 mb-4">
-          {paper.journalImage ? (
-            <img
-              src={paper.journalImage}
-              alt={`${paper.venue} cover`}
-              className="w-12 h-16 object-cover rounded border border-border"
-            />
-          ) : (
-            <ImagePlaceholder label="cover" />
-          )}
-          {paper.paperImage ? (
-            <img
-              src={paper.paperImage}
-              alt={`${paper.title} first page`}
-              className="w-12 h-16 object-cover rounded border border-border"
-            />
-          ) : (
-            <ImagePlaceholder label="PDF" />
-          )}
-        </div>
+        <PaperImages
+          journalImage={paper.journalImage}
+          paperImage={paper.paperImage}
+          venueAlt={`${paper.venue} cover`}
+          titleAlt={`${paper.title} first page`}
+        />
 
         {/* BibTeX */}
         <div className="mb-4">
