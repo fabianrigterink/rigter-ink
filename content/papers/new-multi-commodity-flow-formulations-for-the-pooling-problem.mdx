@@ -4,22 +4,24 @@ authors:
   - "Natashia Boland"
   - "Thomas Kalinowski"
   - "Fabian Rigterink"
-type: journal
 venue: "Journal of Global Optimization"
 volume: "66"
 issue: "4"
 pages: "669–710"
 year: 2016
-date: "2016-11"
+date: "2016-12"
 doi: "10.1007/s10898-016-0404-x"
-description: "Develops new multi-commodity flow formulations for the pooling problem that yield stronger LP relaxation bounds than standard formulations."
+journalImage: "https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776019984/journal-of-global-optimization_mthefs.png"
+paperImage: "https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776019957/new-multi-commodity-flow-formulations-for-the-pooling-problem_ulxxuk.png"
 tags:
-  - pooling
-  - "multi-commodity flow"
-  - formulations
-  - optimization
+  - "Pooling problem"
+  - "Bilinear programming"
+  - "Nonlinear programming"
+  - "Linear relaxation"
+  - "Global optimization"
+  - Blending
 bibtex: |
-  @article{boland2016new,
+  @article{boland2016,
     author  = {Boland, Natashia and Kalinowski, Thomas and Rigterink, Fabian},
     title   = {New multi-commodity flow formulations for the pooling problem},
     journal = {Journal of Global Optimization},
@@ -31,6 +33,6 @@ bibtex: |
   }
 ---
 
-The pooling problem has two classical formulations: the $p$-formulation (variables track the fraction of flow from each source in each pool) and the $q$-formulation (variables track total flow on each arc). Both yield LP relaxations that can be far from the true optimal — the integrality gap is large.
+The pooling problem is a nonconvex nonlinear programming problem with numerous applications. The nonlinearities of the problem arise from bilinear constraints that capture the blending of raw materials. Bilinear constraints are well-studied and significant progress has been made in solving large instances of the pooling problem to global optimality. This is due in no small part to reformulations of the problem. Recently, Alfaki and Haugland proposed a multi-commodity flow formulation of the pooling problem based on input commodities. The authors proved that the new formulation has a stronger linear relaxation than previously known formulations. They also provided computational results which show that the new formulation outperforms previously known formulations when used in a global optimization solver. In this paper, we generalize their ideas and propose new multi-commodity flow formulations based on output, input and output and (input, output)-commodities. We prove the equivalence of formulations, and we study the partial order of formulations with respect to the strength of their LP relaxations. In an extensive computational study, we evaluate the performance of the new formulations. We study the trade-off between disaggregating commodities and therefore increasing the size of formulations versus strengthening the relaxed linear programs and improving the computational performance of the nonlinear programs. We provide computational results which show that output commodities often outperform input commodities, and that disaggregating commodities further only marginally strengthens the linear relaxations. In fact, smaller formulations often show a significantly better performance when used in a global optimization solver.
 
-We introduce a new family of multi-commodity flow (MCF) formulations. Instead of tracking aggregated quality fractions, MCF formulations track how much of each source's material reaches each output pool or sink, via each possible path through the network. This introduces more variables but yields significantly stronger LP relaxations. We prove that the MCF relaxation dominates the $p$- and $q$-relaxations, derive conditions for when it is exact, and demonstrate substantial improvements in computation times on benchmark pooling instances.
+{/* Reviewed */}

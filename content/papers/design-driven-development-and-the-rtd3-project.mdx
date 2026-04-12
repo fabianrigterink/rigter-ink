@@ -2,26 +2,35 @@
 title: "Design Driven Development and the rtd3 project"
 authors:
   - "Fabian Rigterink"
-type: thesis
-thesisType: bachelor
-venue: "Karlsruhe Institute of Technology, Germany"
+venue: "Bachelor's thesis, Karlsruhe Institute of Technology, Germany"
 year: 2011
 date: "2011-09"
-description: "Introduces the Design Driven Development methodology and the rtd3 project, exploring software design as a first-class engineering concern."
+paperImage: "https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776019956/design-driven-development-and-the-rtd3-project_ertutj.png"
 tags:
-  - "software design"
-  - "design driven development"
+  - "Design Driven Development"
 bibtex: |
-  @misc{rigterink2011design,
+  @misc{rigterink2011,
     author = {Rigterink, Fabian},
-    title  = {Design Driven Development and the rtd3 Project},
+    title  = {Design Driven Development and the rtd3 project},
     year   = {2011},
     note   = {Bachelor's thesis, Karlsruhe Institute of Technology, Germany},
   }
 ---
 
-Design Driven Development (DDD) is a software development methodology that treats design — the structure and organisation of a system — as a first-class concern, rather than something that emerges from implementation or is captured only in diagrams. The core idea is that design decisions should be made explicitly and early, and that code should be structured to reflect and enforce those decisions.
+### Abstract (English, translation)
 
-This thesis introduces DDD and presents the rtd3 project, a prototype framework that implements DDD principles. The framework provides tools for defining design contracts, detecting violations at development time, and visualising the structure of a system. The goal is to make the gap between intended design and actual implementation visible and actionable.
+This thesis examines the implementation of the object-oriented programming paradigm in Java. The possibilities and limitations of the concepts Design by Contract (DbC) and Test Driven Development (TDD) are critically analyzed. It posits the thesis that the symbiosis of both concepts—Design Driven Development (D3)—is not contradictory, but rather complementary. Empirical results from academic teaching support this thesis. Furthermore, it investigates whether the existing description of the D3 approach is complete, consistent, and minimal. The most important tools—C4J for DbC, JUnit for TDD, and the D3-Explorer developed at KIT for D3—are presented.
 
-*(Originally submitted in German as: Design Driven Development und das rtd3-Projekt)*
+The core of this work is the development of the Java archive rtd3.jar, which supplements the classes of the standard rt.jar archive with contracts and tests. This work focuses exclusively on the packages java(d3).lang and java(d3).util. Through the development of the rtd3.jar archive, the thesis also addresses the question of how to write high-quality contracts and tests. By using tools such as the D3-Explorer and others like the D3-Builder, the creation of contract and test classes is partially automated.
+
+This thesis serves as the foundation for a Community Coding process to continue the rtd3 development. Key experiences, challenges, and solutions encountered while writing contracts and tests are explained. Finally, the work provides an outlook on how the Community Coding process can be structured.
+
+### Abstract (German, original)
+
+Diese Arbeit untersucht die Umsetzung des Programmierparadigmas der objektorientierten Programmierung in Java. Die Möglichkeiten und Grenzen der Konzepte Design by Contract (DbC) und Test Driven Development (TDD) werden kritisch betrachtet. Es wird die These aufgestellt, dass die Symbiose beider Konzepte–Design Driven Development (D3)–nicht konträr, sondern komplementär ist. Empirische Ergebnisse aus der Lehre unterstützen diese These. Es wird untersucht, ob die bisherige Beschreibung des D3-Ansatzes vollständig, in sich stimmig und minimal ist. Die wichtigsten Tools–C4J für DbC, JUnit für TDD und der am KIT entwickelte D3-Explorer für D3–werden vorgestellt.
+
+Der wichtigste Teil der Arbeit ist die Entwicklung des Java-Archivs rtd3.jar, das die Klassen des rt.jar-Archivs um Contracts und Tests ergänzt. In dieser Arbeit werden wir uns ausschließlich auf die Packages java(d3).lang und java(d3).util beschränken. Mit der Entwicklung des rtd3.jar-Archivs widmet sich die Arbeit auch der Frage, wie gute Contracts und Tests geschrieben werden. Durch Tools wie den D3-Explorer, aber auch durch weitere Tools wie etwa den D3-Builder wird die Erstellung der Vertrags- und Testklassen teilautomatisiert.
+
+Diese Arbeit ist die Grundlage für einen Community Coding Prozess, der die rtd3-Entwicklung fortführt. Es werden wichtige Erfahrungen, Probleme und Lösungen beim Schreiben von Contracts und Tests erläutert. Als Ausblick beschreibt die Arbeit Möglichkeiten der Gestaltung des Community Coding Prozesses.
+
+{/* Reviewed */}

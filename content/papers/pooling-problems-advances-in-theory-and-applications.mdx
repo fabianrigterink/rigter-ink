@@ -2,13 +2,11 @@
 title: "Pooling problems: advances in theory and applications"
 authors:
   - "Fabian Rigterink"
-type: thesis
-thesisType: phd
-venue: "The University of Newcastle, Australia"
+venue: "Ph.D. thesis, The University of Newcastle, Australia"
 year: 2017
 date: "2017-08"
 url: "https://hdl.handle.net/1959.13/1350692"
-description: "Comprehensive treatment of the pooling problem: new multi-commodity flow formulations, complexity results, convex relaxations, polynomially solvable cases, and industrial applications in mining and oil refining."
+paperImage: "https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776019957/pooling-problems-advances-in-theory-and-applications_xjggbh.png"
 tags:
   - pooling
   - optimization
@@ -25,14 +23,12 @@ bibtex: |
   }
 ---
 
-The pooling problem asks how to blend raw materials flowing through a network of tanks (pools) to meet quality specifications at minimum cost. Despite its simple description, the problem is NP-hard and nonconvex due to the bilinear quality-balance constraints that arise when streams of different compositions mix in a pool.
+This thesis presents advances in theory and applications of the pooling problem—a nonlinear optimisation problem of great importance to the oil and petroleum refining industry, but also to the mining industry. The nonlinearities of the problem arise from bilinear constraints that capture the blending of material.
 
-This thesis makes several contributions:
+Linearisation is a common approach used in state-of-the-art optimisation software to solve these types of problems. A crucial task is to construct tight linear relaxations, the tightest being the convex hull. Typically, bilinear functions are linearised using a term-wise McCormick relaxation. For a single bilinear term, the McCormick relaxation is convex hull defining, however, for a bilinear function, it often is not. In addition to the McCormick inequalities, Padberg introduced triangle, clique, cut, generalised cut, and odd cycle inequalities, to further approximate the convex hull.
 
-- **New formulations.** I develop multi-commodity flow formulations that track the origin of each unit of flow through the network. These yield stronger LP relaxations than the classical $p$- and $q$-formulations, closing a significant portion of the optimality gap before any branching.
+On the theoretical side, we propose new multi-commodity flow formulations of the pooling problem which outperform previously known formulations. Answering a question of Haugland, we show that the pooling problem with one pool and a bounded number of inputs is polynomially solvable. This result further defines the border between (strongly) NP-hard and polynomially solvable cases of the problem. Answering a question of Luedtke, Namazifar, and Linderoth, we show that the McCormick relaxation of a bilinear function can, in some sense, be arbitrarily looser than its convex hull. We present an alternative proof for a result of Misener, Smadbeck, and Floudas which characterises bilinear functions for which the McCormick relaxation is convex hull defining. Using McCormick and Padberg inequalities, we define the convex hulls of several additional classes of bilinear functions. As for bilinear functions for which we cannot define the convex hull, we find that McCormick and Padberg's triangle inequalities approximate the convex hull best, and we apply these inequalities to (quadratically constrained) quadratic programs to speed up a solver's performance.
 
-- **Polynomially solvable cases.** I identify graph-theoretic conditions under which the pooling problem can be solved in polynomial time, and provide exact algorithms for these cases.
+On the applied side, we model coal blending operations at the port of Newcastle, Australia—the world's largest coal export port. Coal is made-to-order according to customers' desired quality values and vessel loading times. The coal chain coordinator is interested in meeting these target qualities and times since deviations on either side typically result in contractually agreed costs. We model this setting as a dynamic, time-expanded pooling problem, apply flow discretisations, and solve large, realistic instances.
 
-- **Convex hull results.** Together with co-authors, I characterise the convex hull of the feasible region for certain substructures, leading to tighter relaxations and extended formulations.
-
-- **Applications.** The results are applied to coal supply chains in the Hunter Valley and to generalised pooling problems arising in the mining industry, demonstrating practical impact on large-scale industrial instances.
+{/* Reviewed */}

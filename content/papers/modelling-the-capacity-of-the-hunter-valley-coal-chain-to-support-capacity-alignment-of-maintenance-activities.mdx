@@ -5,20 +5,19 @@ authors:
   - "Bruce McGowan"
   - "Alexandre Mendes"
   - "Fabian Rigterink"
-type: conference
-venue: "MODSIM2013"
+venue: "MODSIM2013, 20th International Congress on Modelling and Simulation"
 pages: "3302–3308"
 year: 2013
 date: "2013-12"
 url: "https://mssanz.org.au/modsim2013/A1/boland2.pdf"
-description: "Models the logistics capacity of the Hunter Valley Coal Chain to assess how maintenance activities can be aligned with capacity constraints."
+journalImage: "https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776019985/modsim-2013_jcwyrm.png"
+paperImage: "https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776019956/modelling-the-capacity-of-the-hunter-valley-coal-chain-to-support-capacity-alignment-of-maintenance-activities_tffyel.png"
 tags:
-  - coal
-  - "supply chain"
-  - "capacity planning"
-  - "operations research"
+  - "preventive maintenance"
+  - "maintenance scheduling"
+  - "multiobjective linear programming"
 bibtex: |
-  @inproceedings{boland2013modelling,
+  @inproceedings{boland2013,
     author    = {Boland, Natashia and McGowan, Bruce and Mendes, Alexandre and Rigterink, Fabian},
     title     = {Modelling the capacity of the {Hunter Valley Coal Chain} to support capacity alignment of maintenance activities},
     booktitle = {{MODSIM2013, 20th International Congress on Modelling and Simulation}},
@@ -31,6 +30,14 @@ bibtex: |
   }
 ---
 
-The Hunter Valley Coal Chain (HVCC) is one of the world's largest coal export supply chains, moving coal from mines in the Hunter Valley of New South Wales to the Port of Newcastle. Rail lines, load-out facilities, stockyards, and ship loaders all have finite capacity and require maintenance.
+The Hunter Valley coal supply chain (HVCC) is the system of logistics facilities – principally a network of rail track and three coal handling terminals – enabling coal mined by producers in the Hunter Valley to be transported, assembled, and loaded onto ships for export. The HVCC serves around 11 producers operating through more than 30 coal load points in the Hunter Valley, transporting coal over rail track extending around 450 km inland, managed by two track owner/operators, via rolling stock from four rail haulage providers that make around 22,000 train trips for approximately 1,400 vessels per year. The HVCC now delivers around 140 million tonnes of coal per annum (Mtpa), with the port of Newcastle exporting more coal by volume than any other facility in the world.
 
-We build a simulation model of the HVCC to evaluate how maintenance capacity can be scheduled without degrading export throughput. The model captures train paths, stockpile buffers, ship arrival patterns, and the interactions between maintenance windows at different facilities. We use the model to identify bottlenecks and test capacity alignment strategies — scheduling maintenance at complementary times across facilities to avoid compound throughput losses.
+The Hunter Valley Coal Chain Coordinator P/L (HVCCC) is the organization at the heart of this logistics operation. In a landmark for collaborative logistics, the HVCCC was established by HVCC stakeholders to plan and manage the valuable shared infrastructure of the system. The HVCCC provides a range of services vital to the planning and delivery of coal through the logistics system, with its core task to improve the capacity of the coal chain through a centralised planning process.
+
+One of the key ways in which this task is achieved is through the alignment of maintenance activities. All key assets in the HVCC (e.g. rail track sections, coal stacking machinery, terminal conveyor systems) undergo regular preventive maintenance, planned well in advance. While undergoing maintenance, an asset cannot function to deliver coal (or can function only with reduced capacity), thus reducing the capacity of the system. However astute scheduling of these planned maintenance activities releases latent capacity. Such astute scheduling is referred to as *capacity* or *maintenance alignment*, and is a core function of the HVCCC.
+
+The maintenance alignment process at the HVCCC is supported by a model of the system capacity, which quantifies the impact of maintenance activities on the system. This was originally achieved with the assistance of a manual model created in Microsoft Excel, which used as input the impact of each maintenance activity on key assets in the HVCC in terms of the reduction in tonnes per hour that the asset could handle. This was further developed by HVCCC in-house to the current production application known as the Annual Capacity Model (ACM), written in Microsoft C#.net stored in a Microsoft SQL database with business rules stored in Common Knowledge. This application, whilst fit for purpose, has limited scenario testing capability and no optimisation functionality. These issues were a catalyst for collaboration of the HVCCC with the University of Newcastle, leading to the development of two separate but symbiotic prototype optimisation applications: the Capacity Evaluator and the Maintenance Optimiser. The former builds on the model concepts and logic of the current HVCCC ACM to estimate system capacity for a given maintenance schedule. The latter reschedules maintenance activities so as to maximize system capacity.
+
+This paper focusses on the Capacity Evaluator (CE) application, and the recent enhancements to it that have facilitated its adoption. Based on a Linear Programming (LP) model, the CE constructs flows of coal over time so as to maximize total throughput, and offers new features, such as the ability to integrate in-bound and out-bound flows of coal at the terminal stockyards and account for greater complexity in the rail network. However the LP technology also presents new challenges: multiple optimal LP solutions mean that minor changes in input data can result in major variations in patterns of flow observed in the solutions. This paper reports on how this challenge was converted to an opportunity: flexibility in optimal solutions is exploited in a multiobjective approach to achieve flows consistent with contractual targets, while sacrificing little or nothing in terms of throughput. Both the mathematical modelling and decision support processes needed to achieve this, and to ensure the tool is fit for purpose, are described.
+
+{/* Reviewed */}

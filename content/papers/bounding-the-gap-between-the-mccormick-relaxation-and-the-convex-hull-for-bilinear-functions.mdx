@@ -6,23 +6,21 @@ authors:
   - "Thomas Kalinowski"
   - "Marco Molinaro"
   - "Fabian Rigterink"
-type: journal
 venue: "Mathematical Programming"
 volume: "162"
 issue: "1"
 pages: "523–535"
 year: 2017
-date: "2017-01"
+date: "2017-03"
 doi: "10.1007/s10107-016-1031-5"
-description: "Derives tight bounds on the gap between the McCormick relaxation and the convex hull for bilinear functions, characterising cases where the two coincide."
+journalImage: "https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776019984/mathematical-programming-series-b_sbq7ye.png"
+paperImage: "https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776019956/bounding-the-gap-between-the-mccormick-relaxation-and-the-convex-hull-for-bilinear-functions_cqop3t.png"
 tags:
-  - McCormick
-  - "convex hull"
-  - bilinear
-  - relaxation
-  - optimization
+  - "Global optimization"
+  - "Bilinear function"
+  - "Convex hull"
 bibtex: |
-  @article{boland2017bounding,
+  @article{boland2017,
     author  = {Boland, Natashia and Dey, Santanu S. and Kalinowski, Thomas and Molinaro, Marco and Rigterink, Fabian},
     title   = {Bounding the gap between the {McCormick} relaxation and the convex hull for bilinear functions},
     journal = {Mathematical Programming},
@@ -34,6 +32,4 @@ bibtex: |
   }
 ---
 
-The McCormick relaxation of a bilinear term $xy$ on a box $[x^L, x^U] \times [y^L, y^U]$ is the convex hull of the graph of $xy$ restricted to that box — it is tight by construction. However, in practice the LP relaxation of a problem containing many bilinear terms is often much weaker than what the individual McCormick envelopes suggest, because the convex hull of the joint set of bilinear terms is smaller than the Cartesian product of individual envelopes.
-
-We study this gap: how much weaker is the McCormick relaxation compared to the true convex hull of all bilinear terms together? We derive sharp bounds on this gap and characterise cases where the two coincide. The results quantify when McCormick envelopes are sufficient and when stronger techniques (such as RLT or extended formulations) are needed.
+We investigate how well the graph of a bilinear function $b: [0, 1]^n \rightarrow \mathbb{R}$ can be approximated by its McCormick relaxation. In particular, we are interested in the smallest number $c$ such that the difference between the concave upper bounding and convex lower bounding functions obtained from the McCormick relaxation approach is at most $c$ times the difference between the concave and convex envelopes. Answering a question of Luedtke, Namazifar and Linderoth, we show that this factor $c$ cannot be bounded by a constant independent of $n$. More precisely, we show that for a random bilinear function $b$ we have asymptotically almost surely $c \geqslant \sqrt{n}/4$. On the other hand, we prove that $c \leqslant 600 \sqrt{n}$, which improves the linear upper bound proved by Luedtke, Namazifar and Linderoth. In addition, we present an alternative proof for a result of Misener, Smadbeck and Floudas characterizing functions $b$ for which the McCormick relaxation is equal to the convex hull.

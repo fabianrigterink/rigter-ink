@@ -4,20 +4,20 @@ authors:
   - "Natashia Boland"
   - "Thomas Kalinowski"
   - "Fabian Rigterink"
-type: conference
-venue: "MODSIM2015"
+venue: "MODSIM2015, 21st International Congress on Modelling and Simulation"
 pages: "1710–1716"
 year: 2015
 date: "2015-12"
 url: "https://mssanz.org.au/modsim2015/J4/boland.pdf"
-description: "Introduces discrete flow pooling problems motivated by coal supply chain scheduling in the Hunter Valley, extending the classical pooling problem to discrete flow decisions."
+journalImage: "https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776019985/modsim-2015_gwas5g.png"
+paperImage: "https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776019956/discrete-flow-pooling-problems-in-coal-supply-chains_lttgvy.png"
 tags:
-  - pooling
-  - coal
-  - "supply chain"
-  - "discrete optimization"
+  - "Coal blending"
+  - "pooling problem"
+  - "mixed-integer nonlinear programming"
+  - "mixed-integer linear programming"
 bibtex: |
-  @inproceedings{boland2015discrete,
+  @inproceedings{boland2015,
     author    = {Boland, Natashia and Kalinowski, Thomas and Rigterink, Fabian},
     title     = {Discrete flow pooling problems in coal supply chains},
     booktitle = {{MODSIM2015, 21st International Congress on Modelling and Simulation}},
@@ -30,6 +30,12 @@ bibtex: |
   }
 ---
 
-Coal from multiple mines in the Hunter Valley travels through a shared rail and port network before being loaded onto ships. The system must be scheduled so that trains, stockpiles, and ship loaders operate efficiently and each ship receives coal meeting its quality specification (e.g., energy content, ash percentage).
+The pooling problem is a nonconvex nonlinear programming problem (NLP) with applications in the refining and petrochemical industries, but also the coal mining industry. The problem can be stated as follows: given a set of raw material suppliers (inputs) and qualities of the supplies, find a cost-minimising way of blending these raw materials in intermediate pools and outputs so as to satisfy requirements on the output qualities. The blending in two stages (in pools and outputs) introduces bilinear constraints. The pooling problem can alternatively be described as a minimum cost network flow problem with additional bilinear constraints to capture the blending of raw materials.
 
-We model this as a discrete flow pooling problem — a variant of the pooling problem where flow quantities must be integer multiples of a base unit (train load sizes are discrete). We show that this discrete structure, while initially seeming to make the problem harder, actually enables exact solution methods that would not apply to the continuous case. We formulate the problem, prove complexity results, and demonstrate computational results on instances derived from the actual Hunter Valley network.
+In this paper we study a variation of the pooling problem that arises naturally in the coal mining industry and is sometimes referred to as *grade targeting*. Coal is made-to-order according to customers' desired product qualities. Deviations from these target qualities result in contractually agreed bonuses and penalties. In the pooling problem variation we study, costs are associated with these bonuses and penalties instead of network flows. While in the original pooling problem we have hard bounds on the qualities and unmet demand is penalised in the objective function, in our coal mining variation we have hard demand constraints and deviations from target qualities are penalised. This makes finding a feasible solution easy, while in the pooling problem finding a nontrivial feasible solution that satisfies the quality requirements is already hard. An implication of this is that we are able to solve larger problem instances than those typically studied in the pooling problem literature.
+
+To model the coal blending process accurately, we define a time-expanded network where the intermediate pools represent coal stockpiles over time. Since coal is transported in large quantities, we study the trade-off between continuous and discretized flows in coal blending, i.e., solving a continuous flow problem where arbitrarily small flows are allowed versus solving a discretized flow problem where flows must be in multiples of some basic unit, e.g. trainloads. We also study two exact mixed-integer linear programming (MILP) linearizations of these mixed-integer nonlinear programs (MINLPs), which can be derived from unary and binary expansions of the flow integrality constraint. Such discretizations are typically studied as approximations to an originally continuous problem, however, in our application, a discretized formulation describes the original problem more accurately than a continuous formulation.
+
+The paper is organized as follows. In Section 1.1, we introduce the pooling problem and present a variant of the well-known PQ-formulation. In Section 1.2, we extend the pooling problem to model a simplified coal supply chain. After a short literature review on coal supply chains, we present four different problems: the continuous flow problem (a MINLP), in which arbitrarily small flows are allowed, and three discretized flow problems (a MINLP and two MILPs), in which flows must be in multiples of trainloads. The discretization can be achieved by adding integrality constraints for the flow variables. We then show how to overcome the nonlinearity which is inherent in the pooling problem with the use of unary and binary expansions of the integer flow variables, which yields exact MILP reformulations of the discretized MINLP. We conclude the paper with Section 2 where we provide computational results for the four different problems which we solve for a real-life industry setting.
+
+{/* Reviewed */}
