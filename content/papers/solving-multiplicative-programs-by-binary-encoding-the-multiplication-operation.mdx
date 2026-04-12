@@ -5,27 +5,30 @@ authors:
   - "Fabian Rigterink"
   - "Vahid Mahmoodian"
   - "Hadi Charkhgard"
-type: preprint
-venue: "Optimization Online"
-year: 2021
-date: "2021-01"
-url: "https://optimization-online.org/DB_HTML/2021/01/8196.html"
-description: "Proposes a reformulation technique that binary-encodes multiplication operations, enabling mixed-integer linear programming methods to solve multiplicative programs globally."
+venue: "Computers & Operations Research"
+volume: "159"
+pages: "106340"
+year: 2023
+date: "2023-11"
+doi: "10.1016/j.cor.2023.106340"
+journalImage: "https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776013773/journal-solving-multiplicative-programs-by-binary-encoding-the-multiplication-operation_bezalz.jpg"
+paperImage: "https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776014445/paper-solving-multiplicative-programs-by-binary-encoding-the-multiplication-operation_vp4pde.png"
 tags:
-  - optimization
-  - "multiplicative programs"
-  - MILP
-  - reformulation
+  - "Multiplicative program"
+  - "Binary-encoding"
+  - "Multi-objective optimization"
+  - "Multi-linear optimization"
+  - "Mixed integer second order cone programming"
 bibtex: |
-  @misc{saghand2021solving,
-    author       = {Ghasemi Saghand, Payman and Rigterink, Fabian and Mahmoodian, Vahid and Charkhgard, Hadi},
-    title        = {Solving Multiplicative Programs by Binary-Encoding the Multiplication Operation},
-    year         = {2021},
-    howpublished = {Optimization Online},
-    url          = {https://optimization-online.org/DB_HTML/2021/01/8196.html},
+  @article{soni2021,
+    author  = {Saghand, Payman Ghasemi and Rigterink, Fabian and Mahmoodian, Vahid and Charkhgard, Hadi},
+    title   = {Solving multiplicative programs by binary-encoding the multiplication operation},
+    journal = {Computers \& Operations Research},
+    year    = {2023},
+    volume  = {159},
+    pages   = {106340},
+    doi     = {10.1016/j.cor.2023.106340},
   }
 ---
 
-Multiplicative programs — optimisation problems whose objectives or constraints involve products of decision variables — are nonconvex and generally hard to solve globally. Standard linearisation techniques like McCormick envelopes produce weak relaxations when many variables interact.
-
-We propose an exact reformulation that encodes each multiplication via binary expansion of one of its operands. This converts products into sums of terms involving binary variables, yielding a MILP that can be handed to standard solvers. The approach is particularly effective when one operand has bounded integer or near-integer values. We show correctness, derive bound tightening techniques, and compare against McCormick-based approaches on benchmark instances.
+Multiplicative programs in the form of maximization and/or minimization have numerous applications in conservation planning, game theory, and multi-objective optimization settings. In practice, multiplicative programs are challenging to solve because of their multiplicative objective function (a product of continuous or integer variables). These challenges are twofold: 1. As the number of factors in the objective increases, so does the solution time, and the problems become computationally expensive to solve. 2. If all factors are in $(0, 1)$ or in $(1, \infty)$, the objective may cause ill-conditioning and numerical instability. The solution methods proposed in this paper help overcome both of these challenges. The main idea is to binary-encode the multiplication operation analogously to how a computer conducts it internally. This not only solves the aforementioned numerical issues but also allows us to develop a new family of solution methods for multiplicative programs. One such method is to solve the multiplicative programs bit-by-bit, i.e., iteratively computing the optimal value of each bit of the objective function. In an extensive computational study, we explore a number of solution methods that solve multiplicative programs faster and more accurately.
