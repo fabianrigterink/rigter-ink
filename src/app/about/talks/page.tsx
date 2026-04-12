@@ -1,66 +1,86 @@
 import type { Metadata } from "next";
-import { getAllTalks } from "@/lib/talks";
-import TagBadge from "@/components/TagBadge";
+import Link from "next/link";
+import { getAllTalks, type Talk } from "@/lib/talks";
 
 export const metadata: Metadata = {
   title: "Talks",
-  description: "Talks and presentations by Fabian Rigterink.",
+  description: "Talks by Fabian Rigterink.",
 };
+
+function talkDetails(talk: Talk): string {
+  return [talk.venue, talk.location].filter(Boolean).join(" · ");
+}
 
 export default function TalksIndex() {
   const talks = getAllTalks();
+  const conferences = talks.filter((t) => t.type === "conference");
+  const seminars = talks.filter((t) => t.type === "seminar");
 
   return (
     <div className="max-w-180 mx-auto px-6 py-20">
-      <h1 className="font-serif text-[clamp(40px,5vw,64px)] leading-[1.05] tracking-[-2px] text-ink mb-3">
+      <h1 className="font-serif text-[clamp(40px,5vw,64px)] leading-[1.05] tracking-[-2px] text-ink mb-6">
         Talks
       </h1>
       <p className="text-ink-muted mb-12 leading-relaxed">
-        Talks and presentations at conferences and meetups.
+        Talks given during and after my Ph.D. in Operations Research.
       </p>
 
-      {talks.length === 0 ? (
-        <p className="text-ink-muted">Nothing here yet. Check back soon.</p>
-      ) : (
-        <div className="grid grid-cols-1 gap-4">
-          {talks.map((talk) => (
-            <article
-              key={talk.slug}
-              className="group border border-border rounded-xl bg-white hover:shadow-sm transition-all duration-200 p-5"
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-xs font-mono text-ink-muted bg-surface-alt px-2 py-0.5 rounded">
-                  {talk.event}
-                </span>
-                <time className="text-xs font-mono text-ink-muted">{talk.date}</time>
-                {talk.location && (
-                  <span className="text-xs text-ink-muted">{talk.location}</span>
-                )}
-              </div>
-              {talk.url ? (
-                <a
-                  href={talk.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-base font-medium text-ink group-hover:text-cerulean transition-colors no-underline"
-                >
-                  {talk.title} ↗
-                </a>
-              ) : (
-                <h2 className="text-base font-medium text-ink">{talk.title}</h2>
-              )}
-              <p className="text-sm text-ink-muted mt-1.5 leading-relaxed">{talk.description}</p>
-              {talk.tags.length > 0 && (
-                <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-border-light">
-                  {talk.tags.map((tag) => (
-                    <TagBadge key={tag} tag={tag} />
-                  ))}
-                </div>
-              )}
-            </article>
-          ))}
-        </div>
+      {conferences.length > 0 && (
+        <>
+          <h2 className="font-serif text-2xl tracking-tight text-ink mb-4">
+            Conferences
+          </h2>
+          <div className="wide-bleed grid grid-cols-1 lg:grid-cols-2 gap-4 mb-12">
+            {conferences.map((talk) => (
+              <TalkCard key={talk.slug} talk={talk} />
+            ))}
+          </div>
+        </>
+      )}
+
+      {seminars.length > 0 && (
+        <>
+          <h2 className="font-serif text-2xl tracking-tight text-ink mb-4">
+            Seminars
+          </h2>
+          <div className="wide-bleed grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {seminars.map((talk) => (
+              <TalkCard key={talk.slug} talk={talk} />
+            ))}
+          </div>
+        </>
       )}
     </div>
+  );
+}
+
+function TalkCard({ talk }: { talk: Talk }) {
+  const details = talkDetails(talk);
+
+  return (
+    <article className="border border-border rounded-xl bg-white hover:shadow-sm transition-all duration-200 p-5 flex gap-5 items-start">
+      {talk.previewImage && (
+        <Link href={`/about/talks/${talk.slug}`} className="shrink-0">
+          <img
+            src={talk.previewImage}
+            alt={talk.title}
+            className="w-24 rounded border border-border"
+          />
+        </Link>
+      )}
+
+      <div className="min-w-0 space-y-2">
+        <Link
+          href={`/about/talks/${talk.slug}`}
+          className="text-sm font-medium text-ink hover:text-cerulean transition-colors no-underline leading-snug block"
+        >
+          {talk.title}
+        </Link>
+
+        <p className="text-xs text-ink-muted leading-relaxed">{details}</p>
+
+        <p className="text-xs font-mono text-ink-muted">{talk.date}</p>
+      </div>
+    </article>
   );
 }

@@ -1,35 +1,34 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllPatents, getPatentBySlug } from "@/lib/patents";
-import PaperImages from "@/components/PaperImages";
+import { getAllTalks, getTalkBySlug } from "@/lib/talks";
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
 export function generateStaticParams() {
-  return getAllPatents().map((p) => ({ slug: p.slug }));
+  return getAllTalks().map((t) => ({ slug: t.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const patent = getPatentBySlug(slug);
-  if (!patent) return {};
+  const talk = getTalkBySlug(slug);
+  if (!talk) return {};
   return {
-    title: patent.title,
-    description: patent.description,
+    title: talk.title,
+    description: talk.description,
   };
 }
 
-export default async function PatentDetail({ params }: Props) {
+export default async function TalkDetail({ params }: Props) {
   const { slug } = await params;
-  const patent = getPatentBySlug(slug);
-  if (!patent) notFound();
+  const talk = getTalkBySlug(slug);
+  if (!talk) notFound();
 
   let MDXContent;
   try {
-    MDXContent = (await import(`@/../content/patents/${slug}.mdx`)).default;
+    MDXContent = (await import(`@/../content/talks/${slug}.mdx`)).default;
   } catch {
     notFound();
   }
@@ -37,50 +36,56 @@ export default async function PatentDetail({ params }: Props) {
   return (
     <div className="max-w-180 mx-auto px-6 py-20">
       <Link
-        href="/about/patents"
+        href="/about/talks"
         className="text-sm text-ink-muted hover:text-ink transition-colors mb-8 inline-block"
       >
-        ← Back to patents
+        ← Back to talks
       </Link>
 
       <header className="mb-12 space-y-6">
         {/* Title */}
         <h1 className="font-serif text-[clamp(32px,4vw,52px)] leading-[1.1] tracking-[-1.5px] text-ink">
-          {patent.title}
+          {talk.title}
         </h1>
 
-        {/* Inventors */}
+        {/* Venue & location */}
         <p className="text-sm text-ink-muted leading-relaxed">
-          {patent.inventors.join(", ")}
+          {talk.venue}
+          {talk.location && <span> · {talk.location}</span>}
         </p>
 
-        {/* Patent details */}
+        {/* Date & type */}
         <p className="text-xs font-mono text-ink-muted">
-          {[patent.number, patent.assignee].filter(Boolean).join(" · ")}
-          {patent.publicationDate && <span> · {patent.publicationDate}</span>}
-          {patent.url && (
+          {talk.date}
+          <span> · {talk.type === "conference" ? "Conference" : "Seminar"}</span>
+          {talk.url && (
             <>
               <span> · </span>
               <a
-                href={patent.url}
+                href={talk.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-cerulean hover:text-ink transition-colors underline underline-offset-2"
               >
-                View on Google Patents ↗
+                Event website ↗
               </a>
             </>
           )}
         </p>
 
         {/* Preview image */}
-        {patent.previewImage && (
-          <div className="wide-bleed" style={{ width: "min(880px, calc(100vw - 3rem))" }}>
-            <PaperImages
-              paperImage={patent.previewImage}
-              venueAlt={`${patent.number} cover`}
-              titleAlt={`${patent.title} first page`}
-            />
+        {talk.previewImage && (
+          <div
+            className="wide-bleed"
+            style={{ width: "min(880px, calc(100vw - 3rem))" }}
+          >
+            <div className="justify-items-center">
+              <img
+                src={talk.previewImage}
+                alt={`${talk.title} slides preview`}
+                className="w-1/2 rounded border border-border"
+              />
+            </div>
           </div>
         )}
       </header>
