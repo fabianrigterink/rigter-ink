@@ -29,13 +29,13 @@ export default function PaperImages({
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-6 mb-4">
+      <div className={`grid gap-6 mb-4 ${slides.length === 2 ? "grid-cols-2" : "justify-items-center"}`}>
         {slides.map((slide, i) => (
           <img
             key={slide.src}
             src={slide.src}
             alt={slide.alt}
-            className="w-full rounded border border-border cursor-pointer hover:opacity-90 transition-opacity"
+            className={`rounded border border-border cursor-pointer hover:opacity-90 transition-opacity ${slides.length === 2 ? "w-full" : "w-1/2"}`}
             onClick={() => setIndex(i)}
           />
         ))}
