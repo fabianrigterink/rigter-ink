@@ -5,7 +5,6 @@ authors:
   - "Jeff Linderoth"
   - "James Luedtke"
   - "Fabian Rigterink"
-type: journal
 venue: "Optimization and Engineering"
 volume: "22"
 issue: "3"
@@ -13,14 +12,16 @@ pages: "1459–1489"
 year: 2021
 date: "2021-09"
 doi: "10.1007/s11081-020-09527-6"
-description: "Formulates and solves a mixed-integer linear program for optimally scheduling the development sequence of unconventional oil field well pads."
+journalImage: "https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776012178/journal-mixed-integer-linear-programming-for-scheduling-unconventional-oil-field-development_z9trzn.png"
+paperImage: "https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776012178/paper-mixed-integer-linear-programming-for-scheduling-unconventional-oil-field-development_xh0knv.png"
 tags:
-  - MILP
-  - "oil field"
-  - scheduling
-  - "operations research"
+  - "Mixed-integer programming"
+  - "Rolling horizon"
+  - "Production scheduling"
+  - "Shale oil"
+  - "Hydraulic fracturing"
 bibtex: |
-  @article{soni2021mixed,
+  @article{soni2021,
     author  = {Soni, Akhilesh and Linderoth, Jeff and Luedtke, James and Rigterink, Fabian},
     title   = {Mixed-integer linear programming for scheduling unconventional oil field development},
     journal = {Optimization and Engineering},
@@ -32,6 +33,4 @@ bibtex: |
   }
 ---
 
-Unconventional oil fields (shale, tight oil) are developed by drilling and completing many well pads in a sequence. The order matters: early pads generate cash flow that funds later ones, infrastructure (pipelines, processing facilities) has limited capacity, and rig availability constrains how many pads can be active at once.
-
-We formulate the scheduling problem as a mixed-integer linear program (MILP). The model captures cash-flow dynamics, capacity constraints, and rig scheduling simultaneously. We demonstrate on realistic instances that the MILP finds substantially better development schedules than industry heuristics, with solution times suitable for practical planning horizons.
+The scheduling of drilling and hydraulic fracturing of wells in an unconventional oil field plays an important role in the profitability of the field. A key challenge arising in this problem is the requirement that neither drilling nor oil production can be done at wells within a specified neighborhood of a well being fractured. We propose a novel mixed-integer linear programming (MILP) formulation for determining a schedule for drilling and fracturing wells in an unconventional oil field. We also derive an alternative formulation which provides stronger relaxations. In order to apply the MILP model for scheduling large fields, we derive a rolling horizon approach that solves a sequence of coarse time-scale MILP instances to obtain a solution at the daily time scale. We benchmark our MILP-based rolling horizon approach against a baseline scheduling algorithm in which wells are developed in the order of their discounted production revenue. Our experiments on synthetically generated instances demonstrate that our MILP-based rolling horizon approach can improve profitability of a field by 4–6%.
