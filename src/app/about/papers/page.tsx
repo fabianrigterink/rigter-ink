@@ -53,7 +53,7 @@ export default function PapersIndex() {
                 </Link>
               )}
 
-              <div className="min-w-0">
+              <div className="min-w-0 space-y-2">
                 <Link
                   href={`/about/papers/${paper.slug}`}
                   className="text-base font-medium text-ink hover:text-cerulean transition-colors no-underline leading-snug block"
@@ -61,22 +61,13 @@ export default function PapersIndex() {
                   {paper.title}
                 </Link>
 
-                <p className="text-sm text-ink-muted mt-1 leading-relaxed">
-                  {paper.authors.map((author, i) => (
-                    <span key={author}>
-                      {i > 0 && ", "}
-                      {author === "Fabian Rigterink" ? (
-                        <strong className="text-ink-light font-medium">{author}</strong>
-                      ) : (
-                        author
-                      )}
-                    </span>
-                  ))}
+                <p className="text-sm text-ink-muted leading-relaxed">
+                  {paper.authors.join(", ")}
                 </p>
 
-                <p className="text-xs font-mono text-ink-muted mt-2">
-                  <span className="text-ink-light">{paper.venue}</span>
-                  {details && <span className="ml-1">· {details}</span>}
+                <p className="text-xs font-mono text-ink-muted">
+                  {paper.venue}
+                  {details && <span> · {details}</span>}
                 </p>
               </div>
             </article>

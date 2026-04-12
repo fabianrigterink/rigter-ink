@@ -29,7 +29,7 @@ export default function PaperImages({
 
   return (
     <>
-      <div className={`grid gap-6 mb-4 ${slides.length === 2 ? "grid-cols-2" : "justify-items-center"}`}>
+      <div className={`grid gap-6 ${slides.length === 2 ? "grid-cols-2" : "justify-items-center"}`}>
         {slides.map((slide, i) => (
           <img
             key={slide.src}

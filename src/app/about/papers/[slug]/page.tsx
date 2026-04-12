@@ -60,30 +60,21 @@ export default async function PaperDetail({ params }: Props) {
         ← Back to papers
       </Link>
 
-      <header className="mb-12">
+      <header className="mb-12 space-y-6">
         {/* Title */}
-        <h1 className="font-serif text-[clamp(32px,4vw,52px)] leading-[1.1] tracking-[-1.5px] text-ink mb-4">
+        <h1 className="font-serif text-[clamp(32px,4vw,52px)] leading-[1.1] tracking-[-1.5px] text-ink">
           {paper.title}
         </h1>
 
         {/* Authors */}
-        <p className="text-sm text-ink-muted leading-relaxed mb-3">
-          {paper.authors.map((author, i) => (
-            <span key={author}>
-              {i > 0 && ", "}
-              {author === "Fabian Rigterink" ? (
-                <strong className="text-ink-light font-medium">{author}</strong>
-              ) : (
-                author
-              )}
-            </span>
-          ))}
+        <p className="text-sm text-ink-muted leading-relaxed">
+          {paper.authors.join(", ")}
         </p>
 
         {/* Venue + link */}
-        <p className="text-xs font-mono text-ink-muted mb-4">
-          <span className="text-ink-light">{paper.venue}</span>
-          {details && <span className="ml-1">· {details}</span>}
+        <p className="text-xs font-mono text-ink-muted">
+          {paper.venue}
+          {details && <span> · {details}</span>}
           {doiUrl && (
             <>
               <span> · </span>
@@ -110,9 +101,7 @@ export default async function PaperDetail({ params }: Props) {
         </div>
 
         {/* BibTeX */}
-        <div className="mb-4">
-          <BibTeXBlock bibtex={paper.bibtex} />
-        </div>
+        <BibTeXBlock bibtex={paper.bibtex} />
 
         {/* Tags */}
         {paper.tags.length > 0 && (
