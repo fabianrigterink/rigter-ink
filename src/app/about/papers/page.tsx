@@ -4,7 +4,7 @@ import { getAllPapers, type Paper } from "@/lib/papers";
 
 export const metadata: Metadata = {
   title: "Papers",
-  description: "Academic papers and research publications by Fabian Rigterink.",
+  description: "Papers by Fabian Rigterink.",
 };
 
 function venueDetails(paper: Paper): string {
@@ -24,14 +24,14 @@ export default function PapersIndex() {
 
   return (
     <div className="max-w-180 mx-auto px-6 py-20">
-      <h1 className="font-serif text-[clamp(40px,5vw,64px)] leading-[1.05] tracking-[-2px] text-ink mb-3">
+      <h1 className="font-serif text-[clamp(40px,5vw,64px)] leading-[1.05] tracking-[-2px] text-ink mb-6">
         Papers
       </h1>
       <p className="text-ink-muted mb-12 leading-relaxed">
-        Academic papers and research publications.
+        From my early research to my Ph.D. in Operations Research—a selection of my theses and peer-reviewed papers. You can also find my work on <a href="https://scholar.google.com/citations?user=v1tOeQgAAAAJ&hl=en" className="text-cerulean hover:text-ink transition-colors underline underline-offset-2">Google Scholar</a>.
       </p>
 
-      <div className="grid grid-cols-1 gap-4">
+      <div className="wide-bleed grid grid-cols-1 lg:grid-cols-2 gap-4">
         {papers.map((paper) => {
           const details = venueDetails(paper);
 
@@ -56,12 +56,12 @@ export default function PapersIndex() {
               <div className="min-w-0 space-y-2">
                 <Link
                   href={`/about/papers/${paper.slug}`}
-                  className="text-base font-medium text-ink hover:text-cerulean transition-colors no-underline leading-snug block"
+                  className="text-sm font-medium text-ink hover:text-cerulean transition-colors no-underline leading-snug block"
                 >
                   {paper.title}
                 </Link>
 
-                <p className="text-sm text-ink-muted leading-relaxed">
+                <p className="text-xs text-ink-muted leading-relaxed">
                   {paper.authors.join(", ")}
                 </p>
 
