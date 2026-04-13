@@ -13,9 +13,8 @@ export default function Home() {
           Hi, I&apos;m<br />Fabian.
         </h1>
         <p className="text-lg text-ink-light leading-relaxed max-w-130 mb-10">
-          Engineering Manager, ML at Baton. I write about AI, machine learning,
-          data science, and operations research. When I&apos;m not working, I&apos;m usually
-          traveling and taking photos.
+          Engineering Manager for Machine Learning at Baton. I write about AI, machine learning,
+          data science, and operations research.
         </p>
         <div className="flex gap-6">
           <Link

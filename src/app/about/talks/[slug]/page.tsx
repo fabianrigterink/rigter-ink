@@ -90,15 +90,13 @@ export default async function TalkDetail({ params }: Props) {
         {/* Preview image */}
         {talk.talkImage && (
           <div
-            className="wide-bleed"
+            className="wide-bleed justify-items-center"
             style={{ width: "min(880px, calc(100vw - 3rem))" }}
           >
-            <div className="justify-items-center">
-              <TalkImage
-                src={talk.talkImage}
-                alt={`${talk.title} slides preview`}
-              />
-            </div>
+            <TalkImage
+              src={talk.talkImage}
+              alt={`${talk.title} slides preview`}
+            />
           </div>
         )}
       </header>

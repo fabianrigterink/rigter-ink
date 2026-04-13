@@ -24,9 +24,8 @@ export default function About() {
           data science, and operations research.
         </p>
         <p>
-          Before moving into engineering management, I worked as a {"{"}research, applied,
-          data{"}"} scientist, building systems that bridge the gap between research and
-          production.
+          Before moving into engineering management, I worked as a {"{"}data, applied, research
+          {"}"} scientist, building systems that bridge the gap between research and production.
         </p>
         <p>
           This site is where I share my writing on technical topics and document my travels.
@@ -34,7 +33,7 @@ export default function About() {
       </div>
 
       <section className="mt-16">
-        <h2 className="font-serif text-2xl tracking-tight text-ink mb-6">Research</h2>
+        <h2 className="font-serif text-2xl tracking-tight text-ink mb-6">Publications & Talks</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <Link
             href="/about/papers"
@@ -42,32 +41,29 @@ export default function About() {
           >
             <div className="h-0.75 w-10 rounded-full bg-cerulean" />
             <span className="font-medium text-ink group-hover:text-cerulean transition-colors">Papers</span>
-            <span className="text-sm text-ink-muted leading-relaxed">Academic publications and research papers.</span>
+            <span className="text-sm text-ink-muted leading-relaxed">From my early research to my Ph.D. in Operations Research&mdash;a selection of my theses and peer-reviewed papers.</span>
           </Link>
           <Link
             href="/about/patents"
             className="group flex flex-col gap-3 p-5 border border-border rounded-xl bg-white hover:border-sage/40 hover:shadow-sm transition-all no-underline"
           >
             <div className="h-0.75 w-10 rounded-full bg-sage" />
-            <span className="font-medium text-ink group-hover:text-cerulean transition-colors">Patents</span>
-            <span className="text-sm text-ink-muted leading-relaxed">Patent applications and grants.</span>
+            <span className="font-medium text-ink group-hover:text-sage transition-colors">Patents</span>
+            <span className="text-sm text-ink-muted leading-relaxed">Patent applications filed during my time at C3 AI.</span>
           </Link>
           <Link
             href="/about/talks"
-            className="group flex flex-col gap-3 p-5 border border-border rounded-xl bg-white hover:border-orange/40 hover:shadow-sm transition-all no-underline"
+            className="group flex flex-col gap-3 p-5 border border-border rounded-xl bg-white hover:border-red/40 hover:shadow-sm transition-all no-underline"
           >
-            <div className="h-0.75 w-10 rounded-full bg-orange" />
-            <span className="font-medium text-ink group-hover:text-cerulean transition-colors">Talks</span>
-            <span className="text-sm text-ink-muted leading-relaxed">Talks and presentations at conferences.</span>
+            <div className="h-0.75 w-10 rounded-full bg-red" />
+            <span className="font-medium text-ink group-hover:text-red transition-colors">Talks</span>
+            <span className="text-sm text-ink-muted leading-relaxed">Talks given during and after my Ph.D. in Operations Research.</span>
           </Link>
         </div>
       </section>
 
       <section className="mt-16">
-        <h2 className="font-serif text-2xl tracking-tight text-ink mb-4">Get in touch</h2>
-        <p className="text-ink-light leading-relaxed mb-6">
-          Feel free to reach out on any of the platforms below.
-        </p>
+        <h2 className="font-serif text-2xl tracking-tight text-ink mb-6">Get in touch</h2>
         <div className="flex flex-wrap gap-3">
           <a
             href="https://github.com/fabianrigterink"
