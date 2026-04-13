@@ -74,7 +74,7 @@ async function fetchAllResources(
 }
 
 function img(id: string) {
-  return `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto/${id}`;
+  return `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,w_2000,c_limit/${id}`;
 }
 
 function toAlt(publicId: string): string {
