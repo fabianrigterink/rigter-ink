@@ -13,7 +13,8 @@ export interface Talk {
   location: string;
   date: string; // YYYY-MM for sorting
   url?: string;
-  previewImage?: string;
+  pdfUrl?: string;
+  talkImage?: string;
 }
 
 export function getAllTalks(): Talk[] {
@@ -35,7 +36,8 @@ export function getAllTalks(): Talk[] {
       location: data.location ?? "",
       date: String(data.date ?? ""),
       url: data.url,
-      previewImage: data.previewImage,
+      pdfUrl: data.pdfUrl,
+      talkImage: data.talkImage,
     } as Talk;
   });
 

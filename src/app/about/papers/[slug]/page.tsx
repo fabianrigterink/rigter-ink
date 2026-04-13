@@ -88,6 +88,32 @@ export default async function PaperDetail({ params }: Props) {
               </a>
             </>
           )}
+          {paper.pdfUrl && (
+            <>
+              <span> · </span>
+              <a
+                href={paper.pdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cerulean hover:text-ink transition-colors underline underline-offset-2"
+              >
+                {paper.type === "thesis" ? "Thesis (PDF) ↗" : "PDF ↗"}
+              </a>
+            </>
+          )}
+          {paper.pdfSupplementUrl && (
+            <>
+              <span> · </span>
+              <a
+                href={paper.pdfSupplementUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cerulean hover:text-ink transition-colors underline underline-offset-2"
+              >
+                Supplement (PDF) ↗
+              </a>
+            </>
+          )}
         </p>
 
         {/* Images */}

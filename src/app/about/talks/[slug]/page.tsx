@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllTalks, getTalkBySlug } from "@/lib/talks";
+import TalkImage from "@/components/TalkImage";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -71,19 +72,31 @@ export default async function TalkDetail({ params }: Props) {
               </a>
             </>
           )}
+          {talk.pdfUrl && (
+            <>
+              <span> · </span>
+              <a
+                href={talk.pdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cerulean hover:text-ink transition-colors underline underline-offset-2"
+              >
+                Slides (PDF) ↗
+              </a>
+            </>
+          )}
         </p>
 
         {/* Preview image */}
-        {talk.previewImage && (
+        {talk.talkImage && (
           <div
             className="wide-bleed"
             style={{ width: "min(880px, calc(100vw - 3rem))" }}
           >
             <div className="justify-items-center">
-              <img
-                src={talk.previewImage}
+              <TalkImage
+                src={talk.talkImage}
                 alt={`${talk.title} slides preview`}
-                className="w-1/2 rounded border border-border"
               />
             </div>
           </div>

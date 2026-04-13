@@ -59,10 +59,10 @@ function TalkCard({ talk }: { talk: Talk }) {
 
   return (
     <article className="border border-border rounded-xl bg-white hover:shadow-sm transition-all duration-200 p-5 flex gap-5 items-start">
-      {talk.previewImage && (
+      {talk.talkImage && (
         <Link href={`/about/talks/${talk.slug}`} className="shrink-0">
           <img
-            src={talk.previewImage}
+            src={talk.talkImage}
             alt={talk.title}
             className="w-24 rounded border border-border"
           />

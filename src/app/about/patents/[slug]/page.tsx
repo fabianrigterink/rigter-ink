@@ -74,10 +74,10 @@ export default async function PatentDetail({ params }: Props) {
         </p>
 
         {/* Preview image */}
-        {patent.previewImage && (
+        {patent.patentImage && (
           <div className="wide-bleed" style={{ width: "min(880px, calc(100vw - 3rem))" }}>
             <PaperImages
-              paperImage={patent.previewImage}
+              paperImage={patent.patentImage}
               venueAlt={`${patent.number} cover`}
               titleAlt={`${patent.title} first page`}
             />

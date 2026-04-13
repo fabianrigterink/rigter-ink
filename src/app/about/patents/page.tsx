@@ -40,13 +40,13 @@ export default function PatentsIndex() {
               key={patent.slug}
               className="border border-border rounded-xl bg-white hover:shadow-sm transition-all duration-200 p-5 flex gap-5 items-start"
             >
-              {patent.previewImage && (
+              {patent.patentImage && (
                 <Link
                   href={`/about/patents/${patent.slug}`}
                   className="shrink-0"
                 >
                   <img
-                    src={patent.previewImage}
+                    src={patent.patentImage}
                     alt={patent.title}
                     className="w-24 rounded border border-border"
                   />

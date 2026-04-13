@@ -18,6 +18,8 @@ export interface Paper {
   date: string; // YYYY-MM for sorting
   doi?: string;
   url?: string;
+  pdfUrl?: string;
+  pdfSupplementUrl?: string;
   bibtex: string;
   journalImage?: string;
   paperImage?: string;
@@ -49,6 +51,8 @@ export function getAllPapers(): Paper[] {
       date: String(data.date ?? ""),
       doi: data.doi,
       url: data.url,
+      pdfUrl: data.pdfUrl,
+      pdfSupplementUrl: data.pdfSupplementUrl,
       bibtex: (data.bibtex ?? "").trim(),
       journalImage: data.journalImage,
       paperImage: data.paperImage,

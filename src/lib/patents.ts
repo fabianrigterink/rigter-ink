@@ -14,7 +14,7 @@ export interface Patent {
   url?: string;
   inventors: string[];
   assignee?: string;
-  previewImage?: string;
+  patentImage?: string;
 }
 
 export function getAllPatents(): Patent[] {
@@ -37,7 +37,7 @@ export function getAllPatents(): Patent[] {
       url: data.url,
       inventors: data.inventors ?? [],
       assignee: data.assignee,
-      previewImage: data.previewImage,
+      patentImage: data.patentImage,
     } as Patent;
   });
 
