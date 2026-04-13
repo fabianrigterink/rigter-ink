@@ -47,7 +47,7 @@ export default async function BlogPost({ params }: Props) {
       </Link>
 
       <header className="mb-12">
-        <h1 className="font-serif text-[clamp(40px,5vw,64px)] leading-[1.05] tracking-[-2px] text-ink mb-4">
+        <h1 className="font-serif text-[clamp(32px,4vw,48px)] leading-[1.1] tracking-[-1.5px] text-ink mb-4">
           {post.meta.title}
         </h1>
         <div className="flex items-center gap-3 text-sm text-ink-muted">

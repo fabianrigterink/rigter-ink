@@ -16,7 +16,7 @@ export default function PatentsIndex() {
 
   return (
     <div className="max-w-180 mx-auto px-6 py-20">
-      <h1 className="font-serif text-[clamp(40px,5vw,64px)] leading-[1.05] tracking-[-2px] text-ink mb-6">
+      <h1 className="font-serif text-[clamp(40px,5vw,64px)] leading-[1.05] tracking-[-2px] text-ink mb-3">
         Patents
       </h1>
       <p className="text-ink-muted mb-12 leading-relaxed">

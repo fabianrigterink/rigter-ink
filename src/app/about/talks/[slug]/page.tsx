@@ -45,7 +45,7 @@ export default async function TalkDetail({ params }: Props) {
 
       <header className="mb-12 space-y-6">
         {/* Title */}
-        <h1 className="font-serif text-[clamp(32px,4vw,52px)] leading-[1.1] tracking-[-1.5px] text-ink">
+        <h1 className="font-serif text-[clamp(32px,4vw,48px)] leading-[1.1] tracking-[-1.5px] text-ink">
           {talk.title}
         </h1>
 

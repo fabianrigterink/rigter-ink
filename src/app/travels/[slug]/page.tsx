@@ -28,7 +28,7 @@ export default async function TripPage({ params }: Props) {
   if (!trip) notFound();
 
   return (
-    <div className="max-w-[720px] mx-auto px-6 py-20">
+    <div className="max-w-180 mx-auto px-6 py-20">
       <Link
         href="/travels"
         className="text-sm text-ink-muted hover:text-ink transition-colors mb-8 inline-block"
@@ -37,7 +37,7 @@ export default async function TripPage({ params }: Props) {
       </Link>
 
       <header className="mb-12">
-        <h1 className="font-serif text-[clamp(32px,4vw,48px)] leading-[1.15] tracking-[-1px] text-ink mb-4">
+        <h1 className="font-serif text-[clamp(32px,4vw,48px)] leading-[1.1] tracking-[-1.5px] text-ink mb-4">
           {trip.title}
         </h1>
         <div className="flex items-center gap-3 text-sm text-ink-muted">

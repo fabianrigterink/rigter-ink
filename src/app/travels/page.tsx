@@ -17,19 +17,20 @@ export default function TravelsIndex() {
   }));
 
   return (
-    <div className="max-w-[720px] mx-auto px-6 py-20">
-      <h1 className="font-serif text-[clamp(40px,5vw,64px)] leading-[1.05] tracking-[-2px] text-ink mb-6">
+    <div className="max-w-180 mx-auto px-6 py-20">
+      <h1 className="font-serif text-[clamp(40px,5vw,64px)] leading-[1.05] tracking-[-2px] text-ink mb-3">
         Travels
       </h1>
       <p className="text-ink-muted mb-12 leading-relaxed">
         Photos and stories from trips around the world. Click a marker on the map or browse below.
       </p>
 
+
       <div className="wide-bleed">
         <TravelMap markers={markers} />
       </div>
 
-      <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {trips.map((trip) => (
           <Link
             key={trip.slug}
@@ -41,7 +42,7 @@ export default function TravelsIndex() {
                 <img
                   src={trip.coverImage}
                   alt={trip.title}
-                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-200"
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-ink-muted text-sm">

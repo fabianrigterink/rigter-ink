@@ -18,7 +18,7 @@ export default function TalksIndex() {
 
   return (
     <div className="max-w-180 mx-auto px-6 py-20">
-      <h1 className="font-serif text-[clamp(40px,5vw,64px)] leading-[1.05] tracking-[-2px] text-ink mb-6">
+      <h1 className="font-serif text-[clamp(40px,5vw,64px)] leading-[1.05] tracking-[-2px] text-ink mb-3">
         Talks
       </h1>
       <p className="text-ink-muted mb-12 leading-relaxed">
@@ -27,7 +27,7 @@ export default function TalksIndex() {
 
       {conferences.length > 0 && (
         <>
-          <h2 className="font-serif text-2xl tracking-tight text-ink mb-4">
+          <h2 className="font-serif text-2xl tracking-tight text-ink mb-6">
             Conferences
           </h2>
           <div className="wide-bleed grid grid-cols-1 lg:grid-cols-2 gap-4 mb-12">
@@ -40,7 +40,7 @@ export default function TalksIndex() {
 
       {seminars.length > 0 && (
         <>
-          <h2 className="font-serif text-2xl tracking-tight text-ink mb-4">
+          <h2 className="font-serif text-2xl tracking-tight text-ink mb-6">
             Seminars
           </h2>
           <div className="wide-bleed grid grid-cols-1 lg:grid-cols-2 gap-4">
