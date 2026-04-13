@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
-import { getAllPosts, getAllTags } from "@/lib/posts";
+import { getAllPosts } from "@/lib/posts";
+import { getAllTags } from "@/lib/tags";
 import { getAllProjects } from "@/lib/projects";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -26,7 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const tagPages: MetadataRoute.Sitemap = tags.map(({ tag }) => ({
-    url: `${siteUrl}/blog/tag/${encodeURIComponent(tag)}`,
+    url: `${siteUrl}/tag/${encodeURIComponent(tag)}`,
     lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.4,
