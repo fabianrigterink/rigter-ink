@@ -1,0 +1,224 @@
+{
+  "slug": "new-york-2025",
+  "title": "New York",
+  "date": "2025-12",
+  "location": "New York, NY",
+  "coordinates": [
+    -73.9966395,
+    40.7542265
+  ],
+  "coverImage": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2652_fseyai",
+  "description": "We've been to New York many times, but never during Christmas. A week-long escape from the Bay Area, soaking in the Big Apple's holiday sights and its incredible food scene.",
+  "photos": [
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2631_ct3j36",
+      "alt": "IMG 2631 ct3j36",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2760_wk5pmk",
+      "alt": "IMG 2760 wk5pmk",
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2495_alooon",
+      "alt": "IMG 2495 alooon",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2529_xfkqfn",
+      "alt": "IMG 2529 xfkqfn",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2505_p2qmh6",
+      "alt": "IMG 2505 p2qmh6",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2498_ki2mpa",
+      "alt": "IMG 2498 ki2mpa",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2470_enbg16",
+      "alt": "IMG 2470 enbg16",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2542_jbnwz3",
+      "alt": "IMG 2542 jbnwz3",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2525_ocas12",
+      "alt": "IMG 2525 ocas12",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2456_clgwlv",
+      "alt": "IMG 2456 clgwlv",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2612_kl8qif",
+      "alt": "IMG 2612 kl8qif",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2593_le2jza",
+      "alt": "IMG 2593 le2jza",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2545_gxd4gy",
+      "alt": "IMG 2545 gxd4gy",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2577_buj8jp",
+      "alt": "IMG 2577 buj8jp",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2514_djblvz",
+      "alt": "IMG 2514 djblvz",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2604_lxpdmh",
+      "alt": "IMG 2604 lxpdmh",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2652_fseyai",
+      "alt": "IMG 2652 fseyai",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2630_okw3hi",
+      "alt": "IMG 2630 okw3hi",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2509_o3ngco",
+      "alt": "IMG 2509 o3ngco",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2621_hzpbol",
+      "alt": "IMG 2621 hzpbol",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2666_zlzokp",
+      "alt": "IMG 2666 zlzokp",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2600_uq2crp",
+      "alt": "IMG 2600 uq2crp",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2715_l7yfyk",
+      "alt": "IMG 2715 l7yfyk",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2669_bqswsh",
+      "alt": "IMG 2669 bqswsh",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2721_tdhwme",
+      "alt": "IMG 2721 tdhwme",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2677_ruskmv",
+      "alt": "IMG 2677 ruskmv",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2738_mrsirl",
+      "alt": "IMG 2738 mrsirl",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2689_celku7",
+      "alt": "IMG 2689 celku7",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2465_iiw4tb",
+      "alt": "IMG 2465 iiw4tb",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2461_ugtxve",
+      "alt": "IMG 2461 ugtxve",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2490_igg0vx",
+      "alt": "IMG 2490 igg0vx",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2552_ukxpmd",
+      "alt": "IMG 2552 ukxpmd",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2566_u97f9g",
+      "alt": "IMG 2566 u97f9g",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2662_tggp6u",
+      "alt": "IMG 2662 tggp6u",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_2482_losnnz",
+      "alt": "IMG 2482 losnnz",
+      "width": 5712,
+      "height": 4284
+    }
+  ]
+}
