@@ -1,6 +1,6 @@
 ---
 title: "Validating and solving Sudoku puzzles — using mathematical optimization"
-date: "2026-03-30"
+date: "2026-04-05"
 description: "In this post, we go from the seemingly simple interview question of \"model Sudoku as an optimization problem\" all the way to an open problem in mathematics."
 tags: ["Optimization", "Interviews", "Sudoku"]
 ---
@@ -109,7 +109,7 @@ ampl.eval("""
 """)
 ```
 
-The mapping from the mathematical formulation to the AMPL code is almost one-to-one — this is a hallmark of good algebraic modeling languages.
+The mapping from the mathematical formulation to the AMPL code is almost one-to-one — a hallmark of good algebraic modeling languages.
 
 ## Validating: is the solution unique?
 
@@ -187,7 +187,21 @@ is_unique, solution_1, _ = solve_sudoku(clue)
 print(f"Unique: {is_unique}")  # True
 ```
 
-The solver finds the unique solution in a fraction of a second.
+The solver finds the unique solution in a fraction of a second:
+
+```text
+2 3 7 | 8 4 1 | 5 6 9
+1 8 6 | 7 9 5 | 2 4 3
+5 9 4 | 3 2 6 | 7 1 8
+------+-------+------
+3 1 5 | 6 7 4 | 8 9 2
+4 6 9 | 5 8 2 | 1 3 7
+7 2 8 | 1 3 9 | 4 5 6
+------+-------+------
+6 4 2 | 9 1 8 | 3 7 5
+8 5 3 | 4 6 7 | 9 2 1
+9 7 1 | 2 5 3 | 6 8 4
+```
 
 ### Arto Inkala's "world's hardest Sudoku"
 
@@ -210,7 +224,23 @@ is_unique, solution_1, _ = solve_sudoku(clue)
 print(f"Unique: {is_unique}")  # True
 ```
 
-Again, our MIP solver handles it with ease. The notion of "difficulty" that challenges human solvers — requiring chains of hypothetical reasoning — is largely irrelevant to a solver that explores the entire search space systematically.
+Again, our MIP solver handles it with ease:
+
+```text
+8 1 2 | 7 5 3 | 6 4 9
+9 4 3 | 6 8 2 | 1 7 5
+6 7 5 | 4 9 1 | 2 8 3
+------+-------+------
+1 5 4 | 2 3 7 | 8 9 6
+3 6 9 | 8 4 5 | 7 2 1
+2 8 7 | 1 6 9 | 5 3 4
+------+-------+------
+5 2 1 | 9 7 4 | 3 6 8
+4 3 8 | 5 2 6 | 9 1 7
+7 9 6 | 3 1 8 | 4 5 2
+```
+
+The notion of "difficulty" that challenges human solvers — requiring chains of hypothetical reasoning — is largely irrelevant to a solver that explores the entire search space systematically.
 
 ## Closing thoughts
 
@@ -219,3 +249,5 @@ What started as an interview question — *model Sudoku as an optimization probl
 The solver doesn't just find *a* solution — with one additional constraint, it can prove that the solution is *unique*, effectively validating the puzzle itself.
 
 But this raises a deeper question: how few clues can a Sudoku puzzle have and still admit a unique solution? For the standard 9×9 grid, the answer is 17 — a result that took significant computational effort to prove. In the [next post](/blog/how-few-clues-does-a-sudoku-need-searching-for-minimum-clue-puzzles), we'll explore this question and extend it to Sudoku grids of other sizes.
+
+The full code is available as a [Colab notebook](https://colab.research.google.com/drive/1QhSz0jHlGwbgv9ZQpwT_Cl1vPIkMblc1?usp=sharing).

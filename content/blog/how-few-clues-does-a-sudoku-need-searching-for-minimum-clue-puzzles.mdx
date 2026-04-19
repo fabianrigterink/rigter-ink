@@ -1,6 +1,6 @@
 ---
 title: "How few clues does a Sudoku need? Searching for minimum-clue puzzles"
-date: "2026-04-06"
+date: "2026-04-12"
 description: "We use the Sudoku solver from the previous post to hunt for minimum-clue puzzles across different grid sizes — and bump into an open problem in mathematics."
 tags: ["Optimization", "Sudoku", "Combinatorics"]
 ---
@@ -101,6 +101,8 @@ Each run removes cells one by one until removing any further cell would break un
 
 With only 16 cells, the $4 \times 4$ case is small enough that our heuristic converges quickly. After 100 runs:
 
+![Convergence plot: best-so-far minimum clues vs. iteration for the 4×4 Sudoku search](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776639208/n_2_Convergence_Plot_aejlpk.png "Convergence of the greedy-removal heuristic on the 4×4 grid: best-so-far minimum clues vs. iteration.")
+
 **Minimum clues found: 4**
 
 ```text
@@ -117,9 +119,25 @@ This matches the known result: the minimum number of clues for a $4 \times 4$ Su
 
 This is the classic case. We ran 1,000 iterations of the search:
 
-**Minimum clues found: ~21–22**
+![Convergence plot: best-so-far minimum clues vs. iteration for the 9×9 Sudoku search](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776639208/n_3_Convergence_Plot_hiw3ea.png "Convergence of the greedy-removal heuristic on the 9×9 grid: best-so-far minimum clues vs. iteration.")
 
-The heuristic consistently finds puzzles in the low 20s, but doesn't reach 17 — the proven minimum. This gap illustrates the limitation of greedy removal: the order in which cells are removed matters, and some 17-clue puzzles can only be reached by removing cells in very specific orders that our random shuffling is unlikely to hit.
+**Minimum clues found: 28**
+
+```text
+  8   | 1     |     4
+7     |       | 9   2
+    2 |       |      
+------+-------+------
+3 1 9 | 2 5   |   4 8
+      |       |      
+2 7   |     6 |     9
+------+-------+------
+  4   | 8 1   |      
+8     | 9   2 |     6
+      |   6   |   8 1
+```
+
+The heuristic consistently finds puzzles in the high 20s, but doesn't reach 17 — the proven minimum. This gap illustrates the limitation of greedy removal: the order in which cells are removed matters, and some 17-clue puzzles can only be reached by removing cells in very specific orders that our random shuffling is unlikely to hit.
 
 The proven result of 17 was established by [McGuire, Tugemann, and Civario (2014)](https://arxiv.org/abs/1201.0749) through an exhaustive computational search that required years of CPU time. Our little heuristic, while far from proving the minimum, still demonstrates that surprisingly sparse puzzles exist.
 
@@ -127,7 +145,31 @@ The proven result of 17 was established by [McGuire, Tugemann, and Civario (2014
 
 With 256 cells, each run involves many more solver calls — each removal requires re-solving and checking uniqueness. After 1,000 runs:
 
-**Minimum clues found: ~55–60**
+![Convergence plot: best-so-far minimum clues vs. iteration for the 16×16 Sudoku search](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776639208/n_4_Convergence_Plot_k2t3jx.png "Convergence of the greedy-removal heuristic on the 16×16 grid: best-so-far minimum clues vs. iteration.")
+
+**Minimum clues found: 120**
+
+```text
+ 3    16  5 | 11     6    |     9 14 13 |        7  2
+       4    |  2 12  7  8 |             |    13    10
+10  9       |     1  5 16 |             |     4  6   
+ 2 12  8    |             |           4 |            
+------------+-------------+-------------+------------
+14 13 10    |           3 |        9  2 |  4        6
+    8       | 14     1    |  6       11 |           5
+      11 12 |     8       |  5 16       |    10  1 14
+ 5     3    |  6  4 12    |    13    10 |     2  9   
+------------+-------------+-------------+------------
+    7  9 10 |    14  3    |  8     2 12 |  5        4
+    6       | 13          |       11    | 14     3   
+      15 11 |  8     2    |    14  3    |  7         
+16 14       |  4  5    15 |           9 |    12  2   
+------------+-------------+-------------+------------
+    2  7 13 |  1 10       |        8  6 |  3     4 15
+       6    |  9  2 13  7 |           5 | 10        1
+       5    |           6 |             |     7      
+ 1 10    16 | 15        5 |  9  2     7 | 11     8   
+```
 
 The exact minimum number of clues for a $16 \times 16$ Sudoku is, as far as I know, an **open problem**. The lower bounds from information-theoretic arguments and the upper bounds from constructions leave a wide gap. Our heuristic gives us a concrete (if loose) upper bound.
 
@@ -137,24 +179,24 @@ The convergence plot shows the characteristic shape of diminishing returns: rapi
 
 Plotting the best-so-far minimum clues against iteration count reveals a consistent pattern across all three grid sizes: a sharp initial drop followed by a slow flattening. This is typical of randomized local search — early runs explore diverse regions of the search space and quickly find good solutions, but the probability of finding an improving solution decays.
 
-For the $n = 3$ case, the gap between our heuristic's best (~21) and the proven minimum (17) suggests that the "landscape" of minimal puzzles is rugged — there are many local minima in the low 20s, and the truly minimal puzzles live in narrow, hard-to-reach valleys.
+For the $n = 3$ case, the gap between our heuristic's best (28) and the proven minimum (17) suggests that the "landscape" of minimal puzzles is rugged — there are many local minima in the high 20s, and the truly minimal puzzles live in narrow, hard-to-reach valleys.
 
 ## Known results and open problems
 
 Here is a summary of what is known about minimum-clue Sudoku:
 
-For $n = 2$ ($4 \times 4$), the minimum is **4 clues**. This is small enough to verify by hand or exhaustive search.
+* For $n = 2$ ($4 \times 4$), the minimum is **4 clues**. This is small enough to verify by hand or exhaustive search.
 
-For $n = 3$ ($9 \times 9$), the minimum is **17 clues**. This was conjectured for decades and proven computationally in 2012 by McGuire et al. The proof involved checking, through a clever exhaustive search, that no 16-clue puzzle with a unique solution exists. It remains one of the most celebrated results in recreational mathematics.
+* For $n = 3$ ($9 \times 9$), the minimum is **17 clues**. This was conjectured for decades and proven computationally in 2012 by McGuire et al. The proof involved checking, through a clever exhaustive search, that no 16-clue puzzle with a unique solution exists. It remains one of the most celebrated results in recreational mathematics.
 
-For $n = 4$ ($16 \times 16$), the minimum is **unknown**. This is an open problem. The search space is vastly larger than the $n = 3$ case — the number of valid completed $16 \times 16$ grids is enormous, and exhaustive methods are currently infeasible.
+* For $n = 4$ ($16 \times 16$), the minimum is **unknown**. This is an open problem. The search space is vastly larger than the $n = 3$ case — the number of valid completed $16 \times 16$ grids is enormous, and exhaustive methods are currently infeasible.
 
-For general $n$, there are asymptotic bounds but no exact results beyond $n = 3$. The problem sits at a fascinating intersection of combinatorics, constraint satisfaction, and computational complexity.
+* For general $n$, there are asymptotic bounds but no exact results beyond $n = 3$. The problem sits at a fascinating intersection of combinatorics, constraint satisfaction, and computational complexity.
 
 ## Closing thoughts
 
 We started with a solver and a simple question — *how many clues can we remove?* — and ended up bumping into the boundary of human mathematical knowledge. The greedy heuristic is a useful practical tool: it produces sparse, valid puzzles and gives reasonable upper bounds. But proving that a given number is truly the *minimum* requires fundamentally different — and much harder — techniques.
 
-For the $n = 3$ case, that proof took a combination of mathematical insight and brute-force computation. For $n = 4$ and beyond, the question remains wide open. If you manage to find a $16 \times 16$ Sudoku with fewer than 55 clues that has a unique solution, do let me know.
+For the $n = 3$ case, that proof took a combination of mathematical insight and brute-force computation. For $n = 4$ and beyond, the question remains wide open.
 
 The full code — including the solver, the search procedure, and the convergence plots — is available as a [Colab notebook](https://colab.research.google.com/drive/1QhSz0jHlGwbgv9ZQpwT_Cl1vPIkMblc1?usp=sharing).
