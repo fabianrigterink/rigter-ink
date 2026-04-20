@@ -9,7 +9,7 @@ tags: ["Optimization", "Sudoku", "Combinatorics"]
 
 In the [previous post](/blog/validating-and-solving-sudoku-puzzles-using-mathematical-optimization), we built a MIP-based Sudoku solver that can both solve a puzzle and verify that its solution is unique. Along the way, we encountered a 17-clue puzzle — the minimum possible for a standard 9×9 Sudoku.
 
-That fact is worth pausing on. Out of 81 cells, you only need to reveal 17 to pin down the entire grid. Remove even one, and the puzzle becomes ambiguous. But how do we know 17 is the minimum? And what about Sudoku grids of other sizes?
+That fact is worth pausing on. Out of 81 cells, you only need to reveal 17 to pin down the entire grid. For that puzzle, removing any single clue destroys uniqueness — every revealed cell is load-bearing. But how do we know 17 is the minimum across *all* puzzles? And what about Sudoku grids of other sizes?
 
 In this post, we'll build a heuristic search procedure that hunts for minimum-clue Sudoku puzzles and run it on $4 \times 4$, $9 \times 9$, and $16 \times 16$ grids.
 
@@ -63,14 +63,12 @@ The `pattern` function generates a valid Latin square, and the shuffles permute 
 
 ```python
 def search_min_clue(n, n_runs):
-    solution = generate_solution(n)
-
     n_clues_min = np.inf
     clue_min = None
     results = {}
 
     for run in tqdm(range(n_runs)):
-        clue = np.copy(solution)
+        clue = generate_solution(n)
         cells = [(r, c) for r in range(n*n) for c in range(n*n)]
         cells = np.array(cells)
         np.random.shuffle(cells)
@@ -101,16 +99,16 @@ Each run removes cells one by one until removing any further cell would break un
 
 With only 16 cells, the $4 \times 4$ case is small enough that our heuristic converges quickly. After 100 runs:
 
-![Convergence plot: best-so-far minimum clues vs. iteration for the 4×4 Sudoku search](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776639208/n_2_Convergence_Plot_aejlpk.png "Convergence of the greedy-removal heuristic on the 4×4 grid: best-so-far minimum clues vs. iteration.")
+![Convergence plot: best-so-far minimum clues vs. iteration for the 4×4 Sudoku search](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776644488/n_2_Convergence_Plot_lap1nr.png "Convergence of the greedy-removal heuristic on the 4×4 grid: best-so-far minimum clues vs. iteration.")
 
 **Minimum clues found: 4**
 
 ```text
-    | 3  
-  4 |    
-----+----
-    | 4 1
     |    
+    | 3 1
+----+----
+2   |    
+    |   3
 ```
 
 This matches the known result: the minimum number of clues for a $4 \times 4$ Sudoku with a unique solution is 4. The search finds it reliably within a few dozen iterations.
@@ -119,67 +117,65 @@ This matches the known result: the minimum number of clues for a $4 \times 4$ Su
 
 This is the classic case. We ran 1,000 iterations of the search:
 
-![Convergence plot: best-so-far minimum clues vs. iteration for the 9×9 Sudoku search](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776639208/n_3_Convergence_Plot_hiw3ea.png "Convergence of the greedy-removal heuristic on the 9×9 grid: best-so-far minimum clues vs. iteration.")
+![Convergence plot: best-so-far minimum clues vs. iteration for the 9×9 Sudoku search](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776644488/n_3_Convergence_Plot_y959vn.png "Convergence of the greedy-removal heuristic on the 9×9 grid: best-so-far minimum clues vs. iteration.")
 
-**Minimum clues found: 28**
+**Minimum clues found: 27**
 
 ```text
-  8   | 1     |     4
-7     |       | 9   2
-    2 |       |      
+8 5   |   4   |     1
+  3   | 5     |     4
+7     |       |   8  
 ------+-------+------
-3 1 9 | 2 5   |   4 8
-      |       |      
-2 7   |     6 |     9
+      | 9     |   5  
+      |       |   6 2
+5 4 7 |       |   3  
 ------+-------+------
-  4   | 8 1   |      
-8     | 9   2 |     6
-      |   6   |   8 1
+1     |   5 9 |      
+9   5 | 2   4 |     3
+      | 8     | 7    
 ```
 
 The heuristic consistently finds puzzles in the high 20s, but doesn't reach 17 — the proven minimum. This gap illustrates the limitation of greedy removal: the order in which cells are removed matters, and some 17-clue puzzles can only be reached by removing cells in very specific orders that our random shuffling is unlikely to hit.
 
-The proven result of 17 was established by [McGuire, Tugemann, and Civario (2014)](https://arxiv.org/abs/1201.0749) through an exhaustive computational search that required years of CPU time. Our little heuristic, while far from proving the minimum, still demonstrates that surprisingly sparse puzzles exist.
+The proven result of 17 was established by [McGuire, Tugemann, and Civario (2012)](https://arxiv.org/abs/1201.0749) through an exhaustive computational search that required years of CPU time. Our little heuristic, while far from proving the minimum, still demonstrates that surprisingly sparse puzzles exist.
 
 ### The $n = 4$ case: $16 \times 16$ Sudoku
 
 With 256 cells, each run involves many more solver calls — each removal requires re-solving and checking uniqueness. After 1,000 runs:
 
-![Convergence plot: best-so-far minimum clues vs. iteration for the 16×16 Sudoku search](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776639208/n_4_Convergence_Plot_k2t3jx.png "Convergence of the greedy-removal heuristic on the 16×16 grid: best-so-far minimum clues vs. iteration.")
+![Convergence plot: best-so-far minimum clues vs. iteration for the 16×16 Sudoku search](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1776644488/n_4_Convergence_Plot_ren5yx.png "Convergence of the greedy-removal heuristic on the 16×16 grid: best-so-far minimum clues vs. iteration.")
 
-**Minimum clues found: 120**
+**Minimum clues found: 123**
 
 ```text
- 3    16  5 | 11     6    |     9 14 13 |        7  2
-       4    |  2 12  7  8 |             |    13    10
-10  9       |     1  5 16 |             |     4  6   
- 2 12  8    |             |           4 |            
+ 6  7  9    |    13    10 |     4 14    |  2    16   
+    5  4    |    16  2 15 |    10       |  8  7  6   
+   11 10  3 |  7        9 |    15       |  1  5      
+            |  5     1  4 |  8     6    |            
 ------------+-------------+-------------+------------
-14 13 10    |           3 |        9  2 |  4        6
-    8       | 14     1    |  6       11 |           5
-      11 12 |     8       |  5 16       |    10  1 14
- 5     3    |  6  4 12    |    13    10 |     2  9   
+       6    |  2 15       |  5 14       |     8  9 16
+      13    |  1     7  6 |           8 |     3 10   
+            |        5 14 |  7     4    |     2    13
+    3     5 |     9 12 16 |    13     2 |  7  1     6
 ------------+-------------+-------------+------------
-    7  9 10 |    14  3    |  8     2 12 |  5        4
-    6       | 13          |       11    | 14     3   
-      15 11 |  8     2    |    14  3    |  7         
-16 14       |  4  5    15 |           9 |    12  2   
+12  9       |     5       |  6        4 |    15     3
+       3 13 |     7     8 |             | 14         
+ 5 10       |  9    16  2 |       11 15 |     4     8
+    4     6 | 15        3 | 14       10 | 16    12  2
 ------------+-------------+-------------+------------
-    2  7 13 |  1 10       |        8  6 |  3     4 15
-       6    |  9  2 13  7 |           5 | 10        1
-       5    |           6 |             |     7      
- 1 10    16 | 15        5 |  9  2     7 | 11     8   
+ 8  6       | 13          |  4  7    14 | 15 16  2   
+ 1        4 |     2       |          13 |  9     8 12
+   13       |        9 12 | 15     2    |  4 14  1  7
+   16 11 15 |     1  4    |             |           5
 ```
 
 The exact minimum number of clues for a $16 \times 16$ Sudoku is, as far as I know, an **open problem**. The lower bounds from information-theoretic arguments and the upper bounds from constructions leave a wide gap. Our heuristic gives us a concrete (if loose) upper bound.
-
-The convergence plot shows the characteristic shape of diminishing returns: rapid improvement in early iterations as the search discovers sparser puzzles, followed by a long plateau as further improvements become increasingly rare.
 
 ## What we learn from the convergence
 
 Plotting the best-so-far minimum clues against iteration count reveals a consistent pattern across all three grid sizes: a sharp initial drop followed by a slow flattening. This is typical of randomized local search — early runs explore diverse regions of the search space and quickly find good solutions, but the probability of finding an improving solution decays.
 
-For the $n = 3$ case, the gap between our heuristic's best (28) and the proven minimum (17) suggests that the "landscape" of minimal puzzles is rugged — there are many local minima in the high 20s, and the truly minimal puzzles live in narrow, hard-to-reach valleys.
+For the $n = 3$ case, the gap between our heuristic's best (27) and the proven minimum (17) suggests that the "landscape" of minimal puzzles is rugged — there are many local minima in the high 20s, and the truly minimal puzzles live in narrow, hard-to-reach valleys.
 
 ## Known results and open problems
 
