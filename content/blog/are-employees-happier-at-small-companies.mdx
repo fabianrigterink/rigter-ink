@@ -1,0 +1,65 @@
+---
+title: "Are employees happier at small companies? I checked 10 million Glassdoor reviews to find out"
+date: "2026-04-26"
+description: "We analyze a Kaggle dataset with 10 million Glassdoor reviews to answer the question, \"are employees happier at small companies?\""
+tags: ["Data Science", "Glassdoor", "Naval Ravikant"]
+---
+
+I was listening to this exchange between [Naval Ravikant](https://nav.al/) and Joe Rogan lately:
+
+> **Joe:** Has there ever been a study done on happiness as it regards to the size of companies? \
+> **Naval:** Not that I'm aware, but to me it's obvious. It's just obvious. The smaller the company the happier you're going to be, the more human your relations are, the less you have rules to operate under, the more flexible, the more creative, the more you'll be treated like a human just because you're able to do multiple things.
+
+It's one of those statements that *feels* true. And it hits home — I've worked for both very large companies (Amazon has ~1.5 million employees, ExxonMobil has ~61,000) and smaller ones (Baton has ~50), and Naval's sentiment rings true. But is it supported by data? In this post, we'll find out!
+
+## The dataset
+
+I grabbed the [Glassdoor Job Reviews dataset](https://www.kaggle.com/datasets/davidgauthier/glassdoor-job-reviews-2) from Kaggle. It has roughly 10 million employee reviews spanning about 35,000 companies. Each review includes an overall rating (1-5 stars) as well as sub-ratings for categories such as *Work/Life Balance*, *Senior Management*, *Culture & Values*, and *Compensation*.
+
+One catch: Glassdoor doesn't publish company headcount. So I used the number of reviews a company has received as a proxy for size. More reviews generally means more employees, which means a bigger company. It's imperfect — a 20-year-old startup might have more reviews than a 2-year-old enterprise — but it's a reasonable first approximation.
+
+## What the data shows
+
+After aggregating to 35,526 firm-level observations, here's what I found:
+
+![Mean rating by company size bucket](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1777178573/fig2_mean_rating_by_size_vac3mx.png "Mean rating by company size bucket")
+
+The bucket means don't tell a clean story. They form more of a U-shape — the smallest firms (1-50 reviews) and the largest firms (10K+) both rate higher than mid-sized firms. Not exactly the monotonic decline Naval was predicting. But bucket means can be misleading. A better approach is to look at the continuous relationship between size and satisfaction. The Spearman rank correlation gives us:
+
+**Spearman rho = -0.19, p < 0.001**
+
+That's a weak but statistically significant negative correlation. As companies get bigger, ratings tend to go down — just not by much. An ordinal logistic regression tells the same story: for every 10x increase in review count, a firm's odds of being in a higher rating category drop by about 1.3x. The scatter plot with a LOWESS trend line makes this visible:
+
+![Scatter plot with LOWESS trend](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1777178572/fig6_scatter_lowess_h3dtne.png "Scatter plot with LOWESS trend")
+
+You can see the cloud of points compressing as firms get larger (regression to the mean; more reviews = less noise), and the red LOWESS line gently slopes downward.
+
+## Every dimension points the same way
+
+What's interesting is that when you break it down by sub-dimension — *Career Opportunities*, *Compensation*, *Senior Management*, *Work/Life Balance*, *Culture & Values*, and *Diversity & Inclusion* — all six show the same negative correlation. Smaller firms rate higher on every single one.
+
+The strongest effects? Senior Management (rho = -0.16) and Work/Life Balance (rho = -0.17). Those are the dimensions Naval was referring to. "More human relations" and being "treated like a human" map onto how you feel about your managers and whether you have a life outside work.
+
+![Summary dashboard](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1777178572/fig8_summary_dashboard_qycda9.png "Summary dashboard")
+
+## The catch: it's a lot of noise
+
+Before you quit your Fortune 500 job and join a 10-person startup, there's a catch: The effect is tiny. The epsilon-squared (an effect size measure for the Kruskal-Wallis test) comes out to 0.014 — that's "small" by conventional standards, and barely above "negligible." Cohen's d between the smallest and largest buckets is a meager -0.04.
+
+And there's a serious noise problem: 74% of all firms in the dataset are in the 1-50 review bucket, and many of those have just 1 or 2 reviews. A single five-star review from the founder's college roommate gives a firm a perfect 5.0 mean. A single angry ex-employee gives it a 1.0. This extreme variance in the small-firm bucket drives a lot of the correlation.
+
+When I ran a sensitivity analysis — progressively filtering out firms with fewer than 5, 10, 20, 50, 100, or 200 reviews — the negative correlation weakened as the noisy firms dropped out. The signal is there, but it's fragile.
+
+## So is Naval right?
+
+Sort of. The data gives him directional support. The Spearman correlation, the ordinal regression, and all six sub-dimensions consistently point in the direction Naval predicted: smaller companies tend to have slightly happier employees. That consistency across multiple methods and dimensions is worth something — it's unlikely to be pure chance.
+
+But "slightly" is doing a lot of heavy lifting in that sentence. We're talking about differences so small they'd be invisible to any individual employee making a career decision. Company size explains maybe 1-2% of the variation in satisfaction. The other 98% is about your specific team, your manager, the work itself, the culture — all the stuff that varies wildly *within* companies of any size.
+
+The honest takeaway? Company size is a weak predictor of employee satisfaction at best. Whatever signal exists tilts in Naval's direction, but it's nowhere near strong enough to be a useful decision-making heuristic.
+
+In short: You can be miserable at a 5-person startup and thriving at a 50,000-person corporation, or vice versa. The averages nudge one way, but your mileage will very much vary.
+
+---
+
+*The full analysis notebook (with all statistical tests, 8 figures, and robustness checks) is available as a [Colab notebook](https://drive.google.com/file/d/1DcRnHLi34qIQR0hUxz-uVrrtxr1vdv7X/view?usp=sharing). Data source: [Glassdoor Job Reviews dataset](https://www.kaggle.com/datasets/davidgauthier/glassdoor-job-reviews-2) on Kaggle.*
