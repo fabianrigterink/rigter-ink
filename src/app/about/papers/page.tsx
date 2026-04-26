@@ -30,7 +30,7 @@ export default function PapersIndex() {
         Papers
       </h1>
       <p className="text-ink-muted mb-12 leading-relaxed">
-        From my early research to my Ph.D. in Operations Research—a selection of my theses and peer-reviewed papers. You can also find my work on <a href="https://scholar.google.com/citations?user=v1tOeQgAAAAJ&hl=en" className="text-cerulean hover:text-ink transition-colors underline underline-offset-2">Google Scholar</a>.
+        From my early research to my Ph.D. in Operations Research—a selection of my theses and peer-reviewed papers. You can also find my work on <a href="https://scholar.google.com/citations?user=v1tOeQgAAAAJ&hl=en" className="text-link hover:text-ink transition-colors underline underline-offset-2">Google Scholar</a>.
       </p>
 
       {peerReviewed.length > 0 && (
@@ -83,7 +83,7 @@ function PaperCard({ paper }: { paper: Paper }) {
       <div className="min-w-0 space-y-2">
         <Link
           href={`/about/papers/${paper.slug}`}
-          className="text-sm font-medium text-ink hover:text-cerulean transition-colors no-underline leading-snug block"
+          className="text-sm font-medium text-ink hover:text-link transition-colors no-underline leading-snug block"
         >
           {paper.title}
         </Link>

@@ -72,7 +72,7 @@ function TalkCard({ talk }: { talk: Talk }) {
       <div className="min-w-0 space-y-2">
         <Link
           href={`/about/talks/${talk.slug}`}
-          className="text-sm font-medium text-ink hover:text-cerulean transition-colors no-underline leading-snug block"
+          className="text-sm font-medium text-ink hover:text-link transition-colors no-underline leading-snug block"
         >
           {talk.title}
         </Link>

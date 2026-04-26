@@ -26,7 +26,7 @@ export default function PostList({ posts, currentPage, totalPages }: PostListPro
             >
               <Link href={`/blog/${post.slug}`} className="flex flex-col flex-1 p-5 pb-3 no-underline">
                   <time className="text-xs font-mono text-ink-muted tabular-nums">{post.date}</time>
-                  <h2 className="text-base font-medium text-ink group-hover:text-cerulean transition-colors mt-2 mb-2 leading-snug">
+                  <h2 className="text-base font-medium text-ink group-hover:text-link transition-colors mt-2 mb-2 leading-snug">
                     {post.title}
                   </h2>
                   <p className="text-sm text-ink-muted leading-relaxed flex-1 line-clamp-3">
@@ -50,7 +50,7 @@ export default function PostList({ posts, currentPage, totalPages }: PostListPro
           {currentPage > 1 ? (
             <Link
               href={currentPage === 2 ? "/blog" : `/blog/page/${currentPage - 1}`}
-              className="text-sm text-cerulean hover:text-ink transition-colors font-medium no-underline"
+              className="text-sm text-link hover:text-ink transition-colors font-medium no-underline"
             >
               ← Newer
             </Link>
@@ -63,7 +63,7 @@ export default function PostList({ posts, currentPage, totalPages }: PostListPro
           {currentPage < totalPages ? (
             <Link
               href={`/blog/page/${currentPage + 1}`}
-              className="text-sm text-cerulean hover:text-ink transition-colors font-medium no-underline"
+              className="text-sm text-link hover:text-ink transition-colors font-medium no-underline"
             >
               Older →
             </Link>

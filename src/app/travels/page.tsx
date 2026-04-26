@@ -51,7 +51,7 @@ export default function TravelsIndex() {
               )}
             </div>
             <div className="flex items-baseline gap-2">
-              <h2 className="text-lg font-medium text-ink group-hover:text-cerulean transition-colors">
+              <h2 className="text-lg font-medium text-ink group-hover:text-link transition-colors">
                 {trip.title}
               </h2>
               <span className="text-sm text-ink-muted font-mono">{trip.date}</span>

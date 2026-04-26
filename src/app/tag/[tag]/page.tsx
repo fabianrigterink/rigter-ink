@@ -53,7 +53,7 @@ export default async function TagPage({ params }: Props) {
               >
                 <Link href={`/blog/${post.slug}`} className="flex flex-col flex-1 p-5 pb-3 no-underline">
                   <time className="text-xs font-mono text-ink-muted tabular-nums">{post.date}</time>
-                  <h3 className="text-base font-medium text-ink group-hover:text-cerulean transition-colors mt-2 mb-2 leading-snug">
+                  <h3 className="text-base font-medium text-ink group-hover:text-link transition-colors mt-2 mb-2 leading-snug">
                     {post.title}
                   </h3>
                   <p className="text-sm text-ink-muted leading-relaxed flex-1 line-clamp-3">
@@ -86,7 +86,7 @@ export default async function TagPage({ params }: Props) {
               >
                 <Link href={`/about/papers/${paper.slug}`} className="flex flex-col flex-1 p-5 pb-3 no-underline">
                   <span className="text-xs font-mono text-ink-muted tabular-nums">{paper.year}</span>
-                  <h3 className="text-base font-medium text-ink group-hover:text-cerulean transition-colors mt-2 mb-2 leading-snug">
+                  <h3 className="text-base font-medium text-ink group-hover:text-link transition-colors mt-2 mb-2 leading-snug">
                     {paper.title}
                   </h3>
                   <p className="text-sm text-ink-muted leading-relaxed flex-1 line-clamp-3">

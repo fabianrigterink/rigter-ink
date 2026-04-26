@@ -11,20 +11,13 @@
   --color-surface-alt: #f0ece6;
   --color-border: #e6e1d9;
   --color-border-light: #eceae3;
-  /* Base palette (solid) */
-  --color-cerulean: #007BA7;
-  --color-orange: #FFC067;
-  --color-sage: #98A869;
-  --color-pink: #C11C84;
-  --color-red: #CD1C18;
-  --color-slate: #6D8196;
-  /* Light palette (softer variants of each base) */
-  --color-cerulean-light: #5BAFD0;
-  --color-orange-light: #FFDAA0;
-  --color-sage-light: #BCC99A;
-  --color-pink-light: #D96DB3;
-  --color-red-light: #E06B5E;
-  --color-slate-light: #9BAEBD;
+  /* Gradient palette — discoverlosangeles.com dla-hero-40--gradient-type-none, in order */
+  --color-peach: #FFA175;
+  --color-magenta: #FF3F86;
+  --color-indigo: #7281C2;
+  --color-teal: #00BAAC;
+  /* Link / accent — muted teal, complements the gradient */
+  --color-link: #2A6F7E;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
@@ -75,7 +68,7 @@ body {
 }
 
 .prose a {
-  color: var(--color-cerulean);
+  color: var(--color-link);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -108,7 +101,7 @@ body {
 }
 
 .prose blockquote {
-  border-left: 3px solid var(--color-cerulean);
+  border-left: 3px solid var(--color-link);
   padding-left: 1.25em;
   margin: 1.5em 0;
   color: var(--color-ink-muted);
@@ -229,7 +222,7 @@ a[class*="underline"] {
 /* Focus visible for accessibility */
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--color-cerulean);
+  outline: 2px solid var(--color-link);
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -239,9 +232,9 @@ img {
   image-rendering: auto;
 }
 
-/* Selection highlight using cerulean */
+/* Selection highlight using link color */
 ::selection {
-  background: color-mix(in srgb, var(--color-cerulean) 20%, transparent);
+  background: color-mix(in srgb, var(--color-link) 20%, transparent);
 }
 
 /* Smooth nav transitions on scroll */

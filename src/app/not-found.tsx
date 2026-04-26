@@ -12,13 +12,13 @@ export default function NotFound() {
       <div className="flex justify-center gap-4">
         <Link
           href="/"
-          className="text-cerulean hover:text-ink transition-colors font-medium underline underline-offset-2"
+          className="text-link hover:text-ink transition-colors font-medium underline underline-offset-2"
         >
           Go home
         </Link>
         <Link
           href="/blog"
-          className="text-cerulean hover:text-ink transition-colors font-medium underline underline-offset-2"
+          className="text-link hover:text-ink transition-colors font-medium underline underline-offset-2"
         >
           Read the blog
         </Link>

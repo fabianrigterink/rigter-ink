@@ -65,7 +65,7 @@ export default async function PatentDetail({ params }: Props) {
                 href={patent.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-cerulean hover:text-ink transition-colors underline underline-offset-2"
+                className="text-link hover:text-ink transition-colors underline underline-offset-2"
               >
                 View on Google Patents ↗
               </a>

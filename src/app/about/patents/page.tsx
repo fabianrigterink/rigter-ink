@@ -24,7 +24,7 @@ export default function PatentsIndex() {
         work on{" "}
         <a
           href="https://patents.google.com/?inventor=Fabian+RIGTERINK"
-          className="text-cerulean hover:text-ink transition-colors underline underline-offset-2"
+          className="text-link hover:text-ink transition-colors underline underline-offset-2"
         >
           Google Patents
         </a>
@@ -56,7 +56,7 @@ export default function PatentsIndex() {
               <div className="min-w-0 space-y-2">
                 <Link
                   href={`/about/patents/${patent.slug}`}
-                  className="text-sm font-medium text-ink hover:text-cerulean transition-colors no-underline leading-snug block"
+                  className="text-sm font-medium text-ink hover:text-link transition-colors no-underline leading-snug block"
                 >
                   {patent.title}
                 </Link>

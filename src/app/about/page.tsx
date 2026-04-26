@@ -17,7 +17,7 @@ export default function About() {
       <div className="space-y-5 text-ink-light leading-relaxed max-w-145">
         <p>
           I&apos;m Fabian, an Engineering Manager for Machine Learning at{" "}
-          <a href="https://www.baton.io/" className="text-cerulean hover:text-ink transition-colors underline underline-offset-2">
+          <a href="https://www.baton.io/" className="text-link hover:text-ink transition-colors underline underline-offset-2">
             Baton
           </a>
           . I have a background in research, with interests spanning AI, machine learning,
@@ -37,26 +37,26 @@ export default function About() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <Link
             href="/about/papers"
-            className="group flex flex-col gap-3 p-5 border border-border rounded-xl bg-white hover:border-cerulean/40 hover:shadow-sm transition-all no-underline"
+            className="group flex flex-col gap-3 p-5 border border-border rounded-xl bg-white hover:border-peach/40 hover:shadow-sm transition-all no-underline"
           >
-            <div className="h-0.75 w-10 rounded-full bg-cerulean" />
-            <span className="font-medium text-ink group-hover:text-cerulean transition-colors">Papers</span>
+            <div className="h-0.75 w-10 rounded-full bg-peach" />
+            <span className="font-medium text-ink group-hover:text-peach transition-colors">Papers</span>
             <span className="text-sm text-ink-muted leading-relaxed">From my early research to my Ph.D. in Operations Research&mdash;a selection of my theses and peer-reviewed papers.</span>
           </Link>
           <Link
             href="/about/patents"
-            className="group flex flex-col gap-3 p-5 border border-border rounded-xl bg-white hover:border-sage/40 hover:shadow-sm transition-all no-underline"
+            className="group flex flex-col gap-3 p-5 border border-border rounded-xl bg-white hover:border-magenta/40 hover:shadow-sm transition-all no-underline"
           >
-            <div className="h-0.75 w-10 rounded-full bg-sage" />
-            <span className="font-medium text-ink group-hover:text-sage transition-colors">Patents</span>
+            <div className="h-0.75 w-10 rounded-full bg-magenta" />
+            <span className="font-medium text-ink group-hover:text-magenta transition-colors">Patents</span>
             <span className="text-sm text-ink-muted leading-relaxed">Patent applications filed during my time at C3 AI.</span>
           </Link>
           <Link
             href="/about/talks"
-            className="group flex flex-col gap-3 p-5 border border-border rounded-xl bg-white hover:border-red/40 hover:shadow-sm transition-all no-underline"
+            className="group flex flex-col gap-3 p-5 border border-border rounded-xl bg-white hover:border-indigo/40 hover:shadow-sm transition-all no-underline"
           >
-            <div className="h-0.75 w-10 rounded-full bg-red" />
-            <span className="font-medium text-ink group-hover:text-red transition-colors">Talks</span>
+            <div className="h-0.75 w-10 rounded-full bg-indigo" />
+            <span className="font-medium text-ink group-hover:text-indigo transition-colors">Talks</span>
             <span className="text-sm text-ink-muted leading-relaxed">Talks given during and after my Ph.D. in Operations Research.</span>
           </Link>
         </div>

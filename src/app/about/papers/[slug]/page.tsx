@@ -82,7 +82,7 @@ export default async function PaperDetail({ params }: Props) {
                 href={doiUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-cerulean hover:text-ink transition-colors underline underline-offset-2"
+                className="text-link hover:text-ink transition-colors underline underline-offset-2"
               >
                 {paper.doi ? `DOI: ${paper.doi}` : "View paper ↗"}
               </a>
@@ -95,7 +95,7 @@ export default async function PaperDetail({ params }: Props) {
                 href={paper.pdfUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-cerulean hover:text-ink transition-colors underline underline-offset-2"
+                className="text-link hover:text-ink transition-colors underline underline-offset-2"
               >
                 {paper.type === "thesis" ? "Thesis (PDF) ↗" : "PDF ↗"}
               </a>
@@ -108,7 +108,7 @@ export default async function PaperDetail({ params }: Props) {
                 href={paper.pdfSupplementUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-cerulean hover:text-ink transition-colors underline underline-offset-2"
+                className="text-link hover:text-ink transition-colors underline underline-offset-2"
               >
                 Supplement (PDF) ↗
               </a>

@@ -66,7 +66,7 @@ export default async function TalkDetail({ params }: Props) {
                 href={talk.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-cerulean hover:text-ink transition-colors underline underline-offset-2"
+                className="text-link hover:text-ink transition-colors underline underline-offset-2"
               >
                 Event website ↗
               </a>
@@ -79,7 +79,7 @@ export default async function TalkDetail({ params }: Props) {
                 href={talk.pdfUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-cerulean hover:text-ink transition-colors underline underline-offset-2"
+                className="text-link hover:text-ink transition-colors underline underline-offset-2"
               >
                 Slides (PDF) ↗
               </a>

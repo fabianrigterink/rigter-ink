@@ -1,13 +1,12 @@
-<svg width="110" height="90" viewBox="0 0 110 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <pattern id="stripes" patternUnits="userSpaceOnUse" width="84" height="84" patternTransform="rotate(-55)">
-      <rect x="0" width="14" height="84" fill="#007BA7"/>
-      <rect x="14" width="14" height="84" fill="#FFC067"/>
-      <rect x="28" width="14" height="84" fill="#98A869"/>
-      <rect x="42" width="14" height="84" fill="#C11C84"/>
-      <rect x="56" width="14" height="84" fill="#CD1C18"/>
-      <rect x="70" width="14" height="84" fill="#6D8196"/>
-    </pattern>
+    <radialGradient id="bg-grad" cx="18" cy="82" r="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FED576"/>
+      <stop offset="20%" stop-color="#F47133"/>
+      <stop offset="50%" stop-color="#BC3081"/>
+      <stop offset="100%" stop-color="#4F5BD5"/>
+    </radialGradient>
   </defs>
-  <text x="55" y="76" font-family="Inter, sans-serif" font-weight="300" font-size="96" fill="url(#stripes)" text-anchor="middle" letter-spacing="-6">FR</text>
+  <rect width="100" height="100" rx="22" fill="url(#bg-grad)"/>
+  <path fill="white" fill-rule="evenodd" clip-rule="evenodd" d="M51.65,42.91c3.478,-2.439 8.656,-5.874 13.517,-8.351c4.321,-2.202 8.503,-3.571 11.443,-3.571c10.607,0 19.219,8.612 19.219,19.22c0,10.607 -8.612,19.219 -19.219,19.219c-2.94,-0 -7.122,-1.369 -11.443,-3.571c-5.261,-2.68 -10.891,-6.483 -14.338,-8.93l-9.341,-6.718c-2.909,-1.965 -6.502,-4.236 -9.923,-5.98c-2.502,-1.274 -4.814,-2.387 -6.516,-2.387c-4.618,-0 -8.367,3.749 -8.367,8.367c-0,4.617 3.749,8.366 8.367,8.366c1.702,0 4.014,-1.113 6.516,-2.387c3.094,-1.577 6.328,-3.585 9.071,-5.408l9.372,6.726c-3.478,2.439 -8.655,5.874 -13.516,8.351c-4.322,2.202 -8.503,3.571 -11.443,3.571c-10.608,-0 -19.22,-8.612 -19.22,-19.219c0,-10.608 8.612,-19.22 19.22,-19.22c2.94,0 7.121,1.369 11.443,3.571c5.187,2.643 10.734,6.378 14.193,8.828l9.526,6.848c2.902,1.959 6.477,4.216 9.883,5.952c2.502,1.274 4.814,2.387 6.516,2.387c4.618,0 8.367,-3.749 8.367,-8.366c-0,-4.618 -3.749,-8.367 -8.367,-8.367c-1.702,-0 -4.014,1.113 -6.516,2.387c-3.095,1.577 -6.329,3.585 -9.071,5.408l-9.373,-6.726Z"/>
 </svg>
