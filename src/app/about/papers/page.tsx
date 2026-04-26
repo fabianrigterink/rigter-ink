@@ -30,7 +30,7 @@ export default function PapersIndex() {
         Papers
       </h1>
       <p className="text-ink-muted mb-12 leading-relaxed">
-        From my early research to my Ph.D. in Operations Research—a selection of my theses and peer-reviewed papers. You can also find my work on <a href="https://scholar.google.com/citations?user=v1tOeQgAAAAJ&hl=en" className="text-link hover:text-ink transition-colors underline underline-offset-2">Google Scholar</a>.
+        A selection of my theses and peer-reviewed papers. You can also find my work on <a href="https://scholar.google.com/citations?user=v1tOeQgAAAAJ&hl=en" className="text-link hover:text-ink transition-colors underline underline-offset-2">Google Scholar</a>.
       </p>
 
       {peerReviewed.length > 0 && (

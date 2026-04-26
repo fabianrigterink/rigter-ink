@@ -22,7 +22,7 @@ export default function TalksIndex() {
         Talks
       </h1>
       <p className="text-ink-muted mb-12 leading-relaxed">
-        Talks given during and after my Ph.D. in Operations Research.
+        Talks given during and after my graduate studies.
       </p>
 
       {conferences.length > 0 && (

@@ -41,7 +41,7 @@ export default function About() {
           >
             <div className="h-0.75 w-10 rounded-full bg-peach" />
             <span className="font-medium text-ink group-hover:text-peach transition-colors">Papers</span>
-            <span className="text-sm text-ink-muted leading-relaxed">From my early research to my Ph.D. in Operations Research&mdash;a selection of my theses and peer-reviewed papers.</span>
+            <span className="text-sm text-ink-muted leading-relaxed">A selection of my theses and peer-reviewed papers.</span>
           </Link>
           <Link
             href="/about/patents"
@@ -57,7 +57,7 @@ export default function About() {
           >
             <div className="h-0.75 w-10 rounded-full bg-indigo" />
             <span className="font-medium text-ink group-hover:text-indigo transition-colors">Talks</span>
-            <span className="text-sm text-ink-muted leading-relaxed">Talks given during and after my Ph.D. in Operations Research.</span>
+            <span className="text-sm text-ink-muted leading-relaxed">Talks given during and after my graduate studies.</span>
           </Link>
         </div>
       </section>
