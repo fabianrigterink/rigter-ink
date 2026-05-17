@@ -43,7 +43,7 @@ export default function Home() {
               className="object-contain"
             />
           </div>
-          <div className="absolute inset-0 bg-white/30 pointer-events-none" />
+          <div className="absolute inset-0 bg-white/50 pointer-events-none" />
         </div>
         <h1 className="font-serif text-[clamp(64px,9vw,96px)] leading-[0.95] tracking-[-4px] text-ink mb-8">
           Hi, I&apos;m<br />Fabian.
