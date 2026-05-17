@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getAllPosts } from "@/lib/posts";
-import TagBadge from "@/components/TagBadge";
+import PostList from "@/components/PostList";
 
 export default function Home() {
   const posts = getAllPosts().slice(0, 6);
@@ -82,34 +82,7 @@ export default function Home() {
           <div className="flex-1 h-px bg-border" />
         </div>
 
-        {posts.length === 0 ? (
-          <p className="text-ink-muted">No posts yet. Check back soon.</p>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {posts.map((post) => (
-              <article
-                key={post.slug}
-                className="group flex flex-col border border-border rounded-xl bg-white hover:shadow-sm transition-all duration-200"
-              >
-                <Link href={`/blog/${post.slug}`} className="flex flex-col flex-1 p-5 pb-3 no-underline">
-                  <time className="text-xs font-mono text-ink-muted tabular-nums">{post.date}</time>
-                  <h3 className="text-base font-medium text-ink group-hover:text-link transition-colors mt-2 mb-2 leading-snug">
-                    {post.title}
-                  </h3>
-                  <p className="text-sm text-ink-muted leading-relaxed flex-1 line-clamp-3">
-                    {post.description}
-                  </p>
-                </Link>
-                <div className="flex flex-wrap items-center gap-1.5 px-5 pb-4 pt-3 border-t border-border-light">
-                  {post.tags.slice(0, 2).map((tag) => (
-                    <TagBadge key={tag} tag={tag} />
-                  ))}
-                  <span className="ml-auto text-xs text-ink-muted">{post.readingTime}</span>
-                </div>
-              </article>
-            ))}
-          </div>
-        )}
+        <PostList posts={posts} />
 
         <Link
           href="/blog"

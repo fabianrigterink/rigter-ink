@@ -1,51 +1,56 @@
 import Link from "next/link";
 import type { PostMeta } from "@/lib/posts";
-import TagBadge from "@/components/TagBadge";
 
 const POSTS_PER_PAGE = 6;
 
 interface PostListProps {
   posts: PostMeta[];
-  currentPage: number;
-  totalPages: number;
+  currentPage?: number;
+  totalPages?: number;
 }
 
 export { POSTS_PER_PAGE };
 
 export default function PostList({ posts, currentPage, totalPages }: PostListProps) {
+  const showPagination =
+    currentPage !== undefined && totalPages !== undefined && totalPages > 1;
+
   return (
     <>
       {posts.length === 0 ? (
         <p className="text-ink-muted">No posts yet. Check back soon.</p>
       ) : (
-        <div className="grid grid-cols-1 gap-4">
+        <div className="divide-y divide-border-light">
           {posts.map((post) => (
-            <article
+            <Link
               key={post.slug}
-              className="group flex flex-col border border-border rounded-xl bg-white hover:shadow-sm transition-all duration-200"
+              href={`/blog/${post.slug}`}
+              className="group block py-5 no-underline"
             >
-              <Link href={`/blog/${post.slug}`} className="flex flex-col flex-1 p-5 pb-3 no-underline">
-                  <time className="text-xs font-mono text-ink-muted tabular-nums">{post.date}</time>
-                  <h2 className="text-base font-medium text-ink group-hover:text-link transition-colors mt-2 mb-2 leading-snug">
-                    {post.title}
-                  </h2>
-                  <p className="text-sm text-ink-muted leading-relaxed flex-1 line-clamp-3">
-                    {post.description}
-                  </p>
-                </Link>
-                <div className="flex flex-wrap items-center gap-1.5 px-5 pb-4 pt-3 border-t border-border-light">
-                  {post.tags.map((tag) => (
-                    <TagBadge key={tag} tag={tag} />
-                  ))}
-                  <span className="ml-auto text-xs text-ink-muted">{post.readingTime}</span>
-                </div>
-              </article>
+              <div className="flex items-baseline justify-between gap-4 mb-2">
+                <h2 className="font-serif text-lg leading-snug text-ink transition-colors group-hover:text-link min-w-0">
+                  {post.title}
+                  <span
+                    aria-hidden="true"
+                    className="inline-block ml-2 text-sm text-ink-muted opacity-0 -translate-x-1 transition-all group-hover:opacity-100 group-hover:translate-x-0"
+                  >
+                    →
+                  </span>
+                </h2>
+                <span className="shrink-0 text-[11px] font-semibold uppercase tracking-wider text-ink-muted">
+                  {post.readingTime}
+                </span>
+              </div>
+              <p className="text-sm text-ink-muted leading-relaxed">
+                {post.description}
+              </p>
+            </Link>
           ))}
         </div>
       )}
 
-      {/* Pagination */}
-      {totalPages > 1 && (
+      {/* Pagination — only when caller supplies page info */}
+      {showPagination && (
         <nav className="flex items-center justify-between mt-12 pt-8 border-t border-border-light">
           {currentPage > 1 ? (
             <Link
@@ -60,7 +65,7 @@ export default function PostList({ posts, currentPage, totalPages }: PostListPro
           <span className="text-sm text-ink-muted">
             Page {currentPage} of {totalPages}
           </span>
-          {currentPage < totalPages ? (
+          {currentPage < totalPages! ? (
             <Link
               href={`/blog/page/${currentPage + 1}`}
               className="text-sm text-link hover:text-ink transition-colors font-medium no-underline"
