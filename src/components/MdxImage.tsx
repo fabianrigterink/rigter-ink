@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Lightbox from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import "yet-another-react-lightbox/styles.css";
@@ -11,6 +12,9 @@ interface MdxImageProps {
   title?: string;
 }
 
+const PLACEHOLDER_W = 1600;
+const PLACEHOLDER_H = 1067;
+
 export default function MdxImage({ src, alt, title }: MdxImageProps) {
   const [open, setOpen] = useState(false);
 
@@ -19,12 +23,14 @@ export default function MdxImage({ src, alt, title }: MdxImageProps) {
   return (
     <>
       <span className="block my-8">
-        <img
+        <Image
           src={src}
           alt={alt ?? ""}
-          className="block w-full rounded border border-border cursor-pointer hover:opacity-90 transition-opacity"
+          width={PLACEHOLDER_W}
+          height={PLACEHOLDER_H}
+          sizes="(max-width: 720px) 100vw, 720px"
+          className="block w-full h-auto rounded border border-border cursor-pointer hover:opacity-90 transition-opacity"
           onClick={() => setOpen(true)}
-          loading="lazy"
         />
         {title && (
           <span className="block mt-2 text-sm text-ink-muted text-center">

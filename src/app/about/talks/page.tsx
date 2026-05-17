@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { getAllTalks, type Talk } from "@/lib/talks";
+import { formatDateShort } from "@/lib/format";
 
 export const metadata: Metadata = {
   title: "Talks",
   description: "Talks by Fabian Rigterink.",
 };
-
-function talkDetails(talk: Talk): string {
-  return [talk.venue, talk.location].filter(Boolean).join(" · ");
-}
 
 export default function TalksIndex() {
   const talks = getAllTalks();
@@ -18,69 +16,74 @@ export default function TalksIndex() {
 
   return (
     <div className="max-w-180 mx-auto px-6 py-20">
-      <h1 className="font-serif text-[clamp(40px,5vw,64px)] leading-[1.05] tracking-[-2px] text-ink mb-3">
-        Talks
-      </h1>
-      <p className="text-ink-muted mb-12 leading-relaxed">
+      <h1 className="page-h1">Talks</h1>
+      <p className="page-lede">
         Talks given during and after my graduate studies.
       </p>
 
       {conferences.length > 0 && (
-        <>
-          <h2 className="font-serif text-2xl tracking-tight text-ink mb-6">
-            Conferences
-          </h2>
-          <div className="wide-bleed grid grid-cols-1 lg:grid-cols-2 gap-4 mb-12">
-            {conferences.map((talk) => (
-              <TalkCard key={talk.slug} talk={talk} />
-            ))}
-          </div>
-        </>
+        <section className="mb-12">
+          <h2 className="section-h2">Conferences</h2>
+          <TalkList items={conferences} />
+        </section>
       )}
 
       {seminars.length > 0 && (
-        <>
-          <h2 className="font-serif text-2xl tracking-tight text-ink mb-6">
-            Seminars
-          </h2>
-          <div className="wide-bleed grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {seminars.map((talk) => (
-              <TalkCard key={talk.slug} talk={talk} />
-            ))}
-          </div>
-        </>
+        <section>
+          <h2 className="section-h2">Seminars</h2>
+          <TalkList items={seminars} />
+        </section>
       )}
     </div>
   );
 }
 
-function TalkCard({ talk }: { talk: Talk }) {
-  const details = talkDetails(talk);
-
+function TalkList({ items }: { items: Talk[] }) {
   return (
-    <article className="border border-border rounded-xl bg-white hover:shadow-sm transition-all duration-200 p-5 flex gap-5 items-start">
+    <div className="divide-y divide-border-light">
+      {items.map((talk) => (
+        <TalkRow key={talk.slug} talk={talk} />
+      ))}
+    </div>
+  );
+}
+
+function TalkRow({ talk }: { talk: Talk }) {
+  return (
+    <Link
+      href={`/about/talks/${talk.slug}`}
+      className="group flex gap-4 sm:gap-5 py-5 items-start no-underline"
+    >
       {talk.talkImage && (
-        <Link href={`/about/talks/${talk.slug}`} className="shrink-0">
-          <img
-            src={talk.talkImage}
-            alt={talk.title}
-            className="w-24 rounded border border-border"
-          />
-        </Link>
+        <Image
+          src={talk.talkImage}
+          alt={talk.title}
+          width={400}
+          height={300}
+          sizes="96px"
+          className="shrink-0 w-24 h-auto rounded border border-border"
+        />
       )}
-
-      <div className="min-w-0 space-y-2">
-        <Link
-          href={`/about/talks/${talk.slug}`}
-          className="text-sm font-medium text-ink hover:text-link transition-colors no-underline leading-snug block"
-        >
-          {talk.title}
-        </Link>
-
-        <p className="text-xs text-ink-muted leading-relaxed">{details}</p>
-
-        <p className="text-xs font-mono text-ink-muted">{talk.date}</p>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-baseline justify-between gap-3 mb-1">
+          <h3 className="font-serif text-lg leading-snug text-ink transition-colors group-hover:text-link min-w-0">
+            {talk.title}
+            <span
+              aria-hidden="true"
+              className="inline-block ml-2 text-sm text-ink-muted opacity-0 -translate-x-1 transition-all group-hover:opacity-100 group-hover:translate-x-0"
+            >
+              →
+            </span>
+          </h3>
+          <span className="shrink-0 text-[11px] font-semibold uppercase tracking-wider text-ink-muted tabular-nums">
+            {formatDateShort(talk.date)}
+          </span>
+        </div>
+        <p className="text-sm text-ink-muted leading-relaxed">
+          {talk.venue}
+          {talk.location && <span> · {talk.location}</span>}
+        </p>
       </div>
-    </article>
+    </Link>
   );
 }

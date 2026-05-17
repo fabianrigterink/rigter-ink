@@ -54,18 +54,22 @@ export default function TravelMap({ markers }: TravelMapProps) {
 
     map.current.addControl(new maplibregl.NavigationControl(), "top-right");
 
+    const css = getComputedStyle(document.documentElement);
+    const markerColor = css.getPropertyValue("--color-link").trim() || "#2A6F7E";
+    const popupInk = css.getPropertyValue("--color-ink").trim() || "#1a1a1a";
+
     markers.forEach((marker) => {
       const el = document.createElement("div");
       el.className = "travel-marker";
       el.style.cssText =
-        "width: 14px; height: 14px; background: #007BA7; border: 2px solid white; border-radius: 50%; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.3);";
+        `width: 14px; height: 14px; background: ${markerColor}; border: 2px solid white; border-radius: 50%; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.3);`;
 
       const popup = new maplibregl.Popup({
         offset: 12,
         closeButton: false,
         className: "travel-popup",
       }).setHTML(
-        `<a href="/travels/${marker.slug}" style="text-decoration:none;color:#1a1a1a;font-weight:500;font-size:14px;">${marker.title}</a>`
+        `<a href="/travels/${marker.slug}" style="text-decoration:none;color:${popupInk};font-weight:500;font-size:14px;">${marker.title}</a>`
       );
 
       new maplibregl.Marker({ element: el })

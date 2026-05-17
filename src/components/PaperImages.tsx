@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Lightbox from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import "yet-another-react-lightbox/styles.css";
@@ -27,19 +28,51 @@ export default function PaperImages({
 
   if (slides.length === 0) return null;
 
+  const twoUp = slides.length === 2;
+
   return (
     <>
-      <div className={`grid gap-6 ${slides.length === 2 ? "grid-cols-2" : "justify-items-center"}`}>
-        {slides.map((slide, i) => (
-          <img
-            key={slide.src}
-            src={slide.src}
-            alt={slide.alt}
-            className={`rounded border border-border cursor-pointer hover:opacity-90 transition-opacity ${slides.length === 2 ? "w-full" : "w-1/2"}`}
-            onClick={() => setIndex(i)}
-          />
-        ))}
-      </div>
+      {twoUp ? (
+        <div className="flex gap-6 items-start justify-center flex-wrap">
+          {slides.map((slide, i) => (
+            <button
+              key={slide.src}
+              type="button"
+              onClick={() => setIndex(i)}
+              className="block h-80 sm:h-96 cursor-pointer rounded border border-border overflow-hidden hover:opacity-90 transition-opacity p-0"
+            >
+              <Image
+                src={slide.src}
+                alt={slide.alt}
+                width={1200}
+                height={1600}
+                sizes="(max-width: 720px) 80vw, 400px"
+                className="block w-auto h-full"
+              />
+            </button>
+          ))}
+        </div>
+      ) : (
+        <div className="flex justify-center">
+          {slides.map((slide, i) => (
+            <button
+              key={slide.src}
+              type="button"
+              onClick={() => setIndex(i)}
+              className="block w-1/2 cursor-pointer rounded border border-border overflow-hidden hover:opacity-90 transition-opacity p-0"
+            >
+              <Image
+                src={slide.src}
+                alt={slide.alt}
+                width={1200}
+                height={1600}
+                sizes="(max-width: 720px) 50vw, 420px"
+                className="block w-full h-auto"
+              />
+            </button>
+          ))}
+        </div>
+      )}
 
       <Lightbox
         slides={slides}

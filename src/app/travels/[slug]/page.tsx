@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllTrips, getTripBySlug } from "@/lib/travels";
 import PhotoGallery from "@/components/PhotoGallery";
+import { formatDateLong } from "@/lib/format";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -29,21 +30,16 @@ export default async function TripPage({ params }: Props) {
 
   return (
     <div className="max-w-180 mx-auto px-6 py-20">
-      <Link
-        href="/travels"
-        className="text-sm text-ink-muted hover:text-ink transition-colors mb-8 inline-block"
-      >
+      <Link href="/travels" className="back-link hover:text-ink">
         ← Back to travels
       </Link>
 
       <header className="mb-12">
-        <h1 className="font-serif text-[clamp(32px,4vw,48px)] leading-[1.1] tracking-[-1.5px] text-ink mb-4">
-          {trip.title}
-        </h1>
+        <h1 className="detail-h1 mb-10">{trip.title}</h1>
         <div className="flex items-center gap-3 text-sm text-ink-muted">
           <span>{trip.location}</span>
           <span>·</span>
-          <time className="font-mono">{trip.date}</time>
+          <time>{formatDateLong(trip.date)}</time>
         </div>
         <p className="text-ink-light mt-4 leading-relaxed">
           {trip.description}
@@ -55,9 +51,8 @@ export default async function TripPage({ params }: Props) {
           <PhotoGallery photos={trip.photos} />
         </div>
       ) : (
-        <div className="text-center py-20 text-ink-muted">
-          <p className="text-lg">Photos coming soon.</p>
-          <p className="text-sm mt-2">Check back later for photos from this trip.</p>
+        <div className="text-ink-muted">
+          <p>Photos coming soon. Check back later for photos from this trip.</p>
         </div>
       )}
     </div>

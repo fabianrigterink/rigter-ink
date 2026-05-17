@@ -27,10 +27,10 @@ export default function Home() {
           }}
         >
           <div
-            className="absolute top-0 bottom-0 pointer-events-none"
+            className="bridge-parallax absolute top-0 bottom-0 pointer-events-none"
             style={{
               left: "70%",
-              transform: "translateX(-50%)",
+              translate: "-50% 0",
               aspectRatio: "1200 / 2281",
             }}
           >
@@ -45,10 +45,10 @@ export default function Home() {
           </div>
           <div className="absolute inset-0 bg-white/50 pointer-events-none" />
         </div>
-        <h1 className="font-serif text-[clamp(64px,9vw,96px)] leading-[0.95] tracking-[-4px] text-ink mb-8">
+        <h1 className="font-serif text-[clamp(56px,8vw,80px)] leading-[0.95] tracking-[-0.04em] text-ink mb-8">
           Hi, I&apos;m<br />Fabian.
         </h1>
-        <p className="text-lg text-ink-light leading-relaxed max-w-130 mb-10">
+        <p className="text-lg text-ink-light leading-relaxed max-w-145 mb-10">
           Engineering Manager for Machine Learning at{" "}
           <a href="https://www.baton.io/" className="text-link hover:text-ink transition-colors underline underline-offset-2">
             Baton
@@ -66,9 +66,10 @@ export default function Home() {
           </Link>
           <Link
             href="/about"
-            className="text-ink-muted hover:text-ink transition-colors font-medium"
+            className="group inline-flex items-center gap-1.5 text-link hover:text-ink transition-colors font-medium"
           >
             About me
+            <span className="transition-transform group-hover:translate-x-1">→</span>
           </Link>
         </div>
       </section>
@@ -76,8 +77,8 @@ export default function Home() {
       {/* Recent posts */}
       <section className="pt-8 sm:pt-12 pb-24">
         <div className="flex items-center gap-4 mb-8">
-          <h2 className="font-serif text-xl tracking-tight text-ink whitespace-nowrap">
-            Recent writing
+          <h2 className="section-h2 mb-0 whitespace-nowrap">
+            Latest from the blog
           </h2>
           <div className="flex-1 h-px bg-border" />
         </div>

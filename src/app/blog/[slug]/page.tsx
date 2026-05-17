@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import Comments from "@/components/Comments";
 import TagBadge from "@/components/TagBadge";
+import { formatDateLong } from "@/lib/format";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -39,24 +40,19 @@ export default async function BlogPost({ params }: Props) {
 
   return (
     <div className="max-w-180 mx-auto px-6 py-20">
-      <Link
-        href="/blog"
-        className="text-sm text-ink-muted hover:text-ink transition-colors mb-8 inline-block"
-      >
+      <Link href="/blog" className="back-link hover:text-ink">
         ← Back to blog
       </Link>
 
       <header className="mb-12">
-        <h1 className="font-serif text-[clamp(32px,4vw,48px)] leading-[1.1] tracking-[-1.5px] text-ink mb-4">
-          {post.meta.title}
-        </h1>
+        <h1 className="detail-h1 mb-10">{post.meta.title}</h1>
         <div className="flex items-center gap-3 text-sm text-ink-muted">
-          <time className="font-mono">{post.meta.date}</time>
+          <time>{formatDateLong(post.meta.date)}</time>
           <span>·</span>
           <span>{post.meta.readingTime}</span>
         </div>
         {post.meta.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mt-2">
+          <div className="flex flex-wrap gap-2 mt-6">
             {post.meta.tags.map((tag: string) => (
               <TagBadge key={tag} tag={tag} />
             ))}

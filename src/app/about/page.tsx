@@ -10,19 +10,17 @@ export const metadata: Metadata = {
 export default function About() {
   return (
     <div className="max-w-180 mx-auto px-6 py-20">
-      <h1 className="font-serif text-[clamp(40px,5vw,64px)] leading-[1.05] tracking-[-2px] text-ink mb-10">
-        About
-      </h1>
+      <h1 className="page-h1">About</h1>
+      <p className="page-lede max-w-145">
+        I&apos;m Fabian, an Engineering Manager for Machine Learning at{" "}
+        <a href="https://www.baton.io/" className="text-link hover:text-ink transition-colors underline underline-offset-2">
+          Baton
+        </a>
+        . I have a background in research, with interests spanning AI, machine learning,
+        data science, and operations research.
+      </p>
 
       <div className="space-y-5 text-ink-light leading-relaxed max-w-145">
-        <p>
-          I&apos;m Fabian, an Engineering Manager for Machine Learning at{" "}
-          <a href="https://www.baton.io/" className="text-link hover:text-ink transition-colors underline underline-offset-2">
-            Baton
-          </a>
-          . I have a background in research, with interests spanning AI, machine learning,
-          data science, and operations research.
-        </p>
         <p>
           Before moving into engineering management, I worked as a {"{"}data, applied, research
           {"}"} scientist, building systems that bridge the gap between research and production.
@@ -33,7 +31,7 @@ export default function About() {
       </div>
 
       <section className="mt-16">
-        <h2 className="font-serif text-2xl tracking-tight text-ink mb-6">Publications & Talks</h2>
+        <h2 className="section-h2">Publications & Talks</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <Link
             href="/about/papers"
@@ -63,25 +61,25 @@ export default function About() {
       </section>
 
       <section className="mt-16">
-        <h2 className="font-serif text-2xl tracking-tight text-ink mb-6">Get in touch</h2>
+        <h2 className="section-h2">Get in touch</h2>
         <div className="flex flex-wrap gap-3">
           <a
             href="https://github.com/fabianrigterink"
-            className="inline-flex items-center gap-2 px-4 py-2 border border-border rounded-lg text-sm text-ink-muted bg-white hover:text-ink hover:border-ink/20 transition-all"
+            className="inline-flex items-center gap-2 px-4 py-2 border border-border rounded-xl text-sm text-ink-muted bg-white hover:text-ink hover:border-ink/20 transition-all"
           >
             <GitHubIcon className="w-4 h-4 shrink-0" />
             GitHub
           </a>
           <a
             href="https://www.linkedin.com/in/fabianrigterink/"
-            className="inline-flex items-center gap-2 px-4 py-2 border border-border rounded-lg text-sm text-ink-muted bg-white hover:text-ink hover:border-ink/20 transition-all"
+            className="inline-flex items-center gap-2 px-4 py-2 border border-border rounded-xl text-sm text-ink-muted bg-white hover:text-ink hover:border-ink/20 transition-all"
           >
             <LinkedInIcon className="w-4 h-4 shrink-0" />
             LinkedIn
           </a>
           <a
             href="mailto:fabian@rigter.ink"
-            className="inline-flex items-center gap-2 px-4 py-2 border border-border rounded-lg text-sm text-ink-muted bg-white hover:text-ink hover:border-ink/20 transition-all"
+            className="inline-flex items-center gap-2 px-4 py-2 border border-border rounded-xl text-sm text-ink-muted bg-white hover:text-ink hover:border-ink/20 transition-all"
           >
             fabian@rigter.ink
           </a>

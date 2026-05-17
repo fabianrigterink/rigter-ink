@@ -14,10 +14,8 @@ export default function BlogIndex() {
 
   return (
     <div className="max-w-180 mx-auto px-6 py-20">
-      <h1 className="font-serif text-[clamp(40px,5vw,64px)] leading-[1.05] tracking-[-2px] text-ink mb-3">
-        Blog
-      </h1>
-      <p className="text-ink-muted mb-12 leading-relaxed">
+      <h1 className="page-h1">Blog</h1>
+      <p className="page-lede">
         Writing about AI, machine learning, data science, and operations research.
       </p>
       <PostList posts={posts} currentPage={1} totalPages={totalPages} />

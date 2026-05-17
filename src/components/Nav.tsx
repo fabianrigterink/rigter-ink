@@ -69,7 +69,7 @@ export default function Nav() {
                 </Link>
                 {aboutOpen && (
                   <div className="absolute left-0 top-full pt-2 w-36">
-                    <ul className="bg-white border border-border rounded-xl shadow-sm py-1 list-none">
+                    <ul className="bg-surface border border-border rounded-xl shadow-sm py-1 list-none">
                       {children.map((child) => (
                         <li key={child.href}>
                           <Link
@@ -114,7 +114,7 @@ export default function Nav() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="sm:hidden border-t border-border bg-surface/95 backdrop-blur-md">
+        <div className="mobile-menu-in sm:hidden border-t border-border bg-surface/92 backdrop-blur-md">
           <ul className="flex flex-col list-none py-4 px-6">
             {links.map(({ href, label, children }) => (
               <li key={href}>
@@ -148,10 +148,12 @@ export default function Nav() {
         </div>
       )}
 
-      {/* Gradient stripe — discoverlosangeles.com dla-hero-40--gradient-type-none */}
       <div
         className="h-1"
-        style={{ background: "linear-gradient(to right, #FFA175, #FF3F86 60%, #7281C2 90%, #00BAAC)" }}
+        style={{
+          background:
+            "linear-gradient(to right, var(--color-peach), var(--color-magenta) 60%, var(--color-indigo) 90%, var(--color-teal))",
+        }}
       />
     </nav>
   );

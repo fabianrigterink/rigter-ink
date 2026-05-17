@@ -18,7 +18,9 @@ export default function PostList({ posts, currentPage, totalPages }: PostListPro
   return (
     <>
       {posts.length === 0 ? (
-        <p className="text-ink-muted">No posts yet. Check back soon.</p>
+        <div className="py-16 text-center text-ink-muted">
+          <p>No posts yet. Check back soon.</p>
+        </div>
       ) : (
         <div className="divide-y divide-border-light">
           {posts.map((post) => (
@@ -28,7 +30,7 @@ export default function PostList({ posts, currentPage, totalPages }: PostListPro
               className="group block py-5 no-underline"
             >
               <div className="flex items-baseline justify-between gap-4 mb-2">
-                <h2 className="font-serif text-lg leading-snug text-ink transition-colors group-hover:text-link min-w-0">
+                <h2 className="font-serif text-lg leading-snug text-ink min-w-0 transition-colors group-hover:text-link">
                   {post.title}
                   <span
                     aria-hidden="true"
@@ -55,9 +57,10 @@ export default function PostList({ posts, currentPage, totalPages }: PostListPro
           {currentPage > 1 ? (
             <Link
               href={currentPage === 2 ? "/blog" : `/blog/page/${currentPage - 1}`}
-              className="text-sm text-link hover:text-ink transition-colors font-medium no-underline"
+              className="group inline-flex items-center gap-1.5 text-sm text-link hover:text-ink transition-colors font-medium no-underline"
             >
-              ← Newer
+              <span className="transition-transform group-hover:-translate-x-1">←</span>
+              Newer
             </Link>
           ) : (
             <span />
@@ -68,9 +71,10 @@ export default function PostList({ posts, currentPage, totalPages }: PostListPro
           {currentPage < totalPages! ? (
             <Link
               href={`/blog/page/${currentPage + 1}`}
-              className="text-sm text-link hover:text-ink transition-colors font-medium no-underline"
+              className="group inline-flex items-center gap-1.5 text-sm text-link hover:text-ink transition-colors font-medium no-underline"
             >
-              Older →
+              Older
+              <span className="transition-transform group-hover:translate-x-1">→</span>
             </Link>
           ) : (
             <span />

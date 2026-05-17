@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllTalks, getTalkBySlug } from "@/lib/talks";
 import TalkImage from "@/components/TalkImage";
+import { formatDateLong } from "@/lib/format";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -36,18 +37,12 @@ export default async function TalkDetail({ params }: Props) {
 
   return (
     <div className="max-w-180 mx-auto px-6 py-20">
-      <Link
-        href="/about/talks"
-        className="text-sm text-ink-muted hover:text-ink transition-colors mb-8 inline-block"
-      >
+      <Link href="/about/talks" className="back-link hover:text-ink">
         ← Back to talks
       </Link>
 
       <header className="mb-12 space-y-6">
-        {/* Title */}
-        <h1 className="font-serif text-[clamp(32px,4vw,48px)] leading-[1.1] tracking-[-1.5px] text-ink">
-          {talk.title}
-        </h1>
+        <h1 className="detail-h1 mb-10">{talk.title}</h1>
 
         {/* Venue & location */}
         <p className="text-sm text-ink-muted leading-relaxed">
@@ -57,7 +52,7 @@ export default async function TalkDetail({ params }: Props) {
 
         {/* Date & type */}
         <p className="text-xs font-mono text-ink-muted">
-          {talk.date}
+          {formatDateLong(talk.date)}
           <span> · {talk.type === "conference" ? "Conference" : "Seminar"}</span>
           {talk.url && (
             <>
@@ -89,10 +84,7 @@ export default async function TalkDetail({ params }: Props) {
 
         {/* Preview image */}
         {talk.talkImage && (
-          <div
-            className="wide-bleed justify-items-center"
-            style={{ width: "min(880px, calc(100vw - 3rem))" }}
-          >
+          <div className="medium-bleed">
             <TalkImage
               src={talk.talkImage}
               alt={`${talk.title} slides preview`}

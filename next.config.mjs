@@ -19,6 +19,10 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    // Enables React's <ViewTransition> for soft cross-fades between routes.
+    viewTransition: true,
+  },
 };
 
 const withMDX = createMDX({

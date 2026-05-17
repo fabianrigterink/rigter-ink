@@ -3,7 +3,7 @@ import { GitHubIcon, LinkedInIcon } from "./SocialIcons";
 export default function Footer() {
   return (
     <footer className="mt-auto border-t border-border">
-      <div className="max-w-270 mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="max-w-270 mx-auto px-6 py-8 flex items-center justify-between">
         <p className="text-sm text-ink-muted">
           &copy; {new Date().getFullYear()} Fabian Rigterink
         </p>

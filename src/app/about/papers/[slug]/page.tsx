@@ -53,18 +53,12 @@ export default async function PaperDetail({ params }: Props) {
 
   return (
     <div className="max-w-180 mx-auto px-6 py-20">
-      <Link
-        href="/about/papers"
-        className="text-sm text-ink-muted hover:text-ink transition-colors mb-8 inline-block"
-      >
+      <Link href="/about/papers" className="back-link hover:text-ink">
         ← Back to papers
       </Link>
 
       <header className="mb-12 space-y-6">
-        {/* Title */}
-        <h1 className="font-serif text-[clamp(32px,4vw,48px)] leading-[1.1] tracking-[-1.5px] text-ink">
-          {paper.title}
-        </h1>
+        <h1 className="detail-h1 mb-10">{paper.title}</h1>
 
         {/* Authors */}
         <p className="text-sm text-ink-muted leading-relaxed">
@@ -117,7 +111,7 @@ export default async function PaperDetail({ params }: Props) {
         </p>
 
         {/* Images */}
-        <div className="wide-bleed" style={{ width: "min(880px, calc(100vw - 3rem))" }}>
+        <div className="medium-bleed">
           <PaperImages
             journalImage={paper.journalImage}
             paperImage={paper.paperImage}

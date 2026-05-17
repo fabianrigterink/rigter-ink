@@ -1,4 +1,6 @@
+/// <reference types="react/canary" />
 import type { Metadata } from "next";
+import { ViewTransition } from "react";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -49,8 +51,16 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased flex flex-col min-h-screen">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-surface focus:text-ink focus:border focus:border-border focus:rounded-md focus:px-3 focus:py-2 focus:text-sm focus:shadow-md focus:outline-none"
+        >
+          Skip to content
+        </a>
         <Nav />
-        <main className="flex-1">{children}</main>
+        <main id="main" className="flex-1">
+          <ViewTransition>{children}</ViewTransition>
+        </main>
         <Footer />
       </body>
     </html>
