@@ -35,7 +35,7 @@ export default function Home() {
             }}
           >
             <Image
-              src="https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/v1779039651/bridge_ppflpj.png"
+              src="https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto/v1779040299/bridge_p1es8b.png"
               alt=""
               fill
               priority
