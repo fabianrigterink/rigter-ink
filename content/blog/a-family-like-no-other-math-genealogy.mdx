@@ -1,0 +1,128 @@
+---
+title: "A family like no other: studying the graph behind the Mathematics Genealogy Project"
+date: "2026-05-24"
+description: "This post is about two topics: first, as the title suggests, it is about studying the graph behind the Mathematics Genealogy Project and its many interesting — and, at times, surprising — properties (the \"what\"). But maybe more importantly, second, it is about \"how\" this post was written. We'll cover them in reverse order."
+tags: ["Mathematics Genealogy Project", "Network Science"]
+---
+
+This post is about two topics: first, as the title suggests, it is about studying the graph behind the Mathematics Genealogy Project and its many interesting — and, at times, surprising — properties (the \"what\"). But maybe more importantly, second, it is about \"how\" this post was written. We'll cover them in reverse order.
+
+## The "how"
+
+Every few years, I have a technological "*oh wow, this is so cool*" moment. From somewhat recent memories:
+* In the early 2010s, getting good wi-fi on an Emirates flight over the North Pole,
+* In 2015, test-driving the Tesla Model S with its brand-new Autopilot feature in Atlanta (as a poor student with no intent or means of financing the car!),
+* In 2022, taking my first fully driverless Waymo ride in San Francisco.
+
+Last week, I had another one of those moments. Over the weekend, as I was puttering around GitHub repositories, I found [j2kun/math-genealogy-scraper](https://github.com/j2kun/math-genealogy-scraper) — a scraper for the [Mathematics Genealogy Project](https://www.genealogy.math.ndsu.nodak.edu/) (MGP). The MGP is a database for the academic genealogy of mathematicians. As a rite of passage, upon graduation, newly minted mathematicians would enter their graduation details, thereby adding themselves to the genealogy. (I did so myself, of course, when I graduated in 2017!)
+
+So I checked the repo's 2020 snapshot file, [`data.json`](https://github.com/j2kun/math-genealogy-scraper/blob/main/data.json), and there, in lines 2,946,918—2,946,932, I was:
+```json
+   {
+     "id": 224170,
+     "name": "Fabian Rigterink",
+     "thesis": "Pooling Problems: Advances in Theory and Applications",
+     "school": "University of Newcastle",
+     "country": "Australia",
+     "year": 2017,
+     "subject": "90—Operations research, mathematical programming",
+     "advisors": [
+       51372,
+       75952,
+       88664
+     ],
+     "students": []
+   },
+```
+
+I [forked](https://github.com/fabianrigterink/math-genealogy-scraper) the repository, scraped the missing 2020+ data, wrote a simple [`build_graph.py`](https://github.com/fabianrigterink/math-genealogy-scraper/blob/main/analysis/build_graph.py) script that builds a clean NetworkX [directed acyclic graph](https://networksciencebook.com/chapter/2) (DAG) from the scraped data, and — *I ran out of time.* I had to go to work the next day!
+
+Not wanting to wait until the next weekend, I had an idea: I'd set up a Claude Code session, set up [Remote Control](https://code.claude.com/docs/en/remote-control), leave my personal MacBook running at home, and continue from my phone via voice whilst driving to and from work in San Francisco — finally making good use of the ~1.5 hrs commute.
+
+This moment — continuing my local Claude Code session by giving Claude voice instructions on what to do with the MGP graph — all whilst going up and down the US-101, and then having Claude read its findings back to me: *magic!*
+
+## The "what"
+
+Now that we have the "how" out of the way, here comes the "what" — <s>my</s> Claude's findings! Note: the following is just a highlight reel of findings. The full list of 30+ questions is in [`eda.ipynb`](https://github.com/fabianrigterink/math-genealogy-scraper/blob/main/analysis/eda.ipynb).
+
+### My own ancestry
+
+If you'd like to see just how far the apple can fall from the tree, below is my own ancestry. I can trace it to [Sharaf al-Dīn al-Ṭūsī](https://www.mathgenealogy.org/id.php?id=230926) (about 1135—1213) — an Islamic mathematician who was born in Tus ("al-Ṭūsī") in today's Iran and later studied and taught in Damascus, Aleppo (both Syria), and Mosul (Iraq). With 244,970 descendents, he is one of the [extremes](https://www.genealogy.math.ndsu.nodak.edu/extrema.php) of the database, with only few other mathematicians having more descendents than him.
+
+<figure className="relative left-1/2 -translate-x-1/2 w-[calc(100vw-3rem)] max-w-[1100px] my-12">
+  <iframe
+    src="/blog/a-family-like-no-other-math-genealogy/genealogy.html"
+    title="Interactive ancestry graph: Sharaf al-Dīn al-Ṭūsī to Fabian Rigterink"
+    loading="lazy"
+    className="block w-full h-[75vh] rounded border border-border bg-white"
+  />
+  <figcaption className="block mt-2 text-sm text-ink-muted text-center">
+    My academic ancestry, from Sharaf al-Dīn al-Ṭūsī (1135—1213) to me (2017) — pan and zoom to explore, or <a href="/blog/a-family-like-no-other-math-genealogy/genealogy.html" target="_blank" rel="noopener noreferrer" className="underline hover:text-ink">open in a new window</a>.
+  </figcaption>
+</figure>
+
+My ancestry includes many famous names:
+* [Carl Friedrich **Gauß**](https://www.mathgenealogy.org/id.php?id=18231)
+* [Leonhard **Euler**](https://www.mathgenealogy.org/id.php?id=38586)
+* [Gottfried Wilhelm **Leibniz**](https://www.mathgenealogy.org/id.php?id=60985)
+* [Pierre-Simon **Laplace**](https://www.mathgenealogy.org/id.php?id=108295)
+* [Joseph-Louis **Lagrange**](https://www.mathgenealogy.org/id.php?id=17864)
+* [Johannes **Kepler**](https://www.mathgenealogy.org/id.php?id=127098)
+* [Galileo **Galilei**](https://www.mathgenealogy.org/id.php?id=134975)
+* [Nicolaus **Copernicus**](https://www.mathgenealogy.org/id.php?id=126177)
+* [Jean-Baptiste Joseph **Fourier**](https://www.mathgenealogy.org/id.php?id=17981)
+* [David **Hilbert**](https://www.mathgenealogy.org/id.php?id=7298)
+* [Hermann **von Helmholtz**](https://www.mathgenealogy.org/id.php?id=49057)
+* [Jean Le Rond **d'Alembert**](https://www.mathgenealogy.org/id.php?id=108266)
+
+### 10 interesting — and, at times, surprising — findings from in the complete MPG graph
+
+**The deep past**
+
+1. **There is no Mathematical Eve.** Even the broadest single ancestor only reaches about 74% of every modern PhD — a tight cluster of 14th-century Byzantine and Renaissance scholars ([Bessarion](https://www.mathgenealogy.org/id.php?id=131561), [Plethon](https://www.mathgenealogy.org/id.php?id=131575), [Manuel Chrysoloras](https://www.mathgenealogy.org/id.php?id=135185), [Thomas à Kempis](https://www.mathgenealogy.org/id.php?id=140181)) all tied at 73.7%. The latest single mathematician with a known year whose descendants make up more than half of moderns is [Siméon Denis Poisson](https://www.mathgenealogy.org/id.php?id=17865), in 1800 (51.1%) — after Poisson, math branched too widely to ever re-converge.
+
+  ![Coverage of modern PhDs by single ancestor — Poisson is the latest 50%+ root](https://res.cloudinary.com/dwp6mzleh/image/upload/v1779668468/mathematical_eve_dfy0tg.png "Coverage of modern PhDs by single ancestor — Poisson is the latest 50%+ root")
+
+2. **The longest unbroken advisor-student chain is 54 generations long.** Roughly 800 years of pedagogy, running from medieval Persia through Byzantine scholars, Renaissance Italy and Reformation Germany, through [Gauß](https://www.mathgenealogy.org/id.php?id=18231) and [Bessel](https://www.mathgenealogy.org/id.php?id=18603), and out into a 2010 Wayne State PhD.
+
+  ![The 54-generation chain from al-Ṭūsī to a 2010 Wayne State PhD](https://res.cloudinary.com/dwp6mzleh/image/upload/v1779668468/longest_chain_tkmttn.png "The 54-generation chain from al-Ṭūsī to a 2010 Wayne State PhD")
+
+**20th-century ruptures**
+
+3. **WWII and its effects on mathematics.** Take German-trained mathematicians who were active in 1933 and split them by whether they emigrated. Those who emigrated kept producing students at 94% of their pre-1933 rate; those who stayed dropped to 13%. 80+ years later the geographic signature is still visible — emigrant-branch descendants did their PhDs 51% in the US, stayer-branch descendants 43% in Germany.
+
+  ![Where the descendants of each 1933-era branch ended up](https://res.cloudinary.com/dwp6mzleh/image/upload/v1779668469/wwii_branch_geography_vmvdb8.png "Where the descendants of each 1933-era branch ended up")
+
+4. **Princeton overtook Göttingen in the 1940s.** Göttingen had been producing about 45 PhDs per decade through 1900—1930; it collapsed to ~12 during 1933—1945. Princeton went exponential in the same years and never looked back. Mathematics' centre of gravity crossed the Atlantic in a single decade.
+
+  ![Princeton overtakes Göttingen, 1940s](https://res.cloudinary.com/dwp6mzleh/image/upload/v1779668469/princeton_vs_gottingen_loujug.png "Princeton overtakes Göttingen, 1940s")
+
+5. **The other 20th-century ruptures are visible, too.** The WWI dip in Germany and France, the Nazi-era trough (1933—45), and the abrupt collapse of Russian PhD production after 1991 — followed by a slow partial recovery — all jump out of the per-country time series, with the war bands shaded in red below.
+
+  ![Per-country PhD output 1900—2014, with WWI/WWII/Nazi-purge bands](https://res.cloudinary.com/dwp6mzleh/image/upload/v1779668468/country_phd_series_podvue.png "Per-country PhD output 1900—2014, with WWI/WWII/Nazi-purge bands")
+
+**What gets inherited**
+
+6. **Subject is staggeringly heritable.** A student inherits their advisor's Mathematics Subject Classification (MSC) code 70% of the time — 11.7× the 6% random baseline. Computer science passes on at 93%, game theory / economics at 93%, number theory at 87%, statistics at 83%.
+
+  ![P(student subject | advisor subject) — diagonal = inheritance](https://res.cloudinary.com/dwp6mzleh/image/upload/v1779668469/subject_inheritance_btrcld.png "P(student subject | advisor subject) — diagonal = inheritance")
+
+7. **The Bourbaki effect is traceable four generations later.** The seven Bourbaki founders' combined academic descendants (≈2,240 mathematicians) are 13× over-represented in algebraic geometry, 9× in category theory, 5.5× in algebraic topology — and 0.2× in computer science. An intellectual program is heritable, just like a subject.
+
+**The shape of the network**
+
+8. **The math genealogy is not scale-free.** The "classic [scale-free network](https://networksciencebook.com/chapter/4)" framing is widely repeated for academic genealogies — but it fails the [Clauset—Shalizi—Newman](https://arxiv.org/abs/0706.1062) likelihood-ratio test for advisor fertility by R = −11.8, p ≈ 10⁻³². Lognormal beats pure [power-law](https://networksciencebook.com/chapter/4) by a wide margin. This is the [Broido—Clauset](https://arxiv.org/abs/1801.03400) story: many networks billed as scale-free fit lognormal much better.
+
+  ![Empirical advisor-fertility CCDF vs. fitted power-law and lognormal](https://res.cloudinary.com/dwp6mzleh/image/upload/v1779668468/fertility_lognormal_yo5be3.png "Empirical advisor-fertility CCDF vs. fitted power-law and lognormal")
+
+9. **The genealogy isn't a [random branching process](https://networksciencebook.com/chapter/3), either.** A [Galton–Watson](https://en.wikipedia.org/wiki/Galton%E2%80%93Watson_process) simulation calibrated to MGP's offspring distribution matches the empirical 60% extinction-at-depth-0 rate — but MGP has ~28× more lineages reaching depth ≥ 5 than the random process predicts (15.9% empirical vs. 0.6% simulated). Once a lineage starts, it survives far longer than chance, presumably because school, subject, and cohort effects all reinforce it.
+
+  ![Lineage-depth distribution: MGP empirical vs. Galton-Watson simulated](https://res.cloudinary.com/dwp6mzleh/image/upload/v1779668468/galton_watson_vs_mgp_ufz8of.png "Lineage-depth distribution: MGP empirical vs. Galton-Watson simulated")
+
+**What MGP doesn't measure**
+
+10. **Tiny direct lineages can compound enormously.** [Newton](https://www.mathgenealogy.org/id.php?id=74313) has 3 direct students but 31,505 descendants. [Laplace](https://www.mathgenealogy.org/id.php?id=108295) has 2 but 158,184. [Leibniz](https://www.mathgenealogy.org/id.php?id=60985) has 2 but 183,934. Meanwhile, [Cantor](https://www.mathgenealogy.org/id.php?id=29561) has 1 descendant total, and [Galois](https://www.mathgenealogy.org/id.php?id=55176), [Abel](https://www.mathgenealogy.org/id.php?id=55178), and [Ramanujan](https://www.mathgenealogy.org/id.php?id=91561) have 0 each. MGP measures formal PhD supervision, not influence — a brilliant student in the right century compounds into 100,000 descendants; a brilliant mathematician without a faculty post compounds into zero.
+
+---
+
+*All code is available in the GitHub repo [fabianrigterink/math-genealogy-scraper](https://github.com/fabianrigterink/math-genealogy-scraper). For an extended analysis, see [`eda.ipynb`](https://github.com/fabianrigterink/math-genealogy-scraper/blob/main/analysis/eda.ipynb).*
