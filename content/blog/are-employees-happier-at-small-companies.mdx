@@ -23,7 +23,7 @@ One catch: Glassdoor doesn't publish company headcount. So I used the number of 
 
 After aggregating to 35,526 firm-level observations, here's what I found:
 
-![Mean rating by company size bucket](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1777178573/fig2_mean_rating_by_size_vac3mx.png "Mean rating by company size bucket")
+![Mean rating by company size bucket](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1779742784/02_average_employee_rating_by_company_size_nkipx0.png "Mean rating by company size bucket")
 
 The bucket means don't tell a clean story. They form more of a U-shape — the smallest firms (1-50 reviews) and the largest firms (10K+) both rate higher than mid-sized firms. Not exactly the monotonic decline Naval was predicting. But bucket means can be misleading. A better approach is to look at the continuous relationship between size and satisfaction. The Spearman rank correlation gives us:
 
@@ -31,7 +31,7 @@ The bucket means don't tell a clean story. They form more of a U-shape — the s
 
 That's a weak but statistically significant negative correlation. As companies get bigger, ratings tend to go down — just not by much. An ordinal logistic regression tells the same story: for every 10x increase in review count, a firm's odds of being in a higher rating category drop by about 1.3x. The scatter plot with a LOWESS trend line makes this visible:
 
-![Scatter plot with LOWESS trend](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1777178572/fig6_scatter_lowess_h3dtne.png "Scatter plot with LOWESS trend")
+![Scatter plot with LOWESS trend](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1779742787/06_firm_ratings_vs_company_size_fej4gn.png "Scatter plot with LOWESS trend")
 
 You can see the cloud of points compressing as firms get larger (regression to the mean; more reviews = less noise), and the magenta LOWESS line gently slopes downward.
 
@@ -41,7 +41,7 @@ What's interesting is that when you break it down by sub-dimension — *Career O
 
 The strongest effects? Senior Management (rho = -0.16) and Work/Life Balance (rho = -0.17). Those are the dimensions Naval was referring to. "More human relations" and being "treated like a human" map onto how you feel about your managers and whether you have a life outside work.
 
-![Summary dashboard](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1777178572/fig8_summary_dashboard_qycda9.png "Summary dashboard")
+![Summary dashboard](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1779742788/08_summary_dashboard_zkffu9.png "Summary dashboard")
 
 ## The catch: it's a lot of noise
 
@@ -63,4 +63,4 @@ In short: You can be miserable at a 5-person startup and thriving at a 50,000-pe
 
 ---
 
-*The full analysis notebook (with all statistical tests, 8 figures, and robustness checks) is available as a [Colab notebook](https://drive.google.com/file/d/1DcRnHLi34qIQR0hUxz-uVrrtxr1vdv7X/view?usp=sharing). Data source: [Glassdoor Job Reviews dataset](https://www.kaggle.com/datasets/davidgauthier/glassdoor-job-reviews-2) on Kaggle.*
+*The full analysis notebook (with all statistical tests, 8 figures, and robustness checks) is available as a [Colab notebook](https://colab.research.google.com/drive/18RCthpnv_WUNFgSzibUs_A6fMKFoLkMl?usp=sharing). Data source: [Glassdoor Job Reviews dataset](https://www.kaggle.com/datasets/davidgauthier/glassdoor-job-reviews-2) on Kaggle.*
