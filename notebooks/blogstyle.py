@@ -6,14 +6,17 @@ analysis notebook — wherever it runs (Google Colab, GitHub, local) — via a
 short bootstrap placed at the top of the notebook:
 
     # --- rigter.ink shared figure style -----------------------------------
-    import os, urllib.request
-    if not os.path.exists("blogstyle.py"):
+    import importlib, urllib.request
+    try:
         urllib.request.urlretrieve(
             "https://raw.githubusercontent.com/fabianrigterink/rigter-ink/"
             "main/notebooks/blogstyle.py",
             "blogstyle.py",
         )
+    except Exception:
+        pass  # offline — fall back to an existing local copy
     import blogstyle
+    importlib.reload(blogstyle)
     blogstyle.use()
     # ----------------------------------------------------------------------
 
@@ -30,12 +33,13 @@ Quick reference
     blogstyle.title(ax, "Title", "subtitle")
     blogstyle.era_band(ax, 1939, 1945, "WWII")
     blogstyle.pct(ax); blogstyle.thousands(ax, "x")
-    blogstyle.save(fig, "my_figure")        # -> figures/my_figure.png @ 200 dpi
+    blogstyle.save(fig, "my_figure")        # -> figures/my_figure.png @ 300 dpi (use blogstyle.show for auto NN_title names)
 
 Author: Fabian Rigterink (style module generated for figure standardization)
 """
 from __future__ import annotations
 
+import re
 import tempfile
 import urllib.request
 from pathlib import Path
@@ -93,7 +97,8 @@ DIVERGING = LinearSegmentedColormap.from_list(
 
 for _cm in (SEQ, DIVERGING):
     try:
-        mpl.colormaps.register(_cm, force=True)
+        if _cm.name not in mpl.colormaps:
+            mpl.colormaps.register(_cm)
     except Exception:
         pass
 
@@ -109,6 +114,7 @@ _FONT_URLS = {
 }
 
 _FONT_FAMILY = "DejaVu Sans"  # safe default; upgraded to "Inter" if available
+_FIG_INDEX = 0  # auto-incrementing figure number used by show(); reset in use()
 
 
 def _install_inter() -> bool:
@@ -141,16 +147,17 @@ def _install_inter() -> bool:
 # The theme
 # ---------------------------------------------------------------------------
 
-def use(font: bool = True, dpi: int = 200, grid: bool = True) -> None:
+def use(font: bool = True, dpi: int = 300, grid: bool = True) -> None:
     """Apply the rigter.ink figure theme. Call once near the top of a notebook.
 
     Parameters
     ----------
     font : download + use Inter (matches the site). Falls back gracefully.
-    dpi  : export resolution. 200 stays crisp in the blog's click-to-zoom view.
+    dpi  : export resolution. 300 is high-res and stays crisp when zoomed.
     grid : draw a light horizontal grid (good for bar/line charts).
     """
-    global _FONT_FAMILY
+    global _FONT_FAMILY, _FIG_INDEX
+    _FIG_INDEX = 0  # restart figure numbering on each fresh run
     if font and _install_inter():
         _FONT_FAMILY = "Inter"
 
@@ -248,6 +255,7 @@ def title(ax, text: str, subtitle: str | None = None) -> None:
     The subtitle sits in a lighter ink just under the title — handy for the
     "what am I looking at" line that often ends up in a blog caption.
     """
+    ax.figure._rink_title = text  # remembered by show() for auto file naming
     if not subtitle:
         ax.set_title(text)
         return
@@ -313,8 +321,57 @@ def save(fig, name: str, outdir: str = "figures", formats=("png",),
     return paths
 
 
+def _slug(text: str | None, maxlen: int = 60) -> str:
+    """Turn a title into a safe, lowercase filename fragment."""
+    import unicodedata
+
+    if not text:
+        return "figure"
+    t = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
+    t = re.sub(r"[^a-z0-9]+", "_", t.lower()).strip("_")
+    return t[:maxlen].rstrip("_") or "figure"
+
+
+def _derive_title(fig) -> str | None:
+    """Best-effort title for a figure: recorded title, suptitle, else an axes title."""
+    recorded = getattr(fig, "_rink_title", None)
+    if recorded:
+        return recorded
+    st = getattr(fig, "_suptitle", None)
+    if st is not None and st.get_text().strip():
+        return st.get_text()
+    # Titles are left-aligned (axes.titlelocation="left"), so the default
+    # get_title() (center) is empty — check every location.
+    for ax in fig.axes:
+        for loc in ("left", "center", "right"):
+            t = ax.get_title(loc=loc).strip()
+            if t:
+                return t
+    return None
+
+
+def show(fig=None, title: str | None = None, index: int | None = None,
+         save_fig: bool = True, outdir: str = "figures"):
+    """Save the current figure (indexed + named from its title, high-res) then show it.
+
+    A drop-in replacement for ``plt.show()``. Files land in ``outdir`` as
+    ``NN_title-slug.png``. The index auto-increments (reset by ``use()``) so a
+    full top-to-bottom run numbers figures 1, 2, 3, …; pass ``index=`` to pin it.
+    """
+    global _FIG_INDEX
+    fig = fig if fig is not None else plt.gcf()
+    if save_fig and fig is not None and fig.get_axes():
+        if index is None:
+            _FIG_INDEX += 1
+            index = _FIG_INDEX
+        name = f"{index:02d}_{_slug(title or _derive_title(fig))}"
+        save(fig, name, outdir=outdir)
+    plt.show()
+
+
 __all__ = [
-    "use", "palette", "title", "despine", "era_band", "pct", "thousands", "save",
+    "use", "palette", "title", "despine", "era_band", "pct", "thousands",
+    "save", "show",
     "PALETTE", "SEQ", "DIVERGING",
     "INK", "INK_LIGHT", "INK_MUTED", "SURFACE", "SURFACE_ALT", "BORDER",
     "TEAL", "TEAL_BRIGHT", "MAGENTA", "INDIGO", "PEACH",
