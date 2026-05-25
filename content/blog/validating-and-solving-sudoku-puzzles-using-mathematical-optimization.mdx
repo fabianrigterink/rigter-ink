@@ -1,21 +1,20 @@
 ---
-title: "Validating and solving Sudoku puzzles — using mathematical optimization"
+title: "Validating and solving Sudoku puzzles: using mathematical optimization"
 date: "2026-04-05"
 description: "In this post, we go from the seemingly simple interview question of \"model Sudoku as an optimization problem\" all the way to an open problem in mathematics."
 tags: ["Optimization", "Interviews", "Sudoku"]
 image: "https://res.cloudinary.com/dwp6mzleh/image/upload/v1779729010/blog-1_mjjhmr.jpg"
 ---
 
+Sudoku looks like a game, but it's also a small, elegant optimization problem in disguise. This is the first post in a short series on what happens when you take that idea seriously — and it starts with a solver built from nothing but variables and constraints.
 
 ## "Model Sudoku as an optimization problem"
 
-[Sudoku](https://en.wikipedia.org/wiki/Sudoku) is one of my favorite puzzles. In classic Sudoku, the goal is to fill a 9×9 grid with digits so that each column, each row, and each of the nine 3×3 sub-grids contains the digits 1-9 without repetition. 
-At the start, we are provided a partially completed grid, which, for a *well-posed* puzzle, has a *single* solution.
+[Sudoku](https://en.wikipedia.org/wiki/Sudoku) is one of my favorite puzzles. In classic Sudoku, the goal is to fill a $9 \times 9$ grid with digits so that each column, each row, and each of the nine $3 \times 3$ subgrids contains the digits 1–9 without repetition. At the start, we are provided a partially completed grid, which, for a *well-posed* puzzle, has a *single* solution.
 
 Software Engineers may come across Sudoku in their [LeetCode](https://leetcode.com/) coding interview preparations through problems such as "[Valid Sudoku](https://leetcode.com/problems/valid-sudoku/)" (medium; determine if a Sudoku board is valid) and "[Sudoku Solver](https://leetcode.com/problems/sudoku-solver/)" (hard; solve a Sudoku puzzle).
 
-Throughout the years that I interviewed Operations Research specialists, I liked to ask a variant of these two questions: *model Sudoku as an optimization problem*.
-Familiarity with algebraic modeling languages and the assumed access to a solver make this a relatively easy problem to tackle.
+Throughout the years that I interviewed Operations Research specialists, I liked to ask a variant of these two questions: *model Sudoku as an optimization problem*. Familiarity with algebraic modeling languages and the assumed access to a solver make this a relatively easy problem to tackle.
 
 Most optimization problems have three components: (1) an *objective*, (2) a set of *variables*, and (3) a set of *constraints.* In the following, we'll model Sudoku as an optimization problem, defining these three components.
 
@@ -25,20 +24,15 @@ Sudoku doesn't have an objective in the sense that there is nothing to minimize 
 
 ### Variables
 
-As Robert Frost would say in his famous poem, "The Road Not Taken," this is where the roads diverge.
-Few candidates would formulate the problem as a [Constraint Programming (CP)](https://en.wikipedia.org/wiki/Constraint_programming) problem, allowing them to make later use of logical constraints such as *AllDifferent*.
-At this point, they would introduce 9 × 9 integer variables (ranging from 1 to 9).
-But most candidates would formulate the problem as a Mixed-Integer Linear Program (MIP), which is how we'll formulate it here.
-They would introduce 9×9×9 binary variables as follows:
+As Robert Frost would say in his famous poem, "The Road Not Taken," this is where the roads diverge. Few candidates would formulate the problem as a [Constraint Programming (CP)](https://en.wikipedia.org/wiki/Constraint_programming) problem, allowing them to make later use of logical constraints such as *AllDifferent*. At this point, they would introduce $9 \times 9$ integer variables (ranging from 1 to 9). But most candidates would formulate the problem as a Mixed-Integer Linear Program (MIP), which is how we'll formulate it here. They would introduce $9 \times 9 \times 9$ binary variables as follows:
 
 $$
 x_{r,c,v} \in \{0, 1\} \quad \forall \, r \in R,\; c \in C,\; v \in V
 $$
 
-where $R = C = V = \{1, \ldots, 9\}$ are the sets of rows, columns, and values, respectively.
-Here, $x_{r,c,v} = 1$ means that cell $(r, c)$ takes value $v$.
+where $R = C = V = \{1, \ldots, 9\}$ are the sets of rows, columns, and values, respectively. Here, $x_{r,c,v} = 1$ means that cell $(r, c)$ takes value $v$.
 
-Why 9×9×9 = 729 binary variables instead of 81 integer variables? Because this encoding turns the problem into a *linear* program — the constraints become simple sums of binary variables, which solvers handle very efficiently.
+Why $9 \times 9 \times 9 = 729$ binary variables instead of 81 integer variables? Because this encoding turns the problem into a *linear* program — the constraints become simple sums of binary variables, which solvers handle very efficiently.
 
 ### Constraints
 
@@ -169,7 +163,7 @@ Let's put our solver to the test with two famously difficult puzzles.
 
 ### A 17-clue Sudoku
 
-The following puzzle, from [McGuire et al. (2014)](https://arxiv.org/pdf/1201.0749), has only 17 clues — the minimum number possible for a 9×9 Sudoku with a unique solution (more on this in the next post):
+The following puzzle, from [McGuire, Tugemann, and Civario (2012)](https://arxiv.org/abs/1201.0749), has only 17 clues — the minimum number possible for a $9 \times 9$ Sudoku with a unique solution (more on this in the next post):
 
 ```python
 clue = np.array([
@@ -249,6 +243,8 @@ What started as an interview question — *model Sudoku as an optimization probl
 
 The solver doesn't just find *a* solution — with one additional constraint, it can prove that the solution is *unique*, effectively validating the puzzle itself.
 
-But this raises a deeper question: how few clues can a Sudoku puzzle have and still admit a unique solution? For the standard 9×9 grid, the answer is 17 — a result that took significant computational effort to prove. In the [next post](/blog/how-few-clues-does-a-sudoku-need-searching-for-minimum-clue-puzzles), we'll explore this question and extend it to Sudoku grids of other sizes.
+But this raises a deeper question: how few clues can a Sudoku puzzle have and still admit a unique solution? For the standard $9 \times 9$ grid, the answer is 17 — a result that took significant computational effort to prove. In the [next post](/blog/how-few-clues-does-a-sudoku-need-searching-for-minimum-clue-puzzles), we'll explore this question and extend it to Sudoku grids of other sizes.
 
-The full code is available as a [Colab notebook](https://colab.research.google.com/drive/1UJhPmrB0p9f5Oqf03obDC9s3vRm-8Qa5?usp=sharing).
+---
+
+*The full code is available as a [Colab notebook](https://colab.research.google.com/drive/1UJhPmrB0p9f5Oqf03obDC9s3vRm-8Qa5?usp=sharing).*

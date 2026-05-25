@@ -6,9 +6,11 @@ tags: ["Optimization", "Sudoku", "Combinatorics"]
 image: "https://res.cloudinary.com/dwp6mzleh/image/upload/v1779729005/blog-2_myv8oy.jpg"
 ---
 
+This is the second post in a short series on Sudoku and mathematical optimization. The first post built a solver; here we put it to work on a harder question — how *few* clues a puzzle can have and still admit a single solution.
+
 ## From solving to questioning
 
-In the [previous post](/blog/validating-and-solving-sudoku-puzzles-using-mathematical-optimization), we built a MIP-based Sudoku solver that can both solve a puzzle and verify that its solution is unique. Along the way, we encountered a 17-clue puzzle — the minimum possible for a standard 9×9 Sudoku.
+In the [previous post](/blog/validating-and-solving-sudoku-puzzles-using-mathematical-optimization), we built a MIP-based Sudoku solver that can both solve a puzzle and verify that its solution is unique. Along the way, we encountered a 17-clue puzzle — the minimum possible for a standard $9 \times 9$ Sudoku.
 
 That fact is worth pausing on. Out of 81 cells, you only need to reveal 17 to pin down the entire grid. For that puzzle, removing any single clue destroys uniqueness — every revealed cell is load-bearing. But how do we know 17 is the minimum across *all* puzzles? And what about Sudoku grids of other sizes?
 
@@ -100,7 +102,7 @@ Each run removes cells one by one until removing any further cell would break un
 
 With only 16 cells, the $4 \times 4$ case is small enough that our heuristic converges quickly. After 100 runs:
 
-![Convergence plot: best-so-far minimum clues vs. iteration for the 4×4 Sudoku search](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1779742224/01_minimum_clues_found_vs_iteration_4x4_znglj0.png "Convergence of the greedy-removal heuristic on the 4×4 grid: best-so-far minimum clues vs. iteration.")
+![Convergence plot: best-so-far minimum clues vs. iteration for the 4×4 Sudoku search](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1779742224/01_minimum_clues_found_vs_iteration_4x4_znglj0.png "Convergence plot: best-so-far minimum clues vs. iteration for the 4×4 Sudoku search")
 
 **Minimum clues found: 4**
 
@@ -118,7 +120,7 @@ This matches the known result: the minimum number of clues for a $4 \times 4$ Su
 
 This is the classic case. We ran 1,000 iterations of the search:
 
-![Convergence plot: best-so-far minimum clues vs. iteration for the 9×9 Sudoku search](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1779742224/02_minimum_clues_found_vs_iteration_9x9_yjvudt.png "Convergence of the greedy-removal heuristic on the 9×9 grid: best-so-far minimum clues vs. iteration.")
+![Convergence plot: best-so-far minimum clues vs. iteration for the 9×9 Sudoku search](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1779742224/02_minimum_clues_found_vs_iteration_9x9_yjvudt.png "Convergence plot: best-so-far minimum clues vs. iteration for the 9×9 Sudoku search")
 
 **Minimum clues found: 27**
 
@@ -144,7 +146,7 @@ The proven result of 17 was established by [McGuire, Tugemann, and Civario (2012
 
 With 256 cells, each run involves many more solver calls — each removal requires re-solving and checking uniqueness. After 1,000 runs:
 
-![Convergence plot: best-so-far minimum clues vs. iteration for the 16×16 Sudoku search](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1779742224/03_minimum_clues_found_vs_iteration_16x16_wmjr1w.png "Convergence of the greedy-removal heuristic on the 16×16 grid: best-so-far minimum clues vs. iteration.")
+![Convergence plot: best-so-far minimum clues vs. iteration for the 16×16 Sudoku search](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1779742224/03_minimum_clues_found_vs_iteration_16x16_wmjr1w.png "Convergence plot: best-so-far minimum clues vs. iteration for the 16×16 Sudoku search")
 
 **Minimum clues found: 123**
 
@@ -196,4 +198,6 @@ We started with a solver and a simple question — *how many clues can we remove
 
 For the $n = 3$ case, that proof took a combination of mathematical insight and brute-force computation. For $n = 4$ and beyond, the question remains wide open.
 
-The full code — including the solver, the search procedure, and the convergence plots — is available as a [Colab notebook](https://colab.research.google.com/drive/1UJhPmrB0p9f5Oqf03obDC9s3vRm-8Qa5?usp=sharing).
+---
+
+*The full code — including the solver, the search procedure, and the convergence plots — is available as a [Colab notebook](https://colab.research.google.com/drive/1UJhPmrB0p9f5Oqf03obDC9s3vRm-8Qa5?usp=sharing).*
