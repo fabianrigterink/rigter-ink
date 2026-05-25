@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
@@ -19,9 +20,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) return {};
+  const images = post.meta.image
+    ? [{ url: post.meta.image, width: 1600, height: 900, alt: post.meta.title }]
+    : undefined;
   return {
     title: post.meta.title,
     description: post.meta.description,
+    openGraph: {
+      type: "article",
+      title: post.meta.title,
+      description: post.meta.description,
+      url: `/blog/${slug}`,
+      images,
+    },
+    twitter: {
+      card: post.meta.image ? "summary_large_image" : "summary",
+      title: post.meta.title,
+      description: post.meta.description,
+      images: post.meta.image ? [post.meta.image] : undefined,
+    },
   };
 }
 
@@ -44,7 +61,7 @@ export default async function BlogPost({ params }: Props) {
         ← Back to blog
       </Link>
 
-      <header className="mb-12">
+      <header className={post.meta.image ? "mb-8" : "mb-12"}>
         <h1 className="detail-h1 mb-10">{post.meta.title}</h1>
         <div className="flex items-center gap-3 text-sm text-ink-muted">
           <time>{formatDateLong(post.meta.date)}</time>
@@ -59,6 +76,21 @@ export default async function BlogPost({ params }: Props) {
           </div>
         )}
       </header>
+
+      {post.meta.image && (
+        <div className="wide-bleed mb-12">
+          <div className="relative aspect-video overflow-hidden rounded-xl border border-border-light bg-surface-alt">
+            <Image
+              src={post.meta.image}
+              alt=""
+              fill
+              priority
+              sizes="(max-width: 1080px) 100vw, 1080px"
+              className="object-cover"
+            />
+          </div>
+        </div>
+      )}
 
       <article className="prose">
         <MDXContent />

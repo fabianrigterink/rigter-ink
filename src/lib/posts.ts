@@ -12,6 +12,7 @@ export interface PostMeta {
   description: string;
   tags: string[];
   readingTime: string;
+  image?: string;
 }
 
 export function getAllPosts(): PostMeta[] {
@@ -32,6 +33,7 @@ export function getAllPosts(): PostMeta[] {
       description: data.description ?? "",
       tags: data.tags ?? [],
       readingTime: stats.text,
+      image: data.image ?? undefined,
     };
   });
 
@@ -71,6 +73,7 @@ export function getPostBySlug(slug: string) {
       description: data.description ?? "",
       tags: data.tags ?? [],
       readingTime: stats.text,
+      image: data.image ?? undefined,
     },
     content,
   };

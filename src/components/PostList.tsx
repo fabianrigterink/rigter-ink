@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { PostMeta } from "@/lib/posts";
 
@@ -27,25 +28,38 @@ export default function PostList({ posts, currentPage, totalPages }: PostListPro
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="group block py-5 no-underline"
+              className="group flex items-start gap-4 sm:gap-5 py-5 no-underline"
             >
-              <div className="flex items-baseline justify-between gap-4 mb-2">
-                <h2 className="font-serif text-lg leading-snug text-ink min-w-0 transition-colors group-hover:text-link">
-                  {post.title}
-                  <span
-                    aria-hidden="true"
-                    className="inline-block ml-2 text-sm text-ink-muted opacity-0 -translate-x-1 transition-all group-hover:opacity-100 group-hover:translate-x-0"
-                  >
-                    →
+              {post.image && (
+                <div className="relative aspect-video w-28 sm:w-36 shrink-0 overflow-hidden rounded-lg border border-border-light bg-surface-alt">
+                  <Image
+                    src={post.image}
+                    alt=""
+                    fill
+                    sizes="(max-width: 640px) 112px, 144px"
+                    className="object-cover transition-opacity group-hover:opacity-90"
+                  />
+                </div>
+              )}
+              <div className="min-w-0 flex-1">
+                <div className="flex items-baseline justify-between gap-4 mb-2">
+                  <h2 className="font-serif text-lg leading-snug text-ink min-w-0 transition-colors group-hover:text-link">
+                    {post.title}
+                    <span
+                      aria-hidden="true"
+                      className="inline-block ml-2 text-sm text-ink-muted opacity-0 -translate-x-1 transition-all group-hover:opacity-100 group-hover:translate-x-0"
+                    >
+                      →
+                    </span>
+                  </h2>
+                  <span className="shrink-0 text-[11px] font-semibold uppercase tracking-wider text-ink-muted">
+                    {post.readingTime}
                   </span>
-                </h2>
-                <span className="shrink-0 text-[11px] font-semibold uppercase tracking-wider text-ink-muted">
-                  {post.readingTime}
-                </span>
+                </div>
+                <p className="text-sm text-ink-muted leading-relaxed">
+                  {post.description}
+                </p>
               </div>
-              <p className="text-sm text-ink-muted leading-relaxed">
-                {post.description}
-              </p>
             </Link>
           ))}
         </div>

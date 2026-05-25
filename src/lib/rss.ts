@@ -11,7 +11,11 @@ export function generateRssFeed(): string {
       <link>${siteUrl}/blog/${post.slug}</link>
       <guid>${siteUrl}/blog/${post.slug}</guid>
       <description>${escapeXml(post.description)}</description>
-      <pubDate>${new Date(post.date).toUTCString()}</pubDate>
+      <pubDate>${new Date(post.date).toUTCString()}</pubDate>${
+        post.image
+          ? `\n      <enclosure url="${escapeXml(post.image)}" type="image/jpeg" length="0"/>`
+          : ""
+      }
     </item>`
     )
     .join("\n");
