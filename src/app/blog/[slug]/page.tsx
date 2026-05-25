@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
+import BlogCover from "@/components/BlogCover";
 import Comments from "@/components/Comments";
 import TagBadge from "@/components/TagBadge";
 import { formatDateLong } from "@/lib/format";
@@ -77,20 +77,7 @@ export default async function BlogPost({ params }: Props) {
         )}
       </header>
 
-      {post.meta.image && (
-        <div className="wide-bleed mb-12">
-          <div className="relative aspect-video overflow-hidden rounded-xl border border-border-light bg-surface-alt">
-            <Image
-              src={post.meta.image}
-              alt=""
-              fill
-              priority
-              sizes="(max-width: 1080px) 100vw, 1080px"
-              className="object-cover"
-            />
-          </div>
-        </div>
-      )}
+      {post.meta.image && <BlogCover src={post.meta.image} />}
 
       <article className="prose">
         <MDXContent />
