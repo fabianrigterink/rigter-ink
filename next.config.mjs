@@ -1,5 +1,6 @@
 import createMDX from "@next/mdx";
 import remarkFrontmatter from "remark-frontmatter";
+import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypePrettyCode from "rehype-pretty-code";
@@ -27,7 +28,7 @@ const nextConfig = {
 
 const withMDX = createMDX({
   options: {
-    remarkPlugins: [remarkFrontmatter, remarkMath],
+    remarkPlugins: [remarkFrontmatter, remarkGfm, remarkMath],
     rehypePlugins: [
       rehypeKatex,
       [rehypePrettyCode, { theme: "github-dark", keepBackground: false }],

@@ -1,0 +1,161 @@
+---
+title: "Where does the New York Times fish for Spelling Bee puzzles?"
+date: "2026-05-31"
+description: "In honor of Scripps 2026, we analyze every one of the almost 3,000 honeycombs in the history of the NYT's Spelling Bee — and how they fare against all 7-letter words from Collins Scrabble Words. We conclude with a detour to another language, German."
+tags: ["Spelling Bee", "Games", "New York Times"]
+image: "https://res.cloudinary.com/dwp6mzleh/image/upload/v1779729007/blog-3_kljdkh.jpg"
+---
+
+[On Thursday night](https://www.nytimes.com/2026/05/28/us/scripps-spelling-bee-takeaways-winner.html), 14-year-old Californian Shrey Parikh correctly spelled 32 out of 35 words in 90 seconds to win the [2026 Scripps National Spelling Bee](https://www.spellingbee.com/). While the winning word, "bromocriptine," isn't a valid New York Times (NYT) Spelling Bee word (it has 10 distinct letters; not 7), we'd still like to honor the new champion and the spell-off record. So in this post, we study every *possible* and every *past* puzzle in NYT Spelling Bee history, spanning almost 3,000 puzzles and dating back to its very first puzzle on May 9, 2018 (**AHORTWY** with center letter **W**).
+
+## How to play Spelling Bee
+
+For those unfamiliar, [Spelling Bee](https://www.nytimes.com/puzzles/spelling-bee) asks NYT readers to make as many words as possible with 7 letters. Words must contain at least 4 letters, include the center letter, and letters can be used more than once. While the NYT's word list isn't public, we know that it doesn'o't include words that are obscure, hyphenated, proper nouns, or cuss words.
+
+### Scoring
+
+4-letter words are worth 1 point, and longer words earn 1 point per letter. Each puzzle includes at least one *pangram* (which uses every letter), worth 7 extra points. This leads to the following word scores:
+
+<div className="narrow-table">
+| Word length | Score if non-pangram | Score if pangram |
+| --- | --- | --- |
+| 4 | 1 | — |
+| 5 | 5 | — |
+| 6 | 6 | — |
+| 7 | 7 | 14 |
+| 8 | 8 | 15 |
+| 9 | 9 | 16 |
+| $\ldots$ | $\ldots$ | $\ldots$ |
+| $n \geq 5$ | $n$ | $n + 7$ (if $n \geq 7$) |
+</div>
+
+### Ranking
+
+The NYT puzzle editor, [Sam Ezersky](https://en.wikipedia.org/wiki/Sam_Ezersky), determines a near-maximum *Queen Bee* score, the highest rank there is. To determine lower-rank thresholds, a fixed percentage is applied to the Queen Bee score.
+
+<div className="narrow-table">
+| Rank | % of Queen Bee |
+| --- | --- |
+| Beginner | 0% |
+| Good Start | 2% |
+| Moving Up | 5% |
+| Good | 8% |
+| Solid | 15% |
+| Nice | 25% |
+| Great | 40% |
+| Amazing | 50% |
+| Genius | 70% |
+| Queen Bee | 100% |
+</div>
+
+(Thresholds are computed as $\lfloor (\text{pct} \times \text{max} + 50) / 100 \rfloor$ — half-up rounding to the nearest integer — a slight variation of Python's [`round()`](https://docs.python.org/3/library/functions.html#round) function.)
+
+### How the Queen Bee score is set
+
+This is where our analysis starts. First, we scraped the nearly 3,000 historical NYT puzzles from [sbsolver.com's archive](https://www.sbsolver.com/archive), each of which lists the Queen Bee score. 
+
+It's unclear which word list the NYT/Sam Ezersky uses, so we use the [Collins Scrabble Words](https://en.wikipedia.org/wiki/Collins_Scrabble_Words) (CSW, formerly SOWPODS) word list instead, and filter on only words with up to 7 distinct letters. SOWPODS is an anagram of the two abbreviations OSW (<u>O</u>fficial <u>S</u>crabble <u>W</u>ords) and OSPD (<u>O</u>fficial <u>S</u>crabble <u>P</u>layers <u>D</u>ictionary).
+
+This allows us to compute two things:
+1. For all historical NYT puzzles, a theoretical maximum score that is greater or equal to the Queen Bee score.
+2. All other possible Spelling Bee puzzles — not just the nearly 3,000 historical ones published by the NYT since May 9, 2018.
+
+SOWPODS has 145,923 words valid words, resulting in 142,261 puzzles. Comparing the theoretical maximum scores with the Queen Bee scores, we see that the NYT's Queen Bee is ~41% of the theoretical max:
+
+![Comparing the theoretical maximum scores with the Queen Bee scores](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780261630/01_nyt_factor_vrklxq.png "Comparing the theoretical maximum scores with the Queen Bee scores")
+
+## Distribution of scores
+
+Across all 142,261 theoretical English puzzles, the max score is heavily right-skewed: most puzzles are small, and a handful are very large. The 2,944 real NYT puzzles follow the same shape, but they live entirely in the easier left tail, topping out at 537 points (whereas the theoretical space runs past 12,000).
+
+{/*
+<div className="wide-bleed">
+<div className="image-row">
+<MdxImage src="https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780261630/02_rank_distribution_theoretical_full_rc22ru.png" alt="Rank distribution across all theoretical puzzles" title="Rank distribution across all theoretical puzzles" />
+<MdxImage src="https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780261630/03_rank_distribution_theoretical_zoom_kl9j1s.png" alt="Rank distribution, zoomed in on the top ranks" title="Rank distribution, zoomed in on the top ranks" />
+</div>
+</div>
+
+<div className="wide-bleed">
+<div className="image-row">
+<MdxImage src="https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780261630/04_rank_distribution_nyt_full_lxgopc.png" alt="Rank distribution across historical NYT puzzles" title="Rank distribution across historical NYT puzzles" />
+<MdxImage src="https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780261630/05_rank_distribution_nyt_zoom_xati8o.png" alt="NYT rank distribution, zoomed in on the top ranks" title="NYT rank distribution, zoomed in on the top ranks" />
+</div>
+</div>
+*/}
+
+<div className="wide-bleed">
+<div className="image-row">
+<MdxImage src="https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780261630/06_rank_distribution_overlay_full_wrmdde.png" alt="Theoretical and NYT rank distributions overlaid" title="Theoretical and NYT rank distributions overlaid" />
+<MdxImage src="https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780261631/07_rank_distribution_overlay_zoom_unwj5y.png" alt="Overlaid rank distributions, zoomed in on the top ranks" title="Overlaid rank distributions, zoomed in on the top ranks" />
+</div>
+</div>
+
+Rescaling each NYT Queen Bee score by that 0.41 factor drops both populations onto a single axis, and this blog post title answers itself: *the NYT fishes from the shallow end.* Its puzzles are hard enough to be interesting, but it mostly skips the English dictionary's huge puzzles.
+
+## The richest and hardest puzzles
+
+The theoretical extremes are lopsided. The richest possible English puzzle is **AEINRST** with center **E**: 1,650 valid words, 129 pangrams, and 12,276 points — roughly a 4,986 Queen Bee once scaled to the NYT. The hardest, **CINOPRX** with center **X**, allows exactly one word — the pangram *princox*.
+
+![The richest and hardest puzzles — theoretical extremes vs the real NYT](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780261631/08_extreme_puzzles_vo702t.png "The richest and hardest puzzles — theoretical extremes vs the real NYT")
+
+The real NYT stays well inside those bounds. Its richest puzzle, **CEINOTV / I** from January 22, 2021, scored 537 across 75 words and 7 pangrams; its hardest, **FIMORTY / F** from March 27, 2023, scored just 47, carried by the pangram *mortify*. (The longest pangrams in the entire dictionary are 15-letter words like *accessarinesses* and *incandescencies*, each worth 22 points.)
+
+## Most puzzles have a single pangram
+
+Every Spelling Bee contains at least one pangram by construction, but the typical puzzle stops there — in the theoretical space and across the NYT's published history alike. Puzzles with two or more pangrams exist but they are uncommon.
+
+![Pangrams per puzzle: theoretical space vs the NYT's history](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780261631/09_pangram_count_distribution_nxaocn.png "Pangrams per puzzle: theoretical space vs the NYT's history")
+
+## The center letter sets the difficulty
+
+The seven letters fix a puzzle's ceiling, but the center letter does most of the work. Rank the theoretical mean score by center letter and the spread is significant: flexible letters like E and R result in rich puzzles, while X, J, and Q make them hard.
+
+![Mean puzzle score by center letter — theoretical vs NYT](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780261631/10_centre_letter_english_ewj1s6.png "Mean puzzle score by center letter — theoretical vs NYT")
+
+So far, the NYT has skipped S and X as center letters entirely — the former likely on purpose.
+
+## Why the NYT mostly bans the letter S
+
+Only 3 of 2,944 NYT puzzles contain the letter S, and for none is it the center letter. The culprit is plurals — a single S turns nearly every noun into a free extra word, and scores double. Theoretical puzzles that include an S average 1,343 points against 669 without, almost exactly double, and the richest with-S puzzle reaches 12,276 versus 5,239 for the best S-free one.
+
+![Theoretical scores with and without the letter S](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780261632/11_s_rule_english_wh1609.png "Theoretical scores with and without the letter S")
+
+Mostly banning S keeps Spelling Bee from collapsing into "add S to everything."
+
+## A detour into German
+
+English is only one dictionary. German, with its appetite for long compounds, ought to behave very differently — and it does. There is no German Spelling Bee, so everything below is theoretical, built from the [hippler word list](https://github.com/hippler/german-wordlist) (235,560 words, 174,909 puzzles) with ä, ö, and ü treated as distinct letters.
+
+<div className="wide-bleed">
+<div className="image-row">
+<MdxImage src="https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780261632/12_distribution_german_v_english_full_yqtqgr.png" alt="Theoretical max scores — German vs English (full range)" title="Theoretical max scores — German vs English (full range)" />
+<MdxImage src="https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780261633/13_distribution_german_v_english_zoom_gsuvt1.png" alt="Theoretical max scores — German vs English (zoomed to the bulk)" title="Theoretical max scores — German vs English (zoomed to the bulk)" />
+</div>
+</div>
+
+German scores run far higher. The entire distribution sits to the right of English, and the richest German puzzle reaches 35,586 points — nearly triple the English maximum.
+
+![The richest and hardest German puzzles](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780261633/14_extreme_puzzles_german_ldesuw.png "The richest and hardest German puzzles")
+
+That richest puzzle is **EGINRST / E**, with 3,993 words and 322 pangrams; the hardest, **ABCFLOX / X**, again yields a single word — fittingly, the English-looking *boxcalf*. The longest German pangram, *interessensorientierten*, stretches 23 letters for 30 points.
+
+![Pangrams per puzzle — German vs English](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780261633/15_pangram_count_german_wlnwrw.png "Pangrams per puzzle — German vs English")
+
+German also packs more pangrams into a puzzle, its tail reaching far past English's.
+
+![Mean puzzle score by center letter — German vs English](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780261634/16_centre_letter_german_dflzss.png "Mean puzzle score by center letter — German vs English")
+
+The center-letter effect survives the switch, too, now with the umlauts taking their place in the ranking.
+
+![German theoretical scores with and without S](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780261634/17_s_rule_german_k8qzgw.png "German theoretical scores with and without S")
+
+Even the S rule carries over, though somewhat gently: German with-S puzzles average 1,612 points against 1,209 without — a 1.33× lift rather than English's near-doubling. German plurals are more complicated than adding an S.
+
+## So where does the NYT fish?
+
+In the shallow, S-free end of a very deep pond — puzzles hard enough to be fun, and never the 1,650-word extremes the dictionary allows.
+
+---
+
+*The full code is available in the GitHub repository [fabianrigterink/spelling-bee](https://github.com/fabianrigterink/spelling-bee). For a May 31, 2026, snapshot of the NYT historicals, see this [Google Sheet](https://docs.google.com/spreadsheets/d/13QawAjPzF_ji1gN4alc9N4Xp3jznoa6SK0cIfV66MoY/edit?usp=sharing).*

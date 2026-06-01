@@ -346,6 +346,13 @@ nav {
   font-size: 0.9em;
 }
 
+/* Option 1: shrink table to its content (used via <div className="narrow-table">) */
+.prose .narrow-table table {
+  width: auto;
+  max-width: 100%;
+  margin: 1.5em auto;
+}
+
 .prose th {
   text-align: left;
   font-weight: 600;
@@ -399,4 +406,26 @@ footer {
   width: min(880px, calc(100vw - 3rem));
   margin-left: 50%;
   transform: translateX(-50%);
+}
+
+/* Side-by-side images (use inside a bleed wrapper) */
+.prose .image-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+  /* Match the my-8 (2rem) breathing room single images get above/below */
+  margin: 2rem 0;
+}
+
+/* MdxImage wraps each image in <span class="block my-8"> — drop that margin in a row */
+.prose .image-row > span {
+  margin: 0;
+}
+
+@media (max-width: 40rem) {
+  .prose .image-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
 }
