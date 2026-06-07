@@ -1,0 +1,254 @@
+{
+  "slug": "barcelona-2025",
+  "title": "Barcelona",
+  "date": "2025-09",
+  "location": "Barcelona, Spain",
+  "coordinates": [
+    2.1779547,
+    41.3773373
+  ],
+  "coverImage": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1717_nc11ps",
+  "description": "The final chapter of a journey around the world. After visiting our home countries of China and Germany, we concluded the trip in Barcelona. Antoni Gaudí's striking architecture, incredible food, and Mediterranean charm made for the perfect finale.",
+  "photos": [
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1657_jpmcfi",
+      "alt": "IMG 1657 jpmcfi",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1665_ktke3r",
+      "alt": "IMG 1665 ktke3r",
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1679_js4fsg",
+      "alt": "IMG 1679 js4fsg",
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1640_tl3owd",
+      "alt": "IMG 1640 tl3owd",
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1645_dz1gsk",
+      "alt": "IMG 1645 dz1gsk",
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1838_p1sm3g",
+      "alt": "IMG 1838 p1sm3g",
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1697_bchgt4",
+      "alt": "IMG 1697 bchgt4",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1786_uuhccs",
+      "alt": "IMG 1786 uuhccs",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1633_usbrbz",
+      "alt": "IMG 1633 usbrbz",
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1700_vvbchm",
+      "alt": "IMG 1700 vvbchm",
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1747_xqo6yk",
+      "alt": "IMG 1747 xqo6yk",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1792_pgybpy",
+      "alt": "IMG 1792 pgybpy",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1695_fm4ij2",
+      "alt": "IMG 1695 fm4ij2",
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1688_p1lv6l",
+      "alt": "IMG 1688 p1lv6l",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1734_ezakfu",
+      "alt": "IMG 1734 ezakfu",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1777_etley9",
+      "alt": "IMG 1777 etley9",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1846_xny4it",
+      "alt": "IMG 1846 xny4it",
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1775_zecheb",
+      "alt": "IMG 1775 zecheb",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1641_yaycki",
+      "alt": "IMG 1641 yaycki",
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1729_j6wu81",
+      "alt": "IMG 1729 j6wu81",
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1767_eksqap",
+      "alt": "IMG 1767 eksqap",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1802_owyrto",
+      "alt": "IMG 1802 owyrto",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1795_pc1ziw",
+      "alt": "IMG 1795 pc1ziw",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1800_igw06q",
+      "alt": "IMG 1800 igw06q",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1752_ebv0wc",
+      "alt": "IMG 1752 ebv0wc",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1833_vrdfek",
+      "alt": "IMG 1833 vrdfek",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1765_n3prmk",
+      "alt": "IMG 1765 n3prmk",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1851_tu4u7z",
+      "alt": "IMG 1851 tu4u7z",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1735_phsppg",
+      "alt": "IMG 1735 phsppg",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1818_g1yugf",
+      "alt": "IMG 1818 g1yugf",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1794_y5wqar",
+      "alt": "IMG 1794 y5wqar",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1845_u9tsqs",
+      "alt": "IMG 1845 u9tsqs",
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1717_nc11ps",
+      "alt": "IMG 1717 nc11ps",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1818_dinner_2_auuxoi",
+      "alt": "IMG 1818 dinner 2 auuxoi",
+      "width": 1600,
+      "height": 1600
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1768_zrvaue",
+      "alt": "IMG 1768 zrvaue",
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1818_dinner_1_puawu9",
+      "alt": "IMG 1818 dinner 1 puawu9",
+      "width": 2048,
+      "height": 2048
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1756_ngq3ct",
+      "alt": "IMG 1756 ngq3ct",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1798_shx20m",
+      "alt": "IMG 1798 shx20m",
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1738_aazljz",
+      "alt": "IMG 1738 aazljz",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_1796_jtjngi",
+      "alt": "IMG 1796 jtjngi",
+      "width": 4032,
+      "height": 3024
+    }
+  ]
+}
