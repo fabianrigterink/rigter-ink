@@ -19,7 +19,7 @@ With this, I set out to search for flights. However, a key limitation in searchi
 
 <div className="wide-bleed">
 <div className="image-row-equal">
-<MdxImage src="https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780885875/kayak-roundtrip_bkkioa.png" alt="Round-trip: flexible ± 3-day dates and metro codes like LON" title="Round-trip: flexible ± 3-day dates" width={1466} height={912} />
+<MdxImage src="https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780885875/kayak-roundtrip_bkkioa.png" alt="Round-trip: flexible ± 3-day dates" title="Round-trip: flexible ± 3-day dates" width={1466} height={912} />
 <MdxImage src="https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780885875/kayak-multicity_hekfvk.png" alt="Multi-city: more stops, but fixed dates and visiting order" title="Multi-city: more stops, but fixed dates and visiting order" width={2000} height={834} />
 </div>
 </div>
@@ -29,7 +29,7 @@ In this post, we'll try to solve that: we'll build a truly flexible multi-stop f
 We'll fetch flight prices from the [Travelpayouts API](https://app.travelpayouts.com/). While these flight prices are cached (they are *not* live), they give us a good indication of the best order and dates to visit the stops. We'll feed these prices into a mathematical optimization model which is an extension of the famous [Traveling Salesman Problem (TSP)](https://en.wikipedia.org/wiki/Travelling_salesman_problem). Finally, we solve the problem using the [HiGHS solver](https://highs.dev/).
 
 To make this work very concrete, we solve two hopefully appealing "bucket list" problem instances:
-1. **The top 10 most-visited cities in 2025**, according to [Euromonitor](https://en.wikipedia.org/wiki/List_of_cities_by_international_visitors#2025_top_10_ranking): Bangkok, Hong Kong, London, Macau, Istanbul, Dubai, Mecca, Antalya, Paris, and Kuala Lumpur.
+1. **The top-10 most-visited cities in 2025**, according to [Euromonitor](https://en.wikipedia.org/wiki/List_of_cities_by_international_visitors#2025_top_10_ranking): Bangkok, Hong Kong, London, Macau, Istanbul, Dubai, Mecca (served by Jeddah, `JED`), Antalya, Paris, and Kuala Lumpur.
 2. **The [New 7 Wonders of the World](https://en.wikipedia.org/wiki/New_7_Wonders_of_the_World):** Petra, the Colosseum, Chichén Itzá, the Great Wall, Machu Picchu, the Taj Mahal, and Christ the Redeemer — with the Pyramids in honorary status.
 
 To my surprise, even with [higher-than-ever kerosene prices](https://www.eia.gov/dnav/pet/hist/EER_EPJK_PF4_RGC_DPGD.htm), the first can be booked (from/to San Francisco, SFO) for a total of \$2,048, and the second for \$3,479.
@@ -125,7 +125,7 @@ Suppose a subtour existed among the non-home stops. Sum the lower stay bound $d_
 
 The model is a binary program with $\mathcal{O}(|V|^2 \cdot |T|)$ variables. A few practical lessons:
 
-- **Solver.** I modeled the problem using [PuLP](https://coin-or.github.io/pulp/). For the solver, I started with [CBC](https://github.com/coin-or/cbc), then moved to [HiGHS](https://highs.dev/), which is markedly stronger on this structure — with symmetry detection and a higher heuristic effort it proves a bounded-window instance optimal in ~30 seconds.
+- **Solver.** We modeled the problem using [PuLP](https://coin-or.github.io/pulp/). For the solver, we started with [CBC](https://github.com/coin-or/cbc), then moved to [HiGHS](https://highs.dev/), which is markedly stronger on this structure — with symmetry detection and a higher heuristic effort it proves a bounded-window instance optimal in ~30 seconds.
 - **Horizon scaling.** Anchoring the window to the trip's own length (≈ the sum of the maximum stays, ~50 days) keeps the model small and solves to *proven* optimality fast. Letting the trip start anywhere in a full 365-day horizon blows the model up to ~40,000 binaries; the LP relaxation becomes loose.
 - **The pragmatic answer: a per-month sweep.** Instead of one giant full-year model, solve the small, fast, *provably optimal* bounded window once per candidate start month, then take the cheapest.
 
@@ -133,7 +133,7 @@ The model is a binary program with $\mathcal{O}(|V|^2 \cdot |T|)$ variables. A f
 
 Both itineraries start and end at SFO, with 2–5 nights per city.
 
-### Top 10 most-visited cities — \$2,048, departing June 8
+### Top-10 most-visited cities — \$2,048, departing June 8
 
 <div className="wide-bleed">
 <TourMap tour="top10" caption="The top-10 tour, in optimal visiting order. Click a city for details." />
