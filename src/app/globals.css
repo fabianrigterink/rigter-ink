@@ -419,7 +419,7 @@ footer {
 }
 
 /* MdxImage wraps each image in <span class="block my-8"> — drop that margin in a row */
-.prose .image-row > span {
+.prose .image-row>span {
   margin: 0;
 }
 
@@ -427,5 +427,30 @@ footer {
   .prose .image-row {
     grid-template-columns: 1fr;
     gap: 0;
+  }
+}
+
+/* Equal-height row: each image's width scales with its aspect ratio (set via the
+   --ar custom property on MdxImage), so all images in the row share one height. */
+.prose .image-row-equal {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  margin: 2rem 0;
+}
+
+.prose .image-row-equal>span {
+  margin: 0;
+  min-width: 0;
+  flex: var(--ar, 1) 1 0;
+}
+
+@media (max-width: 40rem) {
+  .prose .image-row-equal {
+    flex-direction: column;
+  }
+
+  .prose .image-row-equal>span {
+    flex: none;
   }
 }

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { PostMeta } from "@/lib/posts";
 
-const POSTS_PER_PAGE = 6;
+const POSTS_PER_PAGE = 5;
 
 interface PostListProps {
   posts: PostMeta[];

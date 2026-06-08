@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getAllPosts } from "@/lib/posts";
-import PostList from "@/components/PostList";
+import PostList, { POSTS_PER_PAGE } from "@/components/PostList";
 
 export default function Home() {
-  const posts = getAllPosts().slice(0, 6);
+  const posts = getAllPosts().slice(0, POSTS_PER_PAGE);
 
   return (
     <div className="max-w-180 mx-auto px-6">

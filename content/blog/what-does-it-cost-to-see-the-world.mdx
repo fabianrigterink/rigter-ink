@@ -1,0 +1,192 @@
+---
+title: "What does it cost to see the world? Optimizing a flexible multi-stop flight search"
+date: "2026-06-07"
+description: "Fix only your home airport, list the cities you want to visit, and let a time-expanded traveling-salesman model pick the cheapest order and dates. We use it to price two bucket-list trips: the world's 10 most-visited cities and the New 7 Wonders."
+tags: ["Travel", "Flights", "Optimization", "Traveling Salesman Problem"]
+image: "https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780888786/what-does-it-cost-to-see-the-world_vayc7q.jpg"
+---
+
+Every few years, I get that travel itch — after all, I am also a German citizen, a country that is well known for its high per-capita [international tourism expenditure](https://en.wikipedia.org/wiki/World_Tourism_rankings#International_tourism_expenditure). But living and working in the US, one is constantly reminded of the "pick two" framing that applies to travel:
+* When you were young, you had the *time* and *health* to travel, but not the *resources*,
+* Now that you are a working adult, you have the *health* and *resources*, but not the *time*,
+* As a retiree, you may have the *time* and *resources*, but no longer the *health*.
+
+This brings about a somewhat universal truth: *there is never a good time to do just about anything.* Or its Buddhist version: the past is already gone, the future is not yet here, there's only the present.
+
+With this, I set out to search for flights. However, a key limitation in searching for complicated (that is, multi-stop) travel is that it is *inflexible*. This is due to the very nature of how flight price APIs are priced. The screenshots below show the user-facing state-of-the-art on [kayak.com](https://www.kayak.com/):
+* **Left:** Round-trip searches allow for flexible departure and return dates (typically, up to ± 3 days), and a search like "LON" includes the many airports London has to offer: Heathrow, Gatwick, City, Luton, and Stansted.
+* **Right:** Multi-city searches allow for more complicated travel (multiple stops) but are more inflexible — the dates and the order in which the stops are visited must be specified by the user.
+
+<div className="wide-bleed">
+<div className="image-row-equal">
+<MdxImage src="https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780885875/kayak-roundtrip_bkkioa.png" alt="Round-trip: flexible ± 3-day dates and metro codes like LON" title="Round-trip: flexible ± 3-day dates" width={1466} height={912} />
+<MdxImage src="https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1780885875/kayak-multicity_hekfvk.png" alt="Multi-city: more stops, but fixed dates and visiting order" title="Multi-city: more stops, but fixed dates and visiting order" width={2000} height={834} />
+</div>
+</div>
+
+In this post, we'll try to solve that: we'll build a truly flexible multi-stop flight search, only fixing the home airport. The destinations can be visited in any order (but must all be visited), and the dates are flexible. The user only specifies a minimum and maximum stay for each destination.
+
+We'll fetch flight prices from the [Travelpayouts API](https://app.travelpayouts.com/). While these flight prices are cached (they are *not* live), they give us a good indication of the best order and dates to visit the stops. We'll feed these prices into a mathematical optimization model which is an extension of the famous [Traveling Salesman Problem (TSP)](https://en.wikipedia.org/wiki/Travelling_salesman_problem). Finally, we solve the problem using the [HiGHS solver](https://highs.dev/).
+
+To make this work very concrete, we solve two hopefully appealing "bucket list" problem instances:
+1. **The top 10 most-visited cities in 2025**, according to [Euromonitor](https://en.wikipedia.org/wiki/List_of_cities_by_international_visitors#2025_top_10_ranking): Bangkok, Hong Kong, London, Macau, Istanbul, Dubai, Mecca, Antalya, Paris, and Kuala Lumpur.
+2. **The [New 7 Wonders of the World](https://en.wikipedia.org/wiki/New_7_Wonders_of_the_World):** Petra, the Colosseum, Chichén Itzá, the Great Wall, Machu Picchu, the Taj Mahal, and Christ the Redeemer — with the Pyramids in honorary status.
+
+To my surprise, even with [higher-than-ever kerosene prices](https://www.eia.gov/dnav/pet/hist/EER_EPJK_PF4_RGC_DPGD.htm), the first can be booked (from/to San Francisco, SFO) for a total of \$2,048, and the second for \$3,479.
+
+## How the data was fetched
+
+### The source
+
+Prices come from the Travelpayouts Aviasales Data API (free, token-based). The workhorse endpoint is `v2/prices/month-matrix`: given an origin, destination, and a target month, it returns the cheapest fare for each day of that month, grouped by the number of stops.
+
+### The route matrix
+
+For a list of $n$ stops we fetch every directional pair (that's $n(n-1)$ of them) across the next 12 travel-months. For 10 stops that's 90 pairs × 12 months = 1,080 API calls per sweep. A small SQLite-backed client throttles requests to a polite ~3 requests per second, retries transient failures with exponential backoff, and logs and continues past any single bad call so one thin route can't abort the run.
+
+Stop lists live in a config file as IATA codes. Where a city has a metropolitan code that aggregates all its airports (London `LON`, Paris `PAR`, Rome `ROM`, Beijing `BJS`, Rio `RIO`), we use it so the data covers the whole metro area rather than a single terminal.
+
+### Fixing the thin-route problem
+
+The wonders list exposed the sparsity issue immediately: Agra (Taj Mahal) had essentially no departing fares and Mérida (Chichén Itzá) no arriving fares — you could not form a loop through them. So for that itinerary we swapped the four weakest-connected airports for their nearest major hubs:
+
+<div className="narrow-table">
+| Wonder | Nearest airport | Substituted hub |
+| --- | --- | --- |
+| Taj Mahal | Agra `AGR` | Delhi `DEL` |
+| Chichén Itzá | Mérida `MID` | Cancún `CUN` |
+| Petra | Aqaba `AQJ` | Amman `AMM` |
+| Machu Picchu | Cusco `CUZ` | Lima `LIM` |
+</div>
+
+After re-collecting, every stop had inbound and outbound coverage and a complete tour became possible. We call this sweep `wonders_hubs`.
+
+## The mathematical program
+
+The question — *visit every stop once, stay a few nights at each, minimize total airfare, return home* — is a TSP *with time windows*, and the date-dependent prices make it naturally time-indexed.
+
+### Sets and data
+
+- $V$ — the stops; $h \in V$ is home (start and end); $N = V \setminus \{h\}$.
+- $T = \{0, 1, \dots, H\}$ — day offsets from the trip's start date; the calendar date of slot $t$ is `start + t days`.
+- $c_{ijt}$ — cheapest economy fare to fly $i \to j$ departing on day $t$. If no fare exists for that pair/day, it is set to a large constant $M$ (big-M), so the model stays feasible and any leg forced over a gap is flagged afterward.
+- $[a_j, b_j]$ — minimum / maximum nights of stay at city $j \in N$ (we used 2–5).
+
+### Decision variables
+
+$$
+x_{ijt} =
+\begin{cases}
+1 & \text{if we fly } i \to j \text{ departing on day } t,\\
+0 & \text{otherwise,}
+\end{cases}
+\qquad i,j \in V,\ i \neq j,\ t \in T.
+$$
+
+### Objective
+
+$$
+\min \sum_{i \neq j}\sum_{t \in T} c_{ijt}\, x_{ijt}.
+$$
+
+### Constraints
+
+**Degree constraints.** Each stop is left exactly once and entered exactly once:
+
+$$
+\sum_{j \neq i}\sum_{t} x_{ijt} = 1 \quad \forall i \in V,
+\qquad
+\sum_{i \neq j}\sum_{t} x_{ijt} = 1 \quad \forall j \in V.
+$$
+
+**Stay windows.** Let the arrival- and departure-day of stop $j$ be
+
+$$
+r_j = \sum_{i \neq j}\sum_t t\, x_{ijt},
+\qquad
+d_j = \sum_{k \neq j}\sum_t t\, x_{jkt}.
+$$
+
+Then for every visited (non-home) stop:
+
+$$
+a_j \le d_j - r_j \le b_j \quad \forall j \in N.
+$$
+
+Home carries no stay constraint — it's simply the trip's start and end.
+
+### The elegant part: subtours vanish for free
+
+Classic TSP formulations need explicit (and numerous) subtour-elimination constraints to forbid disconnected sub-loops. Here, we get them for free from the stay windows.
+
+Suppose a subtour existed among the non-home stops. Sum the lower stay bound $d_j - r_j \ge a_j$ around that cycle. Because each flight is the departure of one city and the arrival of the next, the day-offsets telescope and $\sum (d_j - r_j) = 0$ around any closed cycle. But the right-hand side is $\sum a_j > 0$ (every minimum stay is positive). That gives $0 \ge \sum a_j > 0$ — a contradiction. So no proper subtour can exist, and since home is the one node without a stay constraint, the single feasible structure is one grand tour that starts and ends at home. No [Miller–Tucker–Zemlin (MTZ)](https://en.wikipedia.org/wiki/Travelling_salesman_problem#Miller%E2%80%93Tucker%E2%80%93Zemlin_formulation)/[Dantzig–Fulkerson–Johnson (DFJ)](https://en.wikipedia.org/wiki/Travelling_salesman_problem#Dantzig%E2%80%93Fulkerson%E2%80%93Johnson_formulation) subtour elimination constraints required.
+
+### Solving it
+
+The model is a binary program with $\mathcal{O}(|V|^2 \cdot |T|)$ variables. A few practical lessons:
+
+- **Solver.** I modeled the problem using [PuLP](https://coin-or.github.io/pulp/). For the solver, I started with [CBC](https://github.com/coin-or/cbc), then moved to [HiGHS](https://highs.dev/), which is markedly stronger on this structure — with symmetry detection and a higher heuristic effort it proves a bounded-window instance optimal in ~30 seconds.
+- **Horizon scaling.** Anchoring the window to the trip's own length (≈ the sum of the maximum stays, ~50 days) keeps the model small and solves to *proven* optimality fast. Letting the trip start anywhere in a full 365-day horizon blows the model up to ~40,000 binaries; the LP relaxation becomes loose.
+- **The pragmatic answer: a per-month sweep.** Instead of one giant full-year model, solve the small, fast, *provably optimal* bounded window once per candidate start month, then take the cheapest.
+
+## Solutions and interpretation
+
+Both itineraries start and end at SFO, with 2–5 nights per city.
+
+### Top 10 most-visited cities — \$2,048, departing June 8
+
+<div className="wide-bleed">
+<TourMap tour="top10" caption="The top-10 tour, in optimal visiting order. Click a city for details." />
+</div>
+
+**Tour:** `SFO → LON → AYT → IST → PAR → DXB → JED → KUL → MFM → BKK → HKG → SFO`<br />
+**Cost:** \$2,048
+
+<div className="narrow-table">
+| Leg | Depart | Fare |
+| --- | --- | ---: |
+| SFO → London | Jun 8 | \$432 |
+| London → Antalya | Jun 10 | \$59 |
+| Antalya → Istanbul | Jun 12 | \$30 |
+| Istanbul → Paris | Jun 14 | \$110 |
+| Paris → Dubai | Jun 16 | \$189 |
+| Dubai → Jeddah | Jun 18 | \$119 |
+| Jeddah → Kuala Lumpur | Jun 21 | \$213 |
+| Kuala Lumpur → Macau | Jun 25 | \$147 |
+| Macau → Bangkok | Jun 27 | \$158 |
+| Bangkok → Hong Kong | Jul 1 | \$97 |
+| Hong Kong → SFO | Jul 5 | \$494 |
+</div>
+
+### New 7 Wonders + Giza — \$3,479, departing June 10
+
+<div className="wide-bleed">
+<TourMap tour="wonders" caption="The wonders tour, in optimal visiting order. Each city maps to a wonder — click for details." />
+</div>
+
+**Tour:** `SFO → CUN → AMM → CAI → DEL → BJS → ROM → LIM → RIO → SFO`<br />
+**Cost:** \$3,479
+
+<div className="narrow-table">
+| Leg | Depart | Fare |
+| --- | --- | ---: |
+| SFO → Cancún | Jun 10 | \$191 |
+| Cancún → Amman | Jun 12 | \$775 |
+| Amman → Cairo | Jun 14 | \$171 |
+| Cairo → Delhi | Jun 16 | \$227 |
+| Delhi → Beijing | Jun 18 | \$269 |
+| Beijing → Rome | Jun 20 | \$398 |
+| Rome → Lima | Jun 23 | \$789 |
+| Lima → Rio | Jun 25 | \$268 |
+| Rio → SFO | Jun 30 | \$391 |
+</div>
+
+### Takeaways
+
+- A bucket-list trip is a TSP with time windows, and positive minimum stays make subtour elimination free — a nice modeling result.
+- For exact optimization, keep the time horizon tight and sweep over start dates rather than indexing a whole year at once — small proven solves beat one giant unprovable one.
+- The answers to this post's title question: \$2,048 to see the world's 10 most-visited cities and \$3,479 to see all the wonders, both leaving San Francisco in early June.
+
+---
+
+*The full code is available in the GitHub repository [fabianrigterink/bye-bye](https://github.com/fabianrigterink/bye-bye). A 2020 version of the same idea is in [fabianrigterink/optimizing-multi-city-flights](https://github.com/fabianrigterink/optimizing-multi-city-flights). Built with Python, SQLite, PuLP/HiGHS, and Plotly; data from the Travelpayouts Aviasales Data API.*
