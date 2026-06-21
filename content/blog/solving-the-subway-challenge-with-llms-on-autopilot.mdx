@@ -1,0 +1,190 @@
+---
+title: "Solving the Subway Challenge by letting two LLMs run on autopilot"
+date: "2026-06-20"
+description: "I model the NYC Subway Challenge as a time-expanded routing problem over the real MTA schedule. My current best validated route visits all 472 stations in 24:24:30."
+tags: ["Optimization", "Subway Challenge", "New York City"]
+image: "https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1782001363/solving-the-subway-challenge-with-llms-on-autopilot_eafesx.jpg"
+---
+
+When both OpenAI's [Codex](https://developers.openai.com/cookbook/examples/codex/using_goals_in_codex) and Anthropic's [Claude](https://code.claude.com/docs/en/goal) released the `/goal` command in late April/early May, I immediately thought of trying out the new command to solve difficult-to-solve optimization problems. After all, an *effective* condition that follows the `/goal` command, according to the [docs](https://code.claude.com/docs/en/goal#write-an-effective-condition), is one that has (1) one measurable end state, (2) a stated check, and (3) constraints that matter. Optimization problems — with their three components (objective, variables, and constraints) — fit this bill well: (1) is the objective and (2)–(3) are the variables and constraints.
+
+In this post, I'll use the `/goal` command to solve a problem that's been on my mind for a long time: the [Subway Challenge](https://en.wikipedia.org/wiki/Subway_Challenge), specifically, for the New York City (NYC) subway, operated by the [Metropolitan Transportation Authority (MTA)](https://en.wikipedia.org/wiki/Metropolitan_Transportation_Authority). The Subway Challenge is simple to state but challenging to solve: visit every NYC subway station as fast as possible. There are different variations of the challenge, but the one recognized by Guinness World Records is *Class B*: Full-system ride that requires a rider to stop at each station, allowing for transfers provided that they "be made by scheduled public transport or on foot." Arrival *or* departure must be made by subway car, allowing challengers to arrive at one station, then get to another by public transport or on foot, and depart from that station. From the [official rules](https://web.archive.org/web/20190606114048/http://www.rapidtransitchallenge.com/rules.htm):
+> This record is for traveling the entire MTA New York City subway system in the least amount of time.
+> 1. All of the stations served by the subway system must be visited. To "visit" a station, the challenger must arrive and/or depart by a subway train in normal public service.  It is necessary for a train to stop at the station for the visit to count, although the challenger does not have to leave the train at that station.  If a station is normally open only at certain times of the day, this must be taken into account during planning.  Only if a station is temporarily closed (e.g. for rebuilding or in an emergency) will a non-stop pass through a station be acceptable. 
+> 2. It is only necessary to visit all the stations on the network, not to travel every stretch of line. Thus, if a station is served by more than one line, it is not necessary to visit that station on each line.
+> 3. Challengers may travel the same stretch of track (and visit the same station) more than once, if necessary.
+> 4. Attempts on this record must be continuous (i.e. any breaks or stops that are taken must be included in the final time).
+> 5. Transfers between subway lines must be made by scheduled public transport or on foot. The use of private motor vehicles, taxis or any other form of privately arranged transport (bicycles, skateboards, etc.) is not allowed.
+
+## A brief history of the NYC Subway Challenge: how we got to 469 stations, then 472, and how we may get to 475 stations by 2032
+
+Guinness World Records lists the [current record](https://www.guinnessworldrecords.com/world-records/483745-fastest-time-to-travel-to-all-new-york-city-subway-stations) as 22 hours, 14 minutes, and 10 seconds, set by Kate Jones on April 17–18, 2023, covering 472 stations.
+
+NYC's subway system changes over time, so comparisons across years are difficult. Matthew Ahn's 2016 record was faster at 21:28:14, but it covered the pre-Second-Avenue-subway system with 469 stations. In 2017, the [Second Avenue Subway Phase I](https://en.wikipedia.org/wiki/Construction_of_the_Second_Avenue_Subway#2007%E2%80%932017:_First_phase) completed, adding [72nd St](https://en.wikipedia.org/wiki/72nd_Street_station_(Second_Avenue_Subway)), [86th St](https://en.wikipedia.org/wiki/86th_Street_station_(Second_Avenue_Subway)), and [96th St](https://en.wikipedia.org/wiki/96th_Street_station_(Second_Avenue_Subway)) to the map, setting the current station count to 472. If/when the [Second Avenue Subway Phase II](https://www.mta.info/project/second-avenue-subway-phase-2) is complete, New York's subway system will add another three new stations: two new stations on Second Avenue at 106 St and 116 St, as well as extending Q service to a new station at 125 St/Lexington Ave. [Completion of Phase II](https://en.wikipedia.org/wiki/Construction_of_the_Second_Avenue_Subway#2016%E2%80%93present:_Second_phase) is scheduled for 2032, but [the Second Avenue Subway has been proposed since 1920](https://en.wikipedia.org/wiki/Unbuilt_plans_for_the_Second_Avenue_Subway), so we shouldn't hold our breath.
+
+## The problem
+
+I model the challenge as:
+
+> Find the minimum-elapsed-time path through the NYC subway timetable that visits all 472 official stations at least once.
+
+The important phrase is _through the timetable_. A route is not just an ordering of stations. It is an ordered list of exact platform events:
+
+```text
+("A02S", 21780) -> ("A03S", 21900) -> ...
+```
+
+where the time is seconds from Monday 00:00 in a cyclic week.
+
+The graph has:
+
+| Object | Meaning |
+|---|---|
+| Node | `(platform stop_id, time)` |
+| Train edge | A scheduled ride between consecutive stopped-at stations |
+| Wait edge | Staying on a platform until the next event |
+| Transfer edge | In-system platform or complex transfer |
+| Run edge | Out-of-system foot travel to another station complex, then boarding the first reachable train |
+
+The local graph cache for this run uses the MTA's [regular GTFS](https://www.mta.info/developers) feed version `20260526`. It builds to approximately 1.58 million nodes and 5.9 million edges. Staten Island Railway is excluded as it is not connected to the subway except by ferry. GTFS station identities are then collapsed to official MTA Station IDs, which gives the 472 stations used by the challenge.
+
+This matters because the obvious problem statement, "visit all stations on the subway map," throws away most of the problem. The hard part is not drawing a continuous line through the map. The hard part is arriving at the right platform at the right minute.
+
+## What came before
+
+The Subway Challenge has always attracted computation.
+
+Peter Samson, who created the Amateur New York Subway Riding Committee in the 1960s, used MIT's PDP-6 with the subway's complete schedules to help plan an all-system ride. The [Computer History Museum](https://computerhistory.org/profile/peter-samson/) describes him as programming the PDP-6 with the full schedules and using it interactively to win the minimum-time competition. So this is not a new idea. It is, pleasingly, a very old computer puzzle.
+
+Human record attempts are also careful optimization exercises. [Gothamist's profile of Kate Jones](https://gothamist.com/news/new-record-set-for-fastest-trip-through-entirety-of-nyc-subway) notes that she spent months minimizing repetitions and transfers and had backup routes. [Time Out's Matthew Ahn interview](https://www.timeout.com/newyork/news/solo-straphanger-sets-new-all-station-subway-world-record-090616) is a good reminder that fitness and street running are part of the game; Ahn estimated about 12.5 km of running in his 2016 attempt.
+
+There are also public computational attempts:
+
+| Approach | What it does well | Shortcoming for this version |
+|---|---|---|
+| Static TSP/OR-Tools projects, e.g. [gregfeliu/The_Subway_Challenge](https://github.com/gregfeliu/The_Subway_Challenge) | Produces a plausible station order quickly | Uses expected or static edge weights; not an exact event-by-event timetable route |
+| Relaxed graph/TSP approaches, e.g. [Trail of Bits' Christofides writeup](https://blog.trailofbits.com/2025/08/25/speedrunning-the-new-york-subway/) | Fast, elegant, and good for intuition | Relaxes directionality and timetables; great for a lower bound, but the output is not a replayable, schedule-feasible route |
+| Postman/Euler/TSP structures | Useful lower bounds and shape intuition | A route that is geometrically efficient can be terrible once scheduled waits are included |
+
+The common gap is that these approaches do *not* solve the time-expanded problem directly. They produce a macro-route, then leave the exact timetable feasibility to a later step. In this project, the later step *is* the step.
+
+## My approach
+
+I started this post with Codex's and Claude's `/goal` command, and here is where they come in handy — what follows is entirely the outcome of letting both LLMs run on autopilot for ~2 days each, using the following CLAUDE.md and CODEX.md instructions:
+
+1. [CLAUDE.md](https://github.com/fabianrigterink/subway-challenge/blob/main/CLAUDE.md):
+   > First, get any valid route:
+   >
+   > /goal solutions/best.json holds a VALID route covering 472/472 stations, proven by running `python -m subway_challenge.solver best` and surfacing its `RESULT` line; or stop after 15 turns
+   >
+   > Then improve:
+   >
+   > /goal each turn, improve `solutions/best.json` and run the validator with `--record`; stop when elapsed drops below 79200 (22h) shown in a `RESULT` line, or after 30 turns with no improvement
+
+2. [CODEX.md](https://github.com/fabianrigterink/subway-challenge/blob/main/CODEX.md):
+   > Keep going until the repository contains a candidate proven by the full validator to satisfy:
+   >
+   > ```
+   > valid=true
+   > stations=472/472
+   > elapsed_s < 80050
+   > elapsed < 22:14:10
+   > ```
+   >
+   > Anything else is a baseline improvement, an experiment, a lower bound, or a useful clue. It is not the finish line.
+
+## Current best route
+
+The current best route is stored in [`solutions/best.json`](https://github.com/fabianrigterink/subway-challenge/blob/main/solutions/best.json) and validates as:
+
+```text
+RESULT valid=true stations=472/472 elapsed_s=87870 elapsed=24:24:30
+```
+
+It starts at Inwood-207 St (`A02S`) at Monday 06:03:00 and ends at 110 St-Malcolm X Plaza (`227S`) at Tuesday 06:27:30.
+
+Mode breakdown:
+
+| Mode | Segments | Elapsed |
+|---|---:|---:|
+| Train | 528 | 15:52:00 |
+| Run | 27 | 4:44:30 |
+| Transfer | 41 | 2:39:00 |
+| Wait | 55 | 1:09:00 |
+| **Total** | **651** | **24:24:30** |
+
+The route uses about 38.1 km of out-of-system street distance. The longest run is from Pelham Bay Park to Bronx Park East, about 4.3 km by the OSRM street-distance cache.
+
+The interactive replay generated from [`solutions/best.json`](https://github.com/fabianrigterink/subway-challenge/blob/main/solutions/best.json) is the most useful way to inspect the route. It renders the following replay:
+
+<figure className="relative left-1/2 -translate-x-1/2 w-[calc(100vw-3rem)] max-w-[1100px] my-12">
+  <iframe
+    src="/blog/solving-the-subway-challenge-with-llms-on-autopilot/best.html"
+    title="Interactive replay of the 24:24:30 Subway Challenge route"
+    loading="lazy"
+    className="block w-full h-[75vh] rounded border border-border bg-white"
+  />
+  <figcaption className="block mt-2 text-sm text-ink-muted text-center">
+    Interactive replay of the 24:24:30 route — pan and zoom to inspect the path, or <a href="/blog/solving-the-subway-challenge-with-llms-on-autopilot/best.html" target="_blank" rel="noopener noreferrer" className="underline hover:text-ink">open in a new window</a>.
+  </figcaption>
+</figure>
+
+## How I got there
+
+The solver that produced the best route is a time-dependent *Large Neighborhood Search (LNS)*:
+
+1. Keep a route as an order of station anchors.
+2. Ruin a window of that order.
+3. Recreate the window with a run-aware regret heuristic.
+4. Realize the new order on the actual time-expanded graph.
+5. Accept or reject with *Simulated Annealing (SA)*.
+6. Repeat from the current best route.
+
+The biggest improvement came from adding out-of-system running between nearby dead-end terminals. This matches how human challengers actually behave: finish one branch, run to a nearby branch terminal, continue. I restrict the production optimizer mostly to terminal-to-terminal runs because letting every station run to every nearby station makes the branching factor explode.
+
+Milestones:
+
+| Milestone | Validated time |
+|---|---:|
+| Greedy nearest-unvisited route | 30:08:00 |
+| Multi-start + tail simulated annealing | 28:10:30 |
+| Time-dependent LNS | 26:42:00 |
+| LNS + dead-end terminal running | 24:45:00 |
+| Focused LNS / branch-order refinement | **24:24:30** |
+
+## Leaderboard
+
+The tracked route portfolio has several ties at the current best time. That is useful information: the 24:24:30 result is not one fragile JSON file, but a plateau reached by related route families.
+
+| Route artifact | Time | Notes |
+|---|---:|---|
+| `best.json` | **24:24:30** | Current promoted best |
+| `branch_span_relocate_late_codex.json` | **24:24:30** | Branch-span relocation |
+| `lns_refine_pruned_donor_codex.json` | **24:24:30** | Incumbent-seeded LNS refinement |
+| `platform_start_phase_A02S_morning_codex.json` | **24:24:30** | A02S morning start sweep |
+| `lns_order_sweep_726N_penalized_codex.json` | 25:07:30 | Alternate 726N basin |
+| `lns_seed_sweep_600_659_codex.json` | 25:07:30 | Randomized incumbent-seeded sweep |
+| `lns_101S_explored_basin_codex.json` | 25:11:30 | Strong 101S start-grid basin |
+| `order_sweep_best_terminals_morning_codex.json` | 25:15:30 | Terminal order sweep |
+| `start_grid_101S_refined_codex.json` | 26:15:00 | Refined 101S grid |
+| `window_replan_fresh_bayridge_pass2_probe.json` | 26:30:30 | Window replan probe |
+
+All rows above were replayed through `subway_challenge.solver`.
+
+That convergence is also geographic. Plotting where the validated routes begin and end shows the search keeps landing in the same basin: the most common start, Inwood-207 St, and the most common finish, 110 St-Malcolm X Plaza, are exactly the endpoints of the promoted best route. The fast routes are not scattered all over the map — they share a small set of terminals.
+
+<div className="mx-auto max-w-md">
+<MdxImage src="https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1781923895/01_most-common-route-endpoints_brhzhe.png" alt="Start (teal) and end (magenta) stations across all validated routes, sized by route count; Inwood-207 St and 110 St-Malcolm X Plaza dominate" title="Start (teal) and end (magenta) stations across all validated routes, sized by route count; Inwood-207 St and 110 St-Malcolm X Plaza dominate" width={1838} height={2245} />
+</div>
+
+Stacking each route's elapsed time by mode makes the shape of the plateau visible. Train time is the large, nearly constant block; what separates a 24-hour route from a 26-hour one is mostly the run and transfer bands.
+
+![Each validated route's elapsed time split into train, wait, transfer, and run, sorted fastest first, with the 22:14:10 record as a dashed line](https://res.cloudinary.com/dwp6mzleh/image/upload/q_auto/f_auto/v1782001648/02_duration-split-by-mode_q8de04.png "Each validated route's elapsed time split into train, wait, transfer, and run, sorted fastest first, with the 22:14:10 record as a dashed line")
+
+## What comes next
+
+I haven't yet been able to reproduce or beat Kate Jones' 22:14:10 record, but I've gotten close. I am currently playing with Andrej Karpathy's [`autoresearch`](https://github.com/karpathy/autoresearch) setup, giving it access to optimization solvers through the [NEOS server](https://neos-server.org/neos/solvers/), including [NVIDIA's cuOpt](https://www.nvidia.com/en-us/ai-data-science/products/cuopt/). Check back in a few weeks for an update — if I find a world-record-breaking route, I will try to set an actual world record during my next trip to NYC!
+
+---
+
+*The full code and validated route artifacts are in the [subway-challenge](https://github.com/fabianrigterink/subway-challenge/) repository. The current best route is [`solutions/best.json`](https://github.com/fabianrigterink/subway-challenge/blob/main/solutions/best.json); exact replay depends on the MTA GTFS cache documented in `REPRODUCIBILITY.md`.*
