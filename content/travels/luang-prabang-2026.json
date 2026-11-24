@@ -1,0 +1,422 @@
+{
+  "slug": "luang-prabang-2026",
+  "title": "Luang Prabang",
+  "date": "2026-11-04",
+  "location": "Luang Prabang, Laos",
+  "coordinates": [
+    102.1315154,
+    19.8813156
+  ],
+  "coverImage": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9130_da9ldx",
+  "description": "Countless beautiful wats, monks collecting alms at dawn, turquoise waterfalls, and the mighty Mekong rolling past it all. I explored this former French protectorate by scooter and bicycle, most memorably across the rattling planks of the Old French Bridge.",
+  "photos": [
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_8977_g2wxln",
+      "alt": "IMG 8977 g2wxln",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9357_twcy8t",
+      "alt": "IMG 9357 twcy8t",
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9390_e39dts",
+      "alt": "IMG 9390 e39dts",
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_8928_r0xrma",
+      "alt": "IMG 8928 r0xrma",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9473_wqlm1g",
+      "alt": "IMG 9473 wqlm1g",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9011_a0v9aq",
+      "alt": "IMG 9011 a0v9aq",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9100_kach1b",
+      "alt": "IMG 9100 kach1b",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9420_w9jh5g",
+      "alt": "IMG 9420 w9jh5g",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9213_airtv7",
+      "alt": "IMG 9213 airtv7",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9110_pomubr",
+      "alt": "IMG 9110 pomubr",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9144_yofgpr",
+      "alt": "IMG 9144 yofgpr",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9201_day5bv",
+      "alt": "IMG 9201 day5bv",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9454_bwsb1o",
+      "alt": "IMG 9454 bwsb1o",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9254_gqenln",
+      "alt": "IMG 9254 gqenln",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9002_pxqkt5",
+      "alt": "IMG 9002 pxqkt5",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9435_xeprll",
+      "alt": "IMG 9435 xeprll",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9450_fhzq0b",
+      "alt": "IMG 9450 fhzq0b",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_8886_olyinm",
+      "alt": "IMG 8886 olyinm",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9408_yridaw",
+      "alt": "IMG 9408 yridaw",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_8875_lbhjws",
+      "alt": "IMG 8875 lbhjws",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_8867_eqxntx",
+      "alt": "IMG 8867 eqxntx",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_8990_hyld54",
+      "alt": "IMG 8990 hyld54",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_8957_jleyc9",
+      "alt": "IMG 8957 jleyc9",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9130_da9ldx",
+      "alt": "IMG 9130 da9ldx",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9398_xnpam7",
+      "alt": "IMG 9398 xnpam7",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_8955_v6q5t1",
+      "alt": "IMG 8955 v6q5t1",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_8940_zkhmpb",
+      "alt": "IMG 8940 zkhmpb",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_8894_zrtfql",
+      "alt": "IMG 8894 zrtfql",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9079_ryfgot",
+      "alt": "IMG 9079 ryfgot",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_8936_oybyyk",
+      "alt": "IMG 8936 oybyyk",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9017_mmaehq",
+      "alt": "IMG 9017 mmaehq",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9043_goskhz",
+      "alt": "IMG 9043 goskhz",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_8897_pthmzk",
+      "alt": "IMG 8897 pthmzk",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_8999_hr4lze",
+      "alt": "IMG 8999 hr4lze",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9459_i60udh",
+      "alt": "IMG 9459 i60udh",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_8918_zjbqth",
+      "alt": "IMG 8918 zjbqth",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9037_jpmbhl",
+      "alt": "IMG 9037 jpmbhl",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9056_kwdke5",
+      "alt": "IMG 9056 kwdke5",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9054_fvoblw",
+      "alt": "IMG 9054 fvoblw",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_8933_xzteck",
+      "alt": "IMG 8933 xzteck",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9413_gmzoqx",
+      "alt": "IMG 9413 gmzoqx",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9476_zpx5yt",
+      "alt": "IMG 9476 zpx5yt",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9228_okqwge",
+      "alt": "IMG 9228 okqwge",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9310_wjahga",
+      "alt": "IMG 9310 wjahga",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_8994_ecytoq",
+      "alt": "IMG 8994 ecytoq",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_8925_mjmevg",
+      "alt": "IMG 8925 mjmevg",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9003_aearfi",
+      "alt": "IMG 9003 aearfi",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_8892_xmrsjy",
+      "alt": "IMG 8892 xmrsjy",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9463_ivyc1o",
+      "alt": "IMG 9463 ivyc1o",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9570_l2dxov",
+      "alt": "IMG 9570 l2dxov",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9373_a48bia",
+      "alt": "IMG 9373 a48bia",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9293_fgqcx1",
+      "alt": "IMG 9293 fgqcx1",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9533_ouwvo6",
+      "alt": "IMG 9533 ouwvo6",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9298_k0hlu7",
+      "alt": "IMG 9298 k0hlu7",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9014_idhk1s",
+      "alt": "IMG 9014 idhk1s",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9304_o8q2ke",
+      "alt": "IMG 9304 o8q2ke",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9380_dl1b6j",
+      "alt": "IMG 9380 dl1b6j",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_8891_b1vrjr",
+      "alt": "IMG 8891 b1vrjr",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9359_j4rxm3",
+      "alt": "IMG 9359 j4rxm3",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9482_fla89v",
+      "alt": "IMG 9482 fla89v",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9464_msgwoj",
+      "alt": "IMG 9464 msgwoj",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9066_d5k3vo",
+      "alt": "IMG 9066 d5k3vo",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9069_kwavyi",
+      "alt": "IMG 9069 kwavyi",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_8991_lyfthi",
+      "alt": "IMG 8991 lyfthi",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9051_zk3olg",
+      "alt": "IMG 9051 zk3olg",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9253_luikjn",
+      "alt": "IMG 9253 luikjn",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_8968_izcem7",
+      "alt": "IMG 8968 izcem7",
+      "width": 11748,
+      "height": 3872
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9576_hfb87j",
+      "alt": "IMG 9576 hfb87j",
+      "width": 4284,
+      "height": 5712
+    }
+  ]
+}

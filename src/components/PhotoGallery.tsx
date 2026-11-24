@@ -21,7 +21,16 @@ export default function PhotoGallery({ photos }: { photos: Photo[] }) {
     const match = src.match(/IMG_(\d+)/);
     return match ? parseInt(match[1], 10) : 0;
   };
-  const ordered = [...photos].sort((a, b) => imgNumber(a.src) - imgNumber(b.src));
+  // The camera's counter rolls over from IMG_9999 to IMG_0001. When a trip
+  // spans that rollover (numbers at both ends of the range), the low numbers
+  // are the later photos, so shift them past the high ones.
+  const numbers = photos.map((p) => imgNumber(p.src));
+  const wrapped = Math.max(...numbers) - Math.min(...numbers) > 5000;
+  const sortKey = (src: string) => {
+    const n = imgNumber(src);
+    return wrapped && n < 5000 ? n + 10000 : n;
+  };
+  const ordered = [...photos].sort((a, b) => sortKey(a.src) - sortKey(b.src));
 
   return (
     <>

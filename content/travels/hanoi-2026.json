@@ -1,0 +1,362 @@
+{
+  "slug": "hanoi-2026",
+  "title": "Hanoi",
+  "date": "2026-11-07",
+  "location": "Hanoi, Vietnam",
+  "coordinates": [
+    105.8504747,
+    21.0315184
+  ],
+  "coverImage": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0382_ixmuqw",
+  "description": "Endless history in the capital, from Ho Chi Minh's Mausoleum to Hoa Lo Prison, the \"Hanoi Hilton\". Day trips took me out to the limestone karsts of Ha Long Bay and to Ninh Binh, the \"Ha Long Bay on Land\", and wonderful pho held it all together.",
+  "photos": [
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0289_xfhug8",
+      "alt": "IMG 0289 xfhug8",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9846_qokecl",
+      "alt": "IMG 9846 qokecl",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9678_pwg04b",
+      "alt": "IMG 9678 pwg04b",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9640_h56gwh",
+      "alt": "IMG 9640 h56gwh",
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0448_tdgmwt",
+      "alt": "IMG 0448 tdgmwt",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0449_omzddp",
+      "alt": "IMG 0449 omzddp",
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0020_knl5xh",
+      "alt": "IMG 0020 knl5xh",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0041_egvvpu",
+      "alt": "IMG 0041 egvvpu",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9720_ldh2lu",
+      "alt": "IMG 9720 ldh2lu",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0287_cxsd7s",
+      "alt": "IMG 0287 cxsd7s",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9721_dkly1m",
+      "alt": "IMG 9721 dkly1m",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9936_qgsknz",
+      "alt": "IMG 9936 qgsknz",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9901_m3oufz",
+      "alt": "IMG 9901 m3oufz",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9730_obrau7",
+      "alt": "IMG 9730 obrau7",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9596_pkrbo2",
+      "alt": "IMG 9596 pkrbo2",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0369_y963fl",
+      "alt": "IMG 0369 y963fl",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0029_g9mot4",
+      "alt": "IMG 0029 g9mot4",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9772_g6ustj",
+      "alt": "IMG 9772 g6ustj",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9942_hqesu5",
+      "alt": "IMG 9942 hqesu5",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0386_zcvkbp",
+      "alt": "IMG 0386 zcvkbp",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9618_egbtxu",
+      "alt": "IMG 9618 egbtxu",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0175_d56det",
+      "alt": "IMG 0175 d56det",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0121_rbhzco",
+      "alt": "IMG 0121 rbhzco",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0403_muuesj",
+      "alt": "IMG 0403 muuesj",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0382_ixmuqw",
+      "alt": "IMG 0382 ixmuqw",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0215_ky5gk0",
+      "alt": "IMG 0215 ky5gk0",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0327_m7bjn7",
+      "alt": "IMG 0327 m7bjn7",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9979_tsp60b",
+      "alt": "IMG 9979 tsp60b",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9834_jrgcx4",
+      "alt": "IMG 9834 jrgcx4",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0006_stccyf",
+      "alt": "IMG 0006 stccyf",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9691_vnyn3f",
+      "alt": "IMG 9691 vnyn3f",
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9952_tuk793",
+      "alt": "IMG 9952 tuk793",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0413_m5bxn8",
+      "alt": "IMG 0413 m5bxn8",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0422_qgr0c8",
+      "alt": "IMG 0422 qgr0c8",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9830_lacp8c",
+      "alt": "IMG 9830 lacp8c",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0363_kgzv5c",
+      "alt": "IMG 0363 kgzv5c",
+      "width": 8524,
+      "height": 3902
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9739_vn3d8s",
+      "alt": "IMG 9739 vn3d8s",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0453_sy2jzr",
+      "alt": "IMG 0453 sy2jzr",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0279_y3vo5t",
+      "alt": "IMG 0279 y3vo5t",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9603_v9d75n",
+      "alt": "IMG 9603 v9d75n",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0148_oml5zb",
+      "alt": "IMG 0148 oml5zb",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0250_pnltth",
+      "alt": "IMG 0250 pnltth",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9599_w9ebw5",
+      "alt": "IMG 9599 w9ebw5",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0108_bwafcq",
+      "alt": "IMG 0108 bwafcq",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9626_bfnzrk",
+      "alt": "IMG 9626 bfnzrk",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0302_e0xoh3",
+      "alt": "IMG 0302 e0xoh3",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9735_myb8qq",
+      "alt": "IMG 9735 myb8qq",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0101_y0m2ei",
+      "alt": "IMG 0101 y0m2ei",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9699_pnv5x7",
+      "alt": "IMG 9699 pnv5x7",
+      "width": 4284,
+      "height": 5712
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9641_v4htng",
+      "alt": "IMG 9641 v4htng",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0079_ksltfx",
+      "alt": "IMG 0079 ksltfx",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9822_c8xykq",
+      "alt": "IMG 9822 c8xykq",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9968_h2raqx",
+      "alt": "IMG 9968 h2raqx",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9652_x15h11",
+      "alt": "IMG 9652 x15h11",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9608_h3sjzv",
+      "alt": "IMG 9608 h3sjzv",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_0133_yffqn2",
+      "alt": "IMG 0133 yffqn2",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9778_gzhp5k",
+      "alt": "IMG 9778 gzhp5k",
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "src": "https://res.cloudinary.com/dwp6mzleh/image/upload/f_auto,q_auto,w_2000,c_limit/IMG_9606_s4lm2c",
+      "alt": "IMG 9606 s4lm2c",
+      "width": 5712,
+      "height": 4284
+    }
+  ]
+}
